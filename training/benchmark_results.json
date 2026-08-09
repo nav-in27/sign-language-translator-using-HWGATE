@@ -1,0 +1,56 @@
+{
+    "dataset_info": {
+        "total_samples": 4985,
+        "train_samples": 3988,
+        "test_samples": 997,
+        "num_classes": 45
+    },
+    "evaluation_time": "2026-08-07 23:42:16",
+    "results": [
+        {
+            "model": "CNN",
+            "accuracy": 0.25576730190571717,
+            "f1": 0.15445633041052959,
+            "latency_ms": 20.369843470536118,
+            "fps": 49.092178908809295,
+            "model_size_mb": 0.3114509582519531,
+            "is_best": false
+        },
+        {
+            "model": "LSTM",
+            "accuracy": 0.24373119358074222,
+            "f1": 0.13840929823954093,
+            "latency_ms": 1.2694146472927081,
+            "fps": 787.7646615569695,
+            "model_size_mb": 0.7955818176269531,
+            "is_best": false
+        },
+        {
+            "model": "GRU",
+            "accuracy": 0.24573721163490472,
+            "f1": 0.14645606488631038,
+            "latency_ms": 1.2542481647212145,
+            "fps": 797.2903832968917,
+            "model_size_mb": 0.6022224426269531,
+            "is_best": false
+        },
+        {
+            "model": "ST-GCN",
+            "accuracy": 0.2688064192577733,
+            "f1": 0.1837961346438853,
+            "latency_ms": 1.3244740343619972,
+            "fps": 755.0166889316956,
+            "model_size_mb": 0.15251541137695312,
+            "is_best": false
+        },
+        {
+            "model": "HWGATE",
+            "accuracy": 0.41223671013039115,
+            "f1": 0.3727448957095245,
+            "latency_ms": 1.4395945768059795,
+            "fps": 694.6400160930687,
+            "model_size_mb": 12.351490020751953,
+            "is_best": true
+        }
+    ]
+}

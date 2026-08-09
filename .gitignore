@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Node.js / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.nx/
+.DS_Store
+
+# Datasets & Extraction Caches
+training/data_extracted/
+training/data_extracted_full/
+*.npy
+*.pt
+
+# Large Model Weights (Keep code & lightweight ONNX if needed)
+*.pth
+*.tar
+*.gz
+
+# IDE & System
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
