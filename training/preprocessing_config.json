@@ -1,17 +1,17 @@
 {
-    "num_classes": 45,
+    "num_classes": 180,
     "input_shape": [
         1,
-        64,
-        80,
-        3
+        1,
+        133,
+        2
     ],
-    "keypoint_format": "pose_33 + lh_21 + rh_21 + pad_5",
+    "keypoint_format": "pose_33 + lh_21 + rh_21 + face_58 = 133",
     "normalization": {
-        "origin": "shoulder_midpoint",
-        "scale": "inter_shoulder_distance"
+        "origin": "active_center",
+        "scale": "max_distance"
     },
     "rejection_threshold": 0.65,
-    "min_frames": 15,
+    "min_frames": 1,
     "window_size": 64
 }

@@ -7,17 +7,18 @@ function LiveTranslator() {
   const [confidence, setConfidence] = useState(0);
   const [rawGlosses, setRawGlosses] = useState("");
   const [translation, setTranslation] = useState("");
-  const [modelStatus, setModelStatus] = useState("Initializing...");
+  const [trackingStatus, setTrackingStatus] = useState("MediaPipe Initializing...");
+  const [backendStatus, setBackendStatus] = useState("Connecting to AI Engine...");
   const [fps, setFps] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(false);
   
   const pipelineReady = true;
 
   // Refs for tracking mutable state without causing re-renders
-  const lastPredictions = useRef([]);
   const lastSpokenWord = useRef("");
   const sentenceTimeoutRef = useRef(null);
   const lastFrameTime = useRef(Date.now());
+  const isPredicting = useRef(false);
 
   const speakText = (text) => {
     if (soundEnabled && 'speechSynthesis' in window) {
@@ -27,10 +28,8 @@ function LiveTranslator() {
     }
   };
 
-  const isPredicting = useRef(false);
-
   const handleFrame = useCallback(async (keypoints, confidences) => {
-    // Calculate FPS on every frame arrival
+    // Calculate FPS
     const now = Date.now();
     const currentFps = Math.round(1000 / (now - lastFrameTime.current));
     lastFrameTime.current = now;
@@ -50,34 +49,33 @@ function LiveTranslator() {
       
       if (data.error) {
         console.error("Backend Predict Error:", data.error);
+        setBackendStatus("AI Engine Error");
         isPredicting.current = false;
         return;
       }
       
-      setModelStatus("Backend Connected");
+      setBackendStatus("AI Engine Active (ONNX)");
       
-      const specialLabels = ["Buffering...", "No Sign Detected"];
+      const specialLabels = ["Buffering...", "No Sign Detected", "UNKNOWN SIGN"];
       if (specialLabels.includes(data.label)) {
         setGloss(data.label);
-        setConfidence(0);
+        setConfidence(data.confidence || 0);
       } else {
-        // Direct real-time prediction display for low latency
         setGloss(data.label);
-        setConfidence(data.confidence);
+        setConfidence(data.confidence || 0);
       }
       
-      // Update UI with Backend NMT Engine Output
+      // Update UI with Backend Translation Output
       if (data.raw_glosses !== undefined) {
         setRawGlosses(data.raw_glosses);
       }
       if (data.translation !== undefined) {
         setTranslation(data.translation);
         
-        // Handle Speech for full translated sentences
+        // Audio Speech synthesis for full translated sentences
         if (data.translation && data.translation !== lastSpokenWord.current) {
            lastSpokenWord.current = data.translation;
            
-           // Clear any existing timeout
            if (sentenceTimeoutRef.current) {
              clearTimeout(sentenceTimeoutRef.current);
            }
@@ -85,13 +83,13 @@ function LiveTranslator() {
            sentenceTimeoutRef.current = setTimeout(() => {
                speakText(data.translation);
                lastSpokenWord.current = "";
-           }, 1000); // speak if stable for 1s
+           }, 800);
         }
       }
       
     } catch (err) {
-      console.error("Backend Error:", err);
-      setModelStatus("Backend Disconnected");
+      console.error("Backend Connection Error:", err);
+      setBackendStatus("AI Engine Offline (Run start_project.py)");
     } finally {
       isPredicting.current = false;
     }
@@ -99,53 +97,54 @@ function LiveTranslator() {
 
   return (
     <div className="translator-layout">
-      <div className="hero-text-section">
-        <h1 className="hero-title">
-          <span className="highlight">COMMUNICATE</span>
-          <span className="secondary">BEYOND</span>
+      {/* Header Bar */}
+      <div className="header-bar">
+        <h1 className="header-title">
+          ISL Real-Time Sign Language Translator
         </h1>
-        <p className="hero-subtitle">
-          The next evolution of human-computer interaction. Raw neural translation powering real-time expression. Elite. Unfiltered.
-        </p>
-        
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <button className="btn-neon" onClick={() => {
-            setSoundEnabled(!soundEnabled);
-          }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-            {soundEnabled ? 'SOUND ACTIVE' : 'CONNECT AUDIO'}
+        <div className="header-controls">
+          <button className={`btn-neon ${soundEnabled ? 'active' : ''}`} onClick={() => setSoundEnabled(!soundEnabled)}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            {soundEnabled ? 'AUDIO ON' : 'ENABLE AUDIO'}
           </button>
           
-          <div style={{ display: 'flex', gap: '1rem', color: 'var(--text-secondary)', fontSize: '0.9rem', padding: '0 1rem' }}>
-            <span>FPS: {fps}</span>
-            <span>|</span>
-            <span style={{ color: modelStatus.includes('Connected') ? 'var(--accent-neon)' : 'inherit' }}>{modelStatus}</span>
-          </div>
-        </div>
-        
-        <div className="translation-results" style={{ marginTop: '1.5rem' }}>
-          <div className="result-box">
-            <div className="result-label">Current Sign <span style={{ float: 'right', color: 'var(--accent-neon)' }}>{(confidence * 100).toFixed(1)}%</span></div>
-            <div className="result-value highlighted">{gloss}</div>
-          </div>
-          <div className="result-box">
-            <div className="result-label">Natural English Translation (Qwen NMT)</div>
-            <div className="result-value" style={{ color: 'var(--accent-neon)' }}>
-              {translation.length > 0 ? translation : "..."}
-            </div>
-          </div>
-          <div className="result-box">
-            <div className="result-label">Raw Sign Glosses (CTC Decoder)</div>
-            <div className="result-value" style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>
-              {rawGlosses.length > 0 ? rawGlosses.toUpperCase() : "..."}
-            </div>
+          <div className="status-badges">
+            <span className="badge">FPS: {fps}</span>
+            <span className={`badge ${trackingStatus.includes('Active') ? 'online' : 'offline'}`}>{trackingStatus}</span>
+            <span className={`badge ${backendStatus.includes('Active') ? 'online' : 'offline'}`}>{backendStatus}</span>
           </div>
         </div>
       </div>
       
+      {/* Main Video View */}
       <div className="camera-glass-container">
         <div className="glass-panel">
-          <CameraFeed onFrameCaptured={handleFrame} onModelStatus={setModelStatus} />
+          <CameraFeed onFrameCaptured={handleFrame} onModelStatus={setTrackingStatus} />
+        </div>
+      </div>
+
+      {/* Translation Results Cards */}
+      <div className="translation-results-grid">
+        <div className="result-box primary-sign">
+          <div className="result-label">
+            <span>Detected Sign</span>
+            <span className="conf-tag">{(confidence * 100).toFixed(1)}% Match</span>
+          </div>
+          <div className="result-value highlighted">{gloss}</div>
+        </div>
+
+        <div className="result-box translation-box">
+          <div className="result-label">English Sentence Translation</div>
+          <div className="result-value translation-text">
+            {translation.length > 0 ? translation : "Perform signs to translate..."}
+          </div>
+        </div>
+
+        <div className="result-box gloss-box">
+          <div className="result-label">Sign Gloss Sequence</div>
+          <div className="result-value gloss-text">
+            {rawGlosses.length > 0 ? rawGlosses : "---"}
+          </div>
         </div>
       </div>
     </div>

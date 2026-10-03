@@ -14,7 +14,7 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
       for (let i=0; i<33; i++) {
         const lm = results.poseLandmarks[i];
         keypoints.push([lm.x, lm.y, lm.z || 0.0]);
-        confidences.push([lm.visibility || 1.0]);
+        confidences.push([lm.visibility ?? 1.0]);
       }
     } else {
       for (let i=0; i<33; i++) { keypoints.push([0, 0, 0]); confidences.push([0]); }
@@ -85,6 +85,7 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
       holistic.onResults((results) => {
         if (onModelStatus) onModelStatus("MediaPipe Active");
         
+        if (!canvasRef.current) return;
         const canvasCtx = canvasRef.current.getContext('2d');
         canvasCtx.save();
         canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -92,38 +93,38 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
         // Draw the video frame
         canvasCtx.drawImage(results.image, 0, 0, canvasRef.current.width, canvasRef.current.height);
         
-        // Draw Skeleton
+        // Draw Skeleton overlays with high-contrast vibrant colors
         if (results.poseLandmarks) {
-          window.drawConnectors(canvasCtx, results.poseLandmarks, window.POSE_CONNECTIONS, {color: '#00FF00', lineWidth: 4});
-          window.drawLandmarks(canvasCtx, results.poseLandmarks, {color: '#FF0000', lineWidth: 2});
+          window.drawConnectors(canvasCtx, results.poseLandmarks, window.POSE_CONNECTIONS, {color: '#ccff00', lineWidth: 4});
+          window.drawLandmarks(canvasCtx, results.poseLandmarks, {color: '#ff0055', lineWidth: 3, radius: 4});
         }
         if (results.leftHandLandmarks) {
-          window.drawConnectors(canvasCtx, results.leftHandLandmarks, window.HAND_CONNECTIONS, {color: '#CC0000', lineWidth: 5});
-          window.drawLandmarks(canvasCtx, results.leftHandLandmarks, {color: '#00FF00', lineWidth: 2});
+          window.drawConnectors(canvasCtx, results.leftHandLandmarks, window.HAND_CONNECTIONS, {color: '#00f3ff', lineWidth: 4});
+          window.drawLandmarks(canvasCtx, results.leftHandLandmarks, {color: '#ccff00', lineWidth: 2, radius: 3});
         }
         if (results.rightHandLandmarks) {
-          window.drawConnectors(canvasCtx, results.rightHandLandmarks, window.HAND_CONNECTIONS, {color: '#00CC00', lineWidth: 5});
-          window.drawLandmarks(canvasCtx, results.rightHandLandmarks, {color: '#FF0000', lineWidth: 2});
+          window.drawConnectors(canvasCtx, results.rightHandLandmarks, window.HAND_CONNECTIONS, {color: '#00f3ff', lineWidth: 4});
+          window.drawLandmarks(canvasCtx, results.rightHandLandmarks, {color: '#ff0055', lineWidth: 2, radius: 3});
         }
         
         canvasCtx.restore();
         
-        // Send keypoints to App.jsx for backend inference
+        // Send keypoints to parent for backend inference
         const { keypoints, confidences } = get133Keypoints(results);
         
-        // Only send if we detect a body or hands
-        if (results.poseLandmarks || results.leftHandLandmarks || results.rightHandLandmarks) {
-          onFrameCaptured(keypoints, confidences);
-        }
+        // Send keypoints whenever tracking has keypoint data
+        onFrameCaptured(keypoints, confidences);
       });
 
       if (videoRef.current) {
         camera = new window.Camera(videoRef.current, {
           onFrame: async () => {
-            await holistic.send({image: videoRef.current});
+            if (videoRef.current) {
+              await holistic.send({image: videoRef.current});
+            }
           },
-          width: 640,
-          height: 480
+          width: 960,
+          height: 720
         });
         
         camera.start().then(() => {
@@ -146,20 +147,22 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
         style={{ display: 'none' }}
       />
       
-      {/* Visible canvas with skeletal drawing */}
+      {/* Visible high-res canvas with skeletal drawing */}
       <canvas 
         ref={canvasRef} 
-        width={640} 
-        height={480} 
-        style={{
-          borderRadius: '12px',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-          transform: 'scaleX(-1)' // Mirror effect
-        }}
+        width={960} 
+        height={720} 
+        className="main-camera-canvas"
       />
-      {!isStreaming && <p className="loading-text">Loading MediaPipe Models...</p>}
+      {!isStreaming && (
+        <div className="camera-loading-overlay">
+          <div className="spinner"></div>
+          <p className="loading-text">Starting High-Definition Camera Stream...</p>
+        </div>
+      )}
     </div>
   );
 };
 
 export default CameraFeed;
+

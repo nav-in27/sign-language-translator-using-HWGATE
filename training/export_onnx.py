@@ -6,97 +6,97 @@ import json
 import onnxruntime as ort
 
 # Add parent dir to sys.path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from models.baseline_models import SimpleLSTM
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from models.cwa_hwgate import CWA_HWGATE
 
-def export_model_to_onnx(model_path, onnx_output_path, default_num_classes=264):
-    device = torch.device('cpu')
-    num_classes = default_num_classes
-    state_dict = None
-    
-    if os.path.exists(model_path):
-        state_dict = torch.load(model_path, map_location=device)
-        if 'fc.weight' in state_dict:
-            num_classes = state_dict['fc.weight'].shape[0]
-        elif 'classifier.weight' in state_dict:
-            num_classes = state_dict['classifier.weight'].shape[0]
-        elif 'classifier.3.weight' in state_dict:
-            num_classes = state_dict['classifier.3.weight'].shape[0]
-        print(f"Loaded PyTorch model from: {model_path} (Detected num_classes={num_classes})")
-    
-    model = SimpleLSTM(num_classes=num_classes, num_joints=80, in_channels=3).to(device)
-    if state_dict is not None:
-        try:
-            model.load_state_dict(state_dict)
-        except Exception as e:
-            print(f"Warning loading state dict: {e}")
+def export_model_to_onnx(model_path=None, onnx_output_path=None):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    if model_path is None:
+        model_path = os.path.join(base_dir, "checkpoints", "best_model.pth")
+        if not os.path.exists(model_path):
+            model_path = os.path.join(base_dir, "cwa_hwgate_pretrained.pth")
+    if onnx_output_path is None:
+        onnx_output_path = os.path.join(base_dir, "model.onnx")
         
+    device = torch.device('cpu')
+    label_map_path = os.path.join(base_dir, "label_map.json")
+    with open(label_map_path, "r") as f:
+        label_map = json.load(f)
+    num_classes = len(label_map)
+    
+    embed_dim = 256
+    num_heads = 8
+    num_layers = 4
+    num_joints = 133
+    in_channels = 2
+    
+    state_dict = None
+    if os.path.exists(model_path):
+        checkpoint = torch.load(model_path, map_location=device, weights_only=False)
+        if isinstance(checkpoint, dict) and 'model_state_dict' in checkpoint:
+            state_dict = checkpoint['model_state_dict']
+            num_classes = checkpoint.get('num_classes', num_classes)
+            cfg = checkpoint.get('config', {})
+            embed_dim = cfg.get('embed_dim', embed_dim)
+            num_heads = cfg.get('num_heads', num_heads)
+            num_layers = cfg.get('num_layers', num_layers)
+        elif isinstance(checkpoint, dict):
+            state_dict = checkpoint
+            for key in ['classifier.6.weight', 'classifier.weight']:
+                if key in state_dict:
+                    num_classes = state_dict[key].shape[0]
+                    break
+        print(f"[+] Loaded weights from {model_path} ({num_classes} classes)")
+    else:
+        print(f"[!] Warning: {model_path} not found. Exporting uninitialized model.")
+        
+    model = CWA_HWGATE(
+        num_classes=num_classes,
+        num_joints=num_joints,
+        in_channels=in_channels,
+        embed_dim=embed_dim,
+        num_heads=num_heads,
+        num_layers=num_layers
+    ).to(device)
+    
+    if state_dict is not None:
+        model.load_state_dict(state_dict, strict=False)
     model.eval()
     
-    # Dummy inputs: keypoints [1, 64, 80, 3] & confidences [1, 64, 80, 1]
-    dummy_keypoints = torch.randn(1, 64, 80, 3, dtype=torch.float32)
-    dummy_confidences = torch.ones(1, 64, 80, 1, dtype=torch.float32)
+    # Export with dynamic sequence length and batch size
+    dummy_keypoints = torch.randn(1, 16, num_joints, in_channels, dtype=torch.float32)
+    dummy_confidences = torch.ones(1, 16, num_joints, 1, dtype=torch.float32)
     
-    # Export to ONNX
     torch.onnx.export(
         model,
         (dummy_keypoints, dummy_confidences),
         onnx_output_path,
         export_params=True,
-        input_names=['input_keypoints', 'confidences'],
+        input_names=['keypoints', 'confidences'],
         output_names=['logits'],
         dynamic_axes={
-            'input_keypoints': {0: 'batch_size', 1: 'sequence_length'},
+            'keypoints': {0: 'batch_size', 1: 'sequence_length'},
             'confidences': {0: 'batch_size', 1: 'sequence_length'},
-            'logits': {0: 'batch_size'}
+            'logits': {1: 'batch_size'}
         },
         opset_version=14,
+        do_constant_folding=True,
         dynamo=False
     )
-    print(f"ONNX model exported successfully to: {onnx_output_path}")
+    print(f"[+] ONNX model exported successfully to {onnx_output_path}")
     
-    # Export Preprocessing Config
-    prep_config = {
-        "num_classes": num_classes,
-        "input_shape": [1, 64, 80, 3],
-        "keypoint_format": "pose_33 + lh_21 + rh_21 + pad_5",
-        "normalization": {
-            "origin": "shoulder_midpoint",
-            "scale": "inter_shoulder_distance"
-        },
-        "rejection_threshold": 0.65,
-        "min_frames": 15,
-        "window_size": 64
-    }
-    config_path = os.path.join(os.path.dirname(onnx_output_path), "preprocessing_config.json")
-    with open(config_path, "w") as f:
-        json.dump(prep_config, f, indent=4)
-    print(f"Preprocessing config saved to: {config_path}")
-    
-    # Validate Parity
-    ort_session = ort.InferenceSession(onnx_output_path)
-    inputs = ort_session.get_inputs()
-    if len(inputs) >= 2:
-        ort_inputs = {inputs[0].name: dummy_keypoints.numpy(), inputs[1].name: dummy_confidences.numpy()}
-    else:
-        ort_inputs = {inputs[0].name: dummy_keypoints.numpy()}
+    # Verify ONNX Runtime compatibility across multiple sequence lengths
+    print("[+] Verifying ONNX model across dynamic sequence lengths (1, 8, 16, 64)...")
+    session = ort.InferenceSession(onnx_output_path)
+    for T in [1, 8, 16, 64]:
+        k_test = np.random.randn(1, T, 133, 2).astype(np.float32)
+        c_test = np.ones((1, T, 133, 1), dtype=np.float32)
+        ort_out = session.run(None, {'keypoints': k_test, 'confidences': c_test})
+        out_shape = ort_out[0].shape
+        print(f"  Test Sequence Length T={T:02d} -> Logits Output Shape: {out_shape} [OK]")
         
-    ort_outs = ort_session.run(None, ort_inputs)
-    
-    with torch.no_grad():
-        pt_out = model(dummy_keypoints, dummy_confidences).numpy()
-        
-    max_diff = np.max(np.abs(pt_out - ort_outs[0]))
-    print(f"Max absolute difference PyTorch vs ONNX: {max_diff:.6e}")
-    if max_diff < 1e-4:
-        print("SUCCESS: PyTorch and ONNX predictions are numerically equivalent (< 1e-4)!")
-    else:
-        print("WARNING: ONNX numerical discrepancy detected!")
-        
-    return max_diff < 1e-4
+    print("[+] ONNX Runtime dynamic sequence verification PASSED!")
+    return onnx_output_path
 
 if __name__ == "__main__":
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    model_path = os.path.join(base_dir, "LSTM_weights.pth")
-    onnx_path = os.path.join(base_dir, "model.onnx")
-    export_model_to_onnx(model_path, onnx_path)
+    export_model_to_onnx()

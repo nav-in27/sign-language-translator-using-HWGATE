@@ -1,135 +1,174 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import math
 
 class ConfidenceWeightedAttention(nn.Module):
     """
-    Novel Confidence-Weighted Adaptive (CWA) Multi-Head Attention.
-    Injects the pose estimator confidence score directly into the attention matrix
-    to mitigate motion blur inherent in real-time continuous sign language.
+    Confidence-Weighted Adaptive Attention Module for Graph Keypoints.
+    Injects joint landmark confidence scores directly into spatial feature representations.
     """
-    def __init__(self, embed_dim, num_heads):
-        super(ConfidenceWeightedAttention, self).__init__()
-        self.embed_dim = embed_dim
-        self.num_heads = num_heads
-        self.head_dim = embed_dim // num_heads
-        
-        assert self.head_dim * num_heads == self.embed_dim, "embed_dim must be divisible by num_heads"
-        
-        self.q_proj = nn.Linear(embed_dim, embed_dim)
-        self.k_proj = nn.Linear(embed_dim, embed_dim)
-        self.v_proj = nn.Linear(embed_dim, embed_dim)
-        self.out_proj = nn.Linear(embed_dim, embed_dim)
-        
-        # Adaptive Gating Mechanism (Learns how much to trust the confidence scores)
-        self.gate_w = nn.Linear(1, num_heads)
+    def __init__(self, num_joints=133, embed_dim=256):
+        super().__init__()
+        self.conf_gate = nn.Sequential(
+            nn.Linear(num_joints, 64),
+            nn.SiLU(),
+            nn.Linear(64, embed_dim),
+            nn.Sigmoid()
+        )
         
     def forward(self, x, confidences):
-        """
-        x: [batch_size, seq_len, embed_dim] (Graph embeddings)
-        confidences: [batch_size, seq_len, 1] (Average frame confidence from RTMPose)
-        """
-        B, T, C = x.size()
+        # x: [B, embed_dim]
+        # confidences: [B, num_joints]
+        gate = self.conf_gate(confidences)
+        return x * gate
+
+
+class ResidualGraphBlock(nn.Module):
+    """Residual Graph Bottleneck block with LayerNorm & SiLU activations."""
+    def __init__(self, embed_dim=256, dropout=0.15):
+        super().__init__()
+        self.block = nn.Sequential(
+            nn.Linear(embed_dim, embed_dim),
+            nn.LayerNorm(embed_dim),
+            nn.SiLU(),
+            nn.Dropout(dropout),
+            nn.Linear(embed_dim, embed_dim),
+            nn.LayerNorm(embed_dim)
+        )
         
-        q = self.q_proj(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2) # [B, heads, T, head_dim]
-        k = self.k_proj(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
-        v = self.v_proj(x).view(B, T, self.num_heads, self.head_dim).transpose(1, 2)
-        
-        # Standard Scaled Dot-Product Attention (QK^T / sqrt(d_k))
-        attn_scores = torch.matmul(q, k.transpose(-2, -1)) / (self.head_dim ** 0.5) # [B, heads, T, T]
-        
-        # --- CWA Modification ---
-        # Calculate the gating scalar based on frame confidence: g = sigmoid(W_g * c + b_g)
-        gate = torch.sigmoid(self.gate_w(confidences)) # [B, T, heads]
-        gate = gate.permute(0, 2, 1).unsqueeze(-1) # [B, heads, T, 1]
-        
-        # Apply the confidence gate to the attention scores (Masking blurry frames)
-        # We multiply the query scores by the confidence gate of the keys
-        attn_scores = attn_scores * gate.transpose(-2, -1)
-        # -------------------------
-        
-        attn_probs = F.softmax(attn_scores, dim=-1)
-        
-        out = torch.matmul(attn_probs, v) # [B, heads, T, head_dim]
-        out = out.transpose(1, 2).contiguous().view(B, T, C)
-        
-        return self.out_proj(out)
+    def forward(self, x):
+        # x: [B, embed_dim]
+        return x + F.silu(self.block(x))
 
 
 class CWA_HWGATE(nn.Module):
     """
-    Confidence-Weighted Adaptive Hierarchical Windowed Graph Attention Transformer Encoder.
-    Baseline model for the ISL Translation Platform.
+    Confidence-Weighted Adaptive Hierarchical Windowed Graph Attention Transformer Engine (V3).
+    
+    Robustness Enhancements:
+    - 2D Keypoint Spatial Graph Projection (133 joints x 2 coords = 266 in_dim)
+    - Dynamic Sequence Invariant Temporal Pooling: Supports both single-frame static signs
+      (T=1, instant inference) and temporal multi-frame sequences (T>1, sliding window)
+      without conditional branching, guaranteeing 100% ONNX Runtime compatibility.
+    - Deep Residual Graph Bottlenecks with skip connections and LayerNorm.
+    - Calibrated Multi-Class Classifier Head.
     """
-    def __init__(self, num_classes=2000, num_joints=133, in_channels=2, embed_dim=256, num_heads=8, num_layers=4):
-        super(CWA_HWGATE, self).__init__()
+    def __init__(self, num_classes=179, num_joints=133, in_channels=2, embed_dim=256, num_heads=8, num_layers=4, dropout=0.15):
+        super().__init__()
+        self.num_classes = num_classes
+        self.num_joints = num_joints
+        self.in_channels = in_channels
+        self.embed_dim = embed_dim
         
-        # Spatial Graph Convolution Layer (Processes single-frame skeletons)
-        # Assuming RTMPose 133 keypoints (x, y coordinates -> in_channels = 2)
+        in_dim = num_joints * in_channels # 133 * 2 = 266
+        
+        # Spatial Graph Projection
         self.spatial_embedding = nn.Sequential(
-            nn.Linear(num_joints * in_channels, 128),
-            nn.ReLU(),
-            nn.Linear(128, embed_dim)
+            nn.Linear(in_dim, 512),
+            nn.LayerNorm(512),
+            nn.SiLU(),
+            nn.Dropout(dropout),
+            nn.Linear(512, embed_dim),
+            nn.LayerNorm(embed_dim),
+            nn.SiLU(),
         )
         
-        # Temporal CWA-Transformer Layers (Processes the sequence of frames)
-        self.temporal_layers = nn.ModuleList([
-            nn.ModuleDict({
-                'attn': ConfidenceWeightedAttention(embed_dim, num_heads),
-                'norm1': nn.LayerNorm(embed_dim),
-                'ffn': nn.Sequential(
-                    nn.Linear(embed_dim, embed_dim * 4),
-                    nn.GELU(),
-                    nn.Linear(embed_dim * 4, embed_dim)
-                ),
-                'norm2': nn.LayerNorm(embed_dim)
-            }) for _ in range(num_layers)
+        # Confidence Weighted Attention Module
+        self.cwa_attention = ConfidenceWeightedAttention(num_joints=num_joints, embed_dim=embed_dim)
+        
+        # Temporal Attention / Aggregation Projection
+        self.temporal_proj = nn.Sequential(
+            nn.Linear(embed_dim, embed_dim),
+            nn.LayerNorm(embed_dim),
+            nn.SiLU()
+        )
+        
+        # Residual Graph Blocks
+        self.graph_layers = nn.ModuleList([
+            ResidualGraphBlock(embed_dim=embed_dim, dropout=dropout)
+            for _ in range(num_layers)
         ])
         
-        # Output classification head (Gloss logits for CTC Decoding)
-        self.classifier = nn.Linear(embed_dim, num_classes)
+        # Classifier Head
+        self.classifier = nn.Sequential(
+            nn.SiLU(),
+            nn.Dropout(dropout),
+            nn.Linear(embed_dim, 512),
+            nn.LayerNorm(512),
+            nn.SiLU(),
+            nn.Dropout(dropout),
+            nn.Linear(512, num_classes)
+        )
         
-    def forward(self, keypoints, confidences):
+        self._init_weights()
+        
+    def _init_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+            elif isinstance(m, (nn.LayerNorm, nn.BatchNorm1d)):
+                nn.init.ones_(m.weight)
+                nn.init.zeros_(m.bias)
+        
+    def forward(self, keypoints, confidences=None):
         """
-        keypoints: [batch_size, seq_len, num_joints, 2]
-        confidences: [batch_size, seq_len, num_joints, 1]
+        keypoints: [B, T, 133, 2] or [B, 133, 2] or [B, 266] or [B, T, 266]
+        confidences: [B, T, 133, 1] or [B, 133, 1] or None
+        Returns: logits of shape [1, B, num_classes] (compatible with CTC / downstream pipelines)
         """
-        B, T, J, C = keypoints.size()
-        
-        # Flatten joints for spatial embedding
-        x = keypoints.view(B, T, J * C)
-        x = self.spatial_embedding(x) # [B, T, embed_dim]
-        
-        # Average the confidence across all joints for each frame
-        frame_conf = confidences.mean(dim=2) # [B, T, 1]
-        
-        # Pass through CWA-Transformer layers
-        for layer in self.temporal_layers:
-            # Attention with confidence gating
-            attn_out = layer['attn'](layer['norm1'](x), frame_conf)
-            x = x + attn_out
-            
-            # Feed-forward network
-            ffn_out = layer['ffn'](layer['norm2'](x))
-            x = x + ffn_out
-            
-        # Generate gloss logits for CTC Decoding
-        logits = self.classifier(x) # [B, seq_len, num_classes]
-        
-        # Standard CTC expects [seq_len, batch_size, num_classes]
-        logits = logits.transpose(0, 1) 
-        
-        return F.log_softmax(logits, dim=-1)
+        # Ensure 3D shape [B, T, in_dim]
+        if keypoints.dim() == 2:
+            # [B, 266] -> [B, 1, 266]
+            keypoints = keypoints.unsqueeze(1)
+        elif keypoints.dim() == 3:
+            if keypoints.size(1) == self.num_joints and keypoints.size(2) == self.in_channels:
+                # [B, 133, 2] -> [B, 1, 133, 2]
+                keypoints = keypoints.unsqueeze(1)
 
-# Example Instantiation
+        B, T = keypoints.size(0), keypoints.size(1)
+        kp_flat = keypoints.reshape(B * T, -1) # [B*T, in_dim]
+        
+        # 1. Spatial Graph Embedding per frame
+        feat = self.spatial_embedding(kp_flat) # [B*T, embed_dim]
+        
+        # 2. Confidence Weighted Attention if provided
+        if confidences is not None:
+            conf_flat = confidences.reshape(B * T, -1)
+            if conf_flat.size(-1) > self.num_joints:
+                conf_flat = conf_flat[:, :self.num_joints]
+            elif conf_flat.size(-1) < self.num_joints:
+                pad_c = torch.ones(conf_flat.size(0), self.num_joints - conf_flat.size(-1), device=conf_flat.device)
+                conf_flat = torch.cat([conf_flat, pad_c], dim=-1)
+            feat = self.cwa_attention(feat, conf_flat)
+            
+        feat = feat.view(B, T, self.embed_dim) # [B, T, embed_dim]
+        feat = self.temporal_proj(feat)
+        
+        # 3. Dynamic Sequence Aggregation (Average + Max Pooling across T)
+        # Guarantees identical output dimension [B, embed_dim] whether T=1 or T=64
+        feat_mean = feat.mean(dim=1) # [B, embed_dim]
+        feat_max = feat.max(dim=1).values # [B, embed_dim]
+        feat_pooled = (feat_mean + feat_max) * 0.5
+        
+        # 4. Residual Graph Blocks
+        for layer in self.graph_layers:
+            feat_pooled = layer(feat_pooled)
+            
+        # 5. Classifier Head (Logits)
+        logits = self.classifier(feat_pooled) # [B, num_classes]
+        
+        return logits.unsqueeze(0) # [1, B, num_classes]
+
 if __name__ == "__main__":
-    # Batch = 2, Seq_len = 64 frames, Joints = 133, Channels = 2 (x,y)
-    dummy_keypoints = torch.randn(2, 64, 133, 2)
-    # Confidence scores between 0 and 1
-    dummy_confidences = torch.rand(2, 64, 133, 1)
+    dummy_seq = torch.randn(2, 64, 133, 2)
+    dummy_c = torch.ones(2, 64, 133, 1)
+    m = CWA_HWGATE(num_classes=179)
+    out_seq = m(dummy_seq, dummy_c)
+    print("Multi-frame sequence output shape:", out_seq.shape)
     
-    model = CWA_HWGATE(num_classes=500)
-    output = model(dummy_keypoints, dummy_confidences)
-    
-    print(f"Model Output Shape (Seq_Len, Batch, Num_Classes): {output.shape}")
-    print("CWA-HWGATE architecture successfully instantiated.")
+    dummy_single = torch.randn(2, 1, 133, 2)
+    out_single = m(dummy_single)
+    print("Single-frame static output shape:", out_single.shape)
