@@ -1,0 +1,28 @@
+{
+  "include": [
+    ".",
+    "backend",
+    "scripts",
+    "training",
+    "tests",
+    "demo"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    ".venv",
+    "data"
+  ],
+  "extraPaths": [
+    ".",
+    "backend",
+    "training",
+    "training/models",
+    "models",
+    "tools"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.11",
+  "pythonPlatform": "Windows"
+}

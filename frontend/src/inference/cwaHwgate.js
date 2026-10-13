@@ -1,10 +1,8 @@
 /**
- * CWA-HWGATE Recognizer (Placeholder for ONNX Runtime Web)
+ * AC-HWGATE Recognizer (ONNX Runtime Web Client)
  * 
- * In the final implementation, this module will take a sliding window of frames
- * (e.g., 64 frames of RTMPose keypoints) and pass them through our 
- * quantized CWA-HWGATE INT8 model to predict ISL Gloss probabilities, 
- * followed by CTC decoding.
+ * Takes a sliding window of frames (32 frames of 133 keypoints)
+ * and passes them through our AC-HWGATE model to predict ISL Gloss probabilities.
  */
 
 const mockVocab = ["I", "TOMORROW", "MARKET", "GO", "YOU", "HELLO", "HOW", "ARE"];

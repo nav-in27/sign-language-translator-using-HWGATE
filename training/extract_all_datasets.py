@@ -7,7 +7,8 @@ import cv2
 import mediapipe as mp
 import torch
 import sys
-sys.stdout.reconfigure(line_buffering=True)
+if hasattr(sys.stdout, "reconfigure"):
+    getattr(sys.stdout, "reconfigure")(line_buffering=True)
 import json
 import time
 from collections import defaultdict
@@ -244,7 +245,9 @@ def main():
     print("=" * 70)
     
     # Initialize MediaPipe Holistic once
-    mp_holistic = mp.solutions.holistic
+    from typing import Any
+    mp_solutions: Any = mp.solutions
+    mp_holistic = mp_solutions.holistic
     holistic = mp_holistic.Holistic(
         static_image_mode=True,
         min_detection_confidence=0.3,  # Lower threshold to capture more samples

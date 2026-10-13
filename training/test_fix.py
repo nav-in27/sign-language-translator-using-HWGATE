@@ -2,13 +2,35 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 import os
 import sys
-sys.stdout.reconfigure(line_buffering=True)
+if hasattr(sys.stdout, "reconfigure"):
+    getattr(sys.stdout, "reconfigure")(line_buffering=True)
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from train_production import ISLUnifiedDataset, TrainConfig
+class ISLUnifiedDataset(Dataset):
+    def __init__(self, data_dir, augment=False):
+        self.data_dir = data_dir
+        self.augment = augment
+        self.classes = sorted([d for d in os.listdir(data_dir) if os.path.isdir(os.path.join(data_dir, d))]) if os.path.exists(data_dir) else []
+        self.samples = []
+        for idx, cls_name in enumerate(self.classes):
+            cls_folder = os.path.join(data_dir, cls_name)
+            for f in os.listdir(cls_folder):
+                if f.endswith('.pt'):
+                    self.samples.append((os.path.join(cls_folder, f), idx))
+
+    def __len__(self):
+        return len(self.samples)
+
+    def __getitem__(self, index: int):
+        fpath, label = self.samples[index]
+        data = torch.load(fpath, map_location='cpu', weights_only=False)
+        kps = data['keypoints']
+        confs = data.get('confidences', torch.ones(kps.shape[0], 133, 1))
+        return (kps.squeeze(0) if kps.dim() == 3 else kps,
+                confs.squeeze(0) if confs.dim() == 3 else confs,
+                label)
 
 class HWGATE_Classifier(nn.Module):
     """

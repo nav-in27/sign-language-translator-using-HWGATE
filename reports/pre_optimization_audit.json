@@ -1,0 +1,103 @@
+{
+  "timestamp": "2026-10-04T21:18:00+05:30",
+  "project_name": "Indian Sign Language Real-Time Translator",
+  "production_model": "AC-HWGATE",
+  "status": "Pre-Optimization Baseline Established",
+  "components": {
+    "architecture": {
+      "file": "training/models/ac_hwgate.py",
+      "model_name": "ACHWGATE",
+      "parameters": 972191,
+      "size_mb": 3.71,
+      "modules": [
+        "AdaptiveGraphLayer",
+        "HierarchicalPartEncoder",
+        "LocalWindowAttention",
+        "ContextAwareTransformerBlock",
+        "AttentionPooling"
+      ],
+      "status": "Functional and verified"
+    },
+    "baseline_architecture": {
+      "file": "training/models/cwa_hwgate.py",
+      "model_name": "CWA_HW_GATE",
+      "status": "Preserved as historical reference baseline only"
+    },
+    "feature_extractor": {
+      "file": "training/feature_extractor.py",
+      "joints": 133,
+      "channels": 6,
+      "motion_features": ["Position (P)", "Velocity (V)", "Acceleration (A)"],
+      "sequence_length": 32,
+      "total_feature_dim": 798,
+      "status": "Shared authoritative extractor across all workflows"
+    },
+    "primary_dataset": {
+      "source": "vidit031/isl-isolated-40words",
+      "location": "data/raw_40words",
+      "total_videos": 642,
+      "num_classes": 40,
+      "num_signers": 172,
+      "status": "Verified, 0 corrupt, 0 missing"
+    },
+    "landmark_cache": {
+      "location": "data/cache",
+      "cached_sequences": 642,
+      "splits": {
+        "train": 430,
+        "val": 105,
+        "test": 107
+      }
+    },
+    "current_honest_metrics": {
+      "top1_test_accuracy": 0.6355,
+      "top3_test_accuracy": 0.8598,
+      "best_val_accuracy": 0.7714,
+      "macro_f1": 0.5661,
+      "weighted_f1": 0.6207,
+      "macro_precision": 0.5932,
+      "macro_recall": 0.5880,
+      "latency_ms": 0.58,
+      "throughput_fps": 1719.6,
+      "perfect_classes_count": 8,
+      "perfect_classes": [
+        "father", "teacher", "school", "okay",
+        "hospital", "help", "hello", "tea"
+      ]
+    },
+    "hardware_acceleration": {
+      "device": "NVIDIA GeForce RTX 3050 Laptop GPU",
+      "total_vram_gb": 4.0,
+      "precision": "PyTorch AMP FP16",
+      "allocated_vram_mb": 27.5,
+      "batch_size": 8,
+      "grad_accum_steps": 4,
+      "effective_batch_size": 32
+    },
+    "webcam_unknown_rejection": {
+      "file": "backend/inference.py",
+      "gates": [
+        "Hand Quality & Keypoint Integrity",
+        "Temporal Hand Motion Dynamics",
+        "Calibrated Confidence, Margin & Entropy",
+        "Prototype Cosine Distance",
+        "Temporal Consensus Stability Window"
+      ],
+      "status": "Active, 100% rejection on random movements"
+    },
+    "servers_and_ui": {
+      "backend_api": "FastAPI on http://localhost:8000",
+      "frontend_ui": "React + Vite on http://localhost:5173",
+      "onnx_model": "backend/models/ac_hwgate.onnx (verified parity 3.28e-7)",
+      "tts": "pyttsx3 local asynchronous speech synthesizer",
+      "translation": "Deterministic templates for 40 vocabulary classes"
+    }
+  },
+  "priorities_for_optimization": [
+    "Signer-aware disjoint dataset splitting without video leakage",
+    "Dataset expansion with legitimate public sources for target 40 words",
+    "Controlled hyperparameter & augmentation experiments",
+    "Personal webcam sample recording and personalization fine-tuning",
+    "End-to-end acceptance testing for live webcam demo"
+  ]
+}

@@ -1,0 +1,359 @@
+{
+  "total_tested": 50,
+  "confirmed": 42,
+  "correct": 19,
+  "live_accuracy": 0.38,
+  "mean_latency_ms": 0.88,
+  "details": [
+    {
+      "class": "bear",
+      "predicted": "bear",
+      "confidence": 0.6085,
+      "correct": true,
+      "latency_ms": 0.81
+    },
+    {
+      "class": "break",
+      "predicted": "break",
+      "confidence": 0.8634,
+      "correct": true,
+      "latency_ms": 0.43
+    },
+    {
+      "class": "clean",
+      "predicted": "clean",
+      "confidence": 0.4905,
+      "correct": true,
+      "latency_ms": 0.4
+    },
+    {
+      "class": "close",
+      "predicted": "break",
+      "confidence": 0.9016,
+      "correct": false,
+      "latency_ms": 1.01
+    },
+    {
+      "class": "come",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 2.14
+    },
+    {
+      "class": "cook",
+      "predicted": "knife",
+      "confidence": 0.5944,
+      "correct": false,
+      "latency_ms": 2.07
+    },
+    {
+      "class": "cry",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 2.12
+    },
+    {
+      "class": "drink",
+      "predicted": "hello",
+      "confidence": 0.6017,
+      "correct": false,
+      "latency_ms": 1.01
+    },
+    {
+      "class": "eat",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 1.56
+    },
+    {
+      "class": "elephant",
+      "predicted": "umbrella",
+      "confidence": 0.4267,
+      "correct": false,
+      "latency_ms": 1.35
+    },
+    {
+      "class": "father",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 1.66
+    },
+    {
+      "class": "food",
+      "predicted": "hello",
+      "confidence": 0.6561,
+      "correct": false,
+      "latency_ms": 1.38
+    },
+    {
+      "class": "friend",
+      "predicted": "school",
+      "confidence": 0.6531,
+      "correct": false,
+      "latency_ms": 0.34
+    },
+    {
+      "class": "give",
+      "predicted": "knife",
+      "confidence": 0.5989,
+      "correct": false,
+      "latency_ms": 0.42
+    },
+    {
+      "class": "go",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 1.58
+    },
+    {
+      "class": "he",
+      "predicted": "food",
+      "confidence": 0.4081,
+      "correct": false,
+      "latency_ms": 0.48
+    },
+    {
+      "class": "hello",
+      "predicted": "hello",
+      "confidence": 0.6692,
+      "correct": true,
+      "latency_ms": 0.46
+    },
+    {
+      "class": "help",
+      "predicted": "help",
+      "confidence": 0.4314,
+      "correct": true,
+      "latency_ms": 0.35
+    },
+    {
+      "class": "home",
+      "predicted": "school",
+      "confidence": 0.7361,
+      "correct": false,
+      "latency_ms": 0.35
+    },
+    {
+      "class": "jump",
+      "predicted": "jump",
+      "confidence": 0.7681,
+      "correct": true,
+      "latency_ms": 0.39
+    },
+    {
+      "class": "key",
+      "predicted": "knife",
+      "confidence": 0.6938,
+      "correct": false,
+      "latency_ms": 0.44
+    },
+    {
+      "class": "knife",
+      "predicted": "knife",
+      "confidence": 0.9743,
+      "correct": true,
+      "latency_ms": 0.44
+    },
+    {
+      "class": "lion",
+      "predicted": "tiger",
+      "confidence": 0.4208,
+      "correct": false,
+      "latency_ms": 0.46
+    },
+    {
+      "class": "market",
+      "predicted": "break",
+      "confidence": 0.5708,
+      "correct": false,
+      "latency_ms": 1.76
+    },
+    {
+      "class": "me",
+      "predicted": "me",
+      "confidence": 0.8317,
+      "correct": true,
+      "latency_ms": 0.6
+    },
+    {
+      "class": "monkey",
+      "predicted": "monkey",
+      "confidence": 0.5806,
+      "correct": true,
+      "latency_ms": 0.39
+    },
+    {
+      "class": "mother",
+      "predicted": "today",
+      "confidence": 0.583,
+      "correct": false,
+      "latency_ms": 1.72
+    },
+    {
+      "class": "no",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 1.66
+    },
+    {
+      "class": "please",
+      "predicted": "please",
+      "confidence": 0.8572,
+      "correct": true,
+      "latency_ms": 1.11
+    },
+    {
+      "class": "school",
+      "predicted": "school",
+      "confidence": 0.9581,
+      "correct": true,
+      "latency_ms": 0.39
+    },
+    {
+      "class": "she",
+      "predicted": "he",
+      "confidence": 0.8567,
+      "correct": false,
+      "latency_ms": 0.4
+    },
+    {
+      "class": "sister",
+      "predicted": "me",
+      "confidence": 0.7508,
+      "correct": false,
+      "latency_ms": 0.58
+    },
+    {
+      "class": "sit",
+      "predicted": "sit",
+      "confidence": 0.5322,
+      "correct": true,
+      "latency_ms": 0.74
+    },
+    {
+      "class": "student",
+      "predicted": "hello",
+      "confidence": 0.7714,
+      "correct": false,
+      "latency_ms": 0.36
+    },
+    {
+      "class": "tea",
+      "predicted": "sit",
+      "confidence": 0.9065,
+      "correct": false,
+      "latency_ms": 1.36
+    },
+    {
+      "class": "teacher",
+      "predicted": "school",
+      "confidence": 0.6598,
+      "correct": false,
+      "latency_ms": 0.35
+    },
+    {
+      "class": "temple",
+      "predicted": "temple",
+      "confidence": 0.9241,
+      "correct": true,
+      "latency_ms": 0.44
+    },
+    {
+      "class": "thank_you",
+      "predicted": "school",
+      "confidence": 0.9469,
+      "correct": false,
+      "latency_ms": 0.31
+    },
+    {
+      "class": "tiger",
+      "predicted": "tiger",
+      "confidence": 0.736,
+      "correct": true,
+      "latency_ms": 0.43
+    },
+    {
+      "class": "today",
+      "predicted": "today",
+      "confidence": 0.6504,
+      "correct": true,
+      "latency_ms": 0.48
+    },
+    {
+      "class": "umbrella",
+      "predicted": "umbrella",
+      "confidence": 0.6973,
+      "correct": true,
+      "latency_ms": 0.4
+    },
+    {
+      "class": "uncle",
+      "predicted": "umbrella",
+      "confidence": 0.5874,
+      "correct": false,
+      "latency_ms": 0.4
+    },
+    {
+      "class": "water",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 1.76
+    },
+    {
+      "class": "what",
+      "predicted": "school",
+      "confidence": 0.9582,
+      "correct": false,
+      "latency_ms": 0.36
+    },
+    {
+      "class": "where",
+      "predicted": "school",
+      "confidence": 0.7986,
+      "correct": false,
+      "latency_ms": 0.38
+    },
+    {
+      "class": "wife",
+      "predicted": "wife",
+      "confidence": 0.4731,
+      "correct": true,
+      "latency_ms": 1.0
+    },
+    {
+      "class": "write",
+      "predicted": "write",
+      "confidence": 0.4937,
+      "correct": true,
+      "latency_ms": 0.4
+    },
+    {
+      "class": "wrong",
+      "predicted": "none",
+      "confidence": 0.0,
+      "correct": false,
+      "latency_ms": 2.16
+    },
+    {
+      "class": "yes",
+      "predicted": "go",
+      "confidence": 0.4984,
+      "correct": false,
+      "latency_ms": 1.38
+    },
+    {
+      "class": "you",
+      "predicted": "you",
+      "confidence": 0.587,
+      "correct": true,
+      "latency_ms": 0.79
+    }
+  ]
+}

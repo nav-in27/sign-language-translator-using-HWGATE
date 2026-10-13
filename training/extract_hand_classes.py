@@ -9,7 +9,9 @@ def extract_hand_classes(max_samples_per_class=80):
     input_base = r"C:\Users\navee\Downloads\archive (3)\isl_dataset"
     output_base = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data_unified")
     
-    mp_hands = mp.solutions.hands
+    from typing import Any
+    mp_solutions: Any = mp.solutions
+    mp_hands = mp_solutions.hands
     hands = mp_hands.Hands(
         static_image_mode=True,
         max_num_hands=1,
@@ -45,7 +47,7 @@ def extract_hand_classes(max_samples_per_class=80):
                 continue
                 
             img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            res = hands.process(img_rgb)
+            res: Any = hands.process(img_rgb)
             
             if not res.multi_hand_landmarks:
                 continue

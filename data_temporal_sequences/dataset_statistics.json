@@ -1,0 +1,22 @@
+{
+  "dataset_name": "ISL500 / ISL-DATA",
+  "source": "https://huggingface.co/datasets/ISL500/ISL-DATA",
+  "num_classes": 500,
+  "total_samples": 1500,
+  "train_samples": 850,
+  "val_samples": 150,
+  "test_samples": 500,
+  "sequence_length": 32,
+  "num_joints": 133,
+  "in_channels": 6,
+  "features": [
+    "Position_X",
+    "Position_Y",
+    "Velocity_X",
+    "Velocity_Y",
+    "Acceleration_X",
+    "Acceleration_Y"
+  ],
+  "model_target": "AC-HWGATE",
+  "timestamp": "2026-10-04 15:20:58"
+}

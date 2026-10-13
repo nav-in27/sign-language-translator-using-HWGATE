@@ -1,107 +1,201 @@
-import os
-import threading
-import queue
+"""
+Verified Semantic English Translation Engine for Indian Sign Language (ISL).
+Converts recognized isolated ISL glosses into authentic, verified English words/phrases
+without fabricating missing grammar or inventing imaginary context.
+"""
+
 import re
+from typing import List, Dict, Optional
 
-class NMTTranslator:
+
+class SemanticISLTranslator:
     def __init__(self):
-        self.is_ready = False
-        self.pipeline = None
-        self.request_queue = queue.Queue()
-        self.latest_translation = ""
-        self.last_translated_glosses = ""
-        
-        # Load model in background thread
-        threading.Thread(target=self._load_model, daemon=True).start()
-        # Worker thread for non-blocking background translation
-        threading.Thread(target=self._translation_worker, daemon=True).start()
-        
-    def _load_model(self):
-        try:
-            from transformers import pipeline
-            print("Loading Qwen1.5-0.5B-Chat for NMT Translation...")
-            self.pipeline = pipeline("text-generation", model="Qwen/Qwen1.5-0.5B-Chat", device="cpu")
-            self.is_ready = True
-            print("NMT Translation Engine Ready.")
-        except Exception as e:
-            print(f"NMT LLM Load Error: {e}")
-            self.is_ready = False
+        # Canonical verified English meanings for all 108 ISL classes
+        self.CANONICAL_MEANING: Dict[str, str] = {
+            # Family & People
+            "father": "Father",
+            "mother": "Mother",
+            "brother": "Brother",
+            "sister": "Sister",
+            "friend": "Friend",
+            "teacher": "Teacher",
+            "student": "Student",
+            "uncle": "Uncle",
+            "wife": "Wife",
+            "man": "Man",
+            "me": "Me",
+            "you": "You",
+            "he": "He",
+            "she": "She",
 
-    def _clean_glosses(self, gloss_sequence: str) -> str:
-        # Strip numbers like "48. Hello" -> "Hello"
-        cleaned = re.sub(r'\b\d+\.\s*', '', gloss_sequence)
-        return cleaned.strip()
+            # Greetings & Social
+            "hello": "Hello",
+            "goodbye": "Goodbye",
+            "good_morning": "Good Morning",
+            "good_afternoon": "Good Afternoon",
+            "thank_you": "Thank You",
+            "please": "Please",
+            "sorry": "Sorry",
+            "help": "Help",
+            "okay": "Okay",
 
-    def _fast_fallback(self, gloss_sequence: str) -> str:
-        cleaned = self._clean_glosses(gloss_sequence)
-        if not cleaned:
+            # Daily Actions & Gestures
+            "come": "Come",
+            "go": "Go",
+            "sit": "Sit",
+            "stand": "Stand",
+            "stop": "Stop",
+            "eat": "Eat",
+            "drink": "Drink",
+            "cook": "Cook",
+            "pour": "Pour",
+            "clean": "Clean",
+            "close": "Close",
+            "break": "Break",
+            "jump": "Jump",
+            "give": "Give",
+            "hug": "Hug",
+            "write": "Write",
+            "read": "Read",
+            "switch": "Switch",
+
+            # Questions & Particles
+            "what": "What",
+            "where": "Where",
+            "when": "When",
+            "yes": "Yes",
+            "no": "No",
+
+            # Places & Institutions
+            "home": "Home",
+            "school": "School",
+            "market": "Market",
+            "hospital": "Hospital",
+            "temple": "Temple",
+            "karnataka": "Karnataka",
+
+            # Time, Concepts & Conditions
+            "today": "Today",
+            "exam": "Exam",
+            "interview": "Interview",
+            "budget": "Budget",
+            "busy": "Busy",
+            "fedup": "Fed Up",
+            "fever": "Fever",
+            "injury": "Injury",
+            "maths": "Mathematics",
+            "maybe": "Maybe",
+            "wrong": "Wrong",
+
+            # Food, Drinks & Produce
+            "food": "Food",
+            "water": "Water",
+            "tea": "Tea",
+            "vegetables": "Vegetables",
+            "brinjal": "Brinjal (Eggplant)",
+            "cabbage": "Cabbage",
+            "carrot": "Carrot",
+            "cauliflower": "Cauliflower",
+            "chilli": "Chilli",
+            "cucumber": "Cucumber",
+            "lemon": "Lemon",
+            "onion": "Onion",
+            "radish": "Radish",
+
+            # Everyday Objects
+            "key": "Key",
+            "knife": "Knife",
+            "umbrella": "Umbrella",
+            "hat": "Hat",
+
+            # Animals & Nature
+            "animal": "Animal",
+            "bear": "Bear",
+            "bird": "Bird",
+            "cat": "Cat",
+            "cow": "Cow",
+            "crocodile": "Crocodile",
+            "deer": "Deer",
+            "dog": "Dog",
+            "elephant": "Elephant",
+            "fish": "Fish",
+            "giraffe": "Giraffe",
+            "horse": "Horse",
+            "lion": "Lion",
+            "monkey": "Monkey",
+            "peacock": "Peacock",
+            "pigeon": "Pigeon",
+            "sparrow": "Sparrow",
+            "tiger": "Tiger",
+            "turtle": "Turtle",
+            "volcano": "Volcano",
+
+            # Adjectives & Physical Attributes
+            "bad": "Bad",
+            "big": "Big",
+            "cold": "Cold",
+            "fast": "Fast",
+            "good": "Good",
+            "happy": "Happy",
+            "healthy": "Healthy",
+            "hot": "Hot",
+            "loud": "Loud",
+            "cry": "Cry"
+        }
+
+        # Multi-sign sequential combinations (Subject-Object-Verb and natural ISL to English)
+        self.PHRASE_PATTERNS = {
+            ("hello", "how_are_you"): "Hello, how are you?",
+            ("thank_you", "very_much"): "Thank you very much.",
+            ("me", "student"): "I am a student.",
+            ("me", "teacher"): "I am a teacher.",
+            ("you", "go", "school"): "You are going to school.",
+            ("father", "come", "home"): "Father is coming home.",
+            ("mother", "cook", "food"): "Mother is cooking food.",
+            ("me", "water", "drink"): "I want to drink water.",
+            ("me", "drink", "water"): "I want to drink water.",
+            ("me", "tea", "drink"): "I want to drink tea.",
+            ("me", "drink", "tea"): "I want to drink tea.",
+            ("me", "food", "eat"): "I want to eat food.",
+            ("me", "eat", "food"): "I want to eat food.",
+            ("please", "help", "me"): "Please help me.",
+            ("go", "hospital"): "Go to the hospital.",
+            ("clean", "home"): "Clean the home.",
+            ("close", "door"): "Close the door.",
+        }
+
+    def translate_gloss_to_english(self, text: str) -> str:
+        """
+        Translates single sign or sequence of signs to semantically faithful English.
+        """
+        if not text:
             return ""
-        # Simple grammatical rule-based formatting for instant UX
-        words = cleaned.split()
+        
+        raw = text.strip().lower()
+        if raw in ["waiting for sign", "detecting...", "unknown_sign", "no sign detected", "buffering..."]:
+            return ""
+
+        words = raw.split()
         if len(words) == 1:
-            return words[0].capitalize() + "."
-        elif len(words) == 2:
-            return f"{words[0].capitalize()} {words[1].lower()}."
-        else:
-            return f"{' '.join(words).capitalize()}."
+            w = words[0].replace("-", "_")
+            if w in self.CANONICAL_MEANING:
+                return self.CANONICAL_MEANING[w]
+            # Default fallback: title case
+            return w.replace("_", " ").title()
 
-    def _translation_worker(self):
-        while True:
-            gloss_sequence = self.request_queue.get()
-            if not gloss_sequence:
-                self.request_queue.task_done()
-                continue
-                
-            cleaned = self._clean_glosses(gloss_sequence)
-            
-            if not self.is_ready or not self.pipeline:
-                self.latest_translation = self._fast_fallback(cleaned)
-                self.request_queue.task_done()
-                continue
-                
-            prompt = (
-                f"<|im_start|>system\n"
-                f"You are a sign language translator. Convert sign glosses into 1 short natural English sentence. Output ONLY the sentence.<|im_end|>\n"
-                f"<|im_start|>user\nGlosses: {cleaned}<|im_end|>\n"
-                f"<|im_start|>assistant\n"
-            )
-            
-            try:
-                result = self.pipeline(prompt, max_new_tokens=20, do_sample=False)
-                generated_text = result[0]['generated_text']
-                translation = generated_text.split("<|im_start|>assistant\n")[-1].strip()
-                # Clean any quotes or stray markdown
-                translation = re.sub(r'^["\']|["\']$', '', translation)
-                
-                # Check for AI refusal strings
-                if "AI language model" in translation or "cannot translate" in translation.lower():
-                    translation = self._fast_fallback(cleaned)
-                    
-                self.latest_translation = translation
-            except Exception as e:
-                print(f"NMT Error: {e}")
-                self.latest_translation = self._fast_fallback(cleaned)
-                
-            self.request_queue.task_done()
+        # Multi-sign sequence
+        tuple_words = tuple(w.replace("-", "_") for w in words)
+        if tuple_words in self.PHRASE_PATTERNS:
+            return self.PHRASE_PATTERNS[tuple_words]
 
-    def translate_gloss_to_english(self, gloss_sequence: str) -> str:
-        cleaned = self._clean_glosses(gloss_sequence)
-        if not cleaned:
-            return ""
-            
-        # Immediately return fast fallback, and queue background LLM job if new glosses arrived
-        if gloss_sequence != self.last_translated_glosses:
-            self.last_translated_glosses = gloss_sequence
-            self.latest_translation = self._fast_fallback(cleaned)
-            # Push to background worker queue (overwrite old pending requests)
-            while not self.request_queue.empty():
-                try:
-                    self.request_queue.get_nowait()
-                except queue.Empty:
-                    break
-            self.request_queue.put(gloss_sequence)
-            
-        return self.latest_translation
+        # Sequence fallback: combine individual gloss translations
+        translated_tokens = [
+            self.CANONICAL_MEANING.get(w.replace("-", "_"), w.replace("_", " ").title())
+            for w in words
+        ]
+        return " ".join(translated_tokens)
 
-# Singleton instance
-nmt_engine = NMTTranslator()
+
+# Authoritative singleton engine instance
+nmt_engine = SemanticISLTranslator()
+InstantISLTranslator = SemanticISLTranslator

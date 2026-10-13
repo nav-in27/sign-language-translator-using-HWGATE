@@ -6,10 +6,10 @@ import shutil
 
 # Ensure Windows cp1252 terminal encoding never crashes on unicode
 try:
-    if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-    if sys.stderr.encoding and sys.stderr.encoding.lower() != 'utf-8':
-        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    if hasattr(sys.stdout, "reconfigure"):
+        getattr(sys.stdout, "reconfigure")(encoding="utf-8", errors="replace")
+    if hasattr(sys.stderr, "reconfigure"):
+        getattr(sys.stderr, "reconfigure")(encoding="utf-8", errors="replace")
 except Exception:
     pass
 
@@ -19,6 +19,7 @@ def find_working_python(root_dir):
     Searches system paths, known Python 3.11 installs, and virtualenvs.
     """
     candidates = [
+        os.path.join(root_dir, ".venv", "Scripts", "python.exe"),
         r"C:\Users\navee\AppData\Local\Programs\Python\Python311\python.exe",
         sys.executable,
         os.path.join(os.path.dirname(root_dir), "isl_recognition", "venv", "Scripts", "python.exe"),
@@ -36,7 +37,7 @@ def find_working_python(root_dir):
                     [cand, "-c", "import torch, onnxruntime, fastapi, uvicorn; print('READY')"],
                     capture_output=True,
                     text=True,
-                    timeout=5
+                    timeout=20
                 )
                 if res.returncode == 0 and "READY" in res.stdout:
                     return cand
@@ -51,7 +52,7 @@ def main():
     frontend_dir = os.path.join(root_dir, "frontend")
     
     print("=========================================")
-    print("[*] Starting ISL Translator Project")
+    print("[*] Starting ISL Translator Project (AC-HWGATE)")
     print("=========================================\n")
     
     # 1. Ensure frontend dependencies exist
@@ -69,24 +70,46 @@ def main():
         
     print(f"[+] Selected AI Python Environment: {python_cmd}\n")
     
-    # 3. Launch Backend Server (FastAPI on Port 8000)
-    print("[*] Starting Backend Server (FastAPI on http://localhost:8000)...")
-    backend_process = subprocess.Popen(
-        [python_cmd, "app.py"],
-        cwd=backend_dir
-    )
+    import urllib.request
     
-    # Wait for backend to initialize
-    print("    Waiting for backend AI models to load...")
-    time.sleep(3)
+    # 3. Check / Launch Backend Server (FastAPI on Port 8000)
+    backend_running = False
+    try:
+        with urllib.request.urlopen("http://localhost:8000/health", timeout=2) as resp:
+            if resp.status == 200:
+                backend_running = True
+                print("[+] Backend Server is already active on http://localhost:8000")
+    except Exception:
+        backend_running = False
+
+    backend_process = None
+    if not backend_running:
+        print("[*] Starting Backend Server (FastAPI on http://localhost:8000)...")
+        backend_process = subprocess.Popen(
+            [python_cmd, "app.py"],
+            cwd=backend_dir
+        )
+        print("    Waiting for backend AI models to load...")
+        time.sleep(3)
     
-    # 4. Launch Frontend Dev Server (Vite)
-    print("[*] Starting Frontend Server (Vite)...")
-    frontend_process = subprocess.Popen(
-        ["npm", "run", "dev"],
-        cwd=frontend_dir,
-        shell=True
-    )
+    # 4. Check / Launch Frontend Dev Server (Vite)
+    frontend_running = False
+    try:
+        with urllib.request.urlopen("http://localhost:5173", timeout=2) as resp:
+            if resp.status in (200, 304):
+                frontend_running = True
+                print("[+] Frontend Server is already active on http://localhost:5173")
+    except Exception:
+        frontend_running = False
+
+    frontend_process = None
+    if not frontend_running:
+        print("[*] Starting Frontend Server (Vite)...")
+        frontend_process = subprocess.Popen(
+            ["npm", "run", "dev"],
+            cwd=frontend_dir,
+            shell=True
+        )
     
     print("\n=======================================================")
     print("[+] All Services Running Successfully!")
@@ -96,16 +119,23 @@ def main():
     print("=======================================================\n")
     
     try:
-        backend_process.wait()
-        frontend_process.wait()
+        if backend_process:
+            backend_process.wait()
+        elif frontend_process:
+            frontend_process.wait()
+        else:
+            while True:
+                time.sleep(1)
     except KeyboardInterrupt:
         print("\n\n[*] Shutting down servers...")
-        backend_process.terminate()
-        frontend_process.terminate()
+        if backend_process:
+            backend_process.terminate()
+        if frontend_process:
+            frontend_process.terminate()
         time.sleep(1)
-        if backend_process.poll() is None:
+        if backend_process and backend_process.poll() is None:
             backend_process.kill()
-        if frontend_process.poll() is None:
+        if frontend_process and frontend_process.poll() is None:
             frontend_process.kill()
         print("[+] Servers stopped successfully. Goodbye!")
 

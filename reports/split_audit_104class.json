@@ -1,0 +1,14 @@
+{
+  "status": "VERIFIED_ZERO_LEAKAGE",
+  "num_classes": 105,
+  "train_samples": 4837,
+  "val_samples": 1047,
+  "test_samples": 1034,
+  "total_samples": 6918,
+  "train_val_overlap": 0,
+  "train_test_overlap": 0,
+  "val_test_overlap": 0,
+  "classes_in_train": 105,
+  "classes_in_val": 105,
+  "classes_in_test": 105
+}

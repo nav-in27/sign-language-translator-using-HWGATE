@@ -1,0 +1,66 @@
+# Authoritative Configuration for AC-HWGATE ISL System
+# Model: Adaptive Context-Aware Hierarchical Windowed Graph Attention Transformer Encoder
+# Target Hardware: NVIDIA RTX 3050 Laptop GPU (4 GB VRAM)
+# Target Dataset: vidit031/isl-isolated-40words (40 ISL Word Classes)
+
+model:
+  name: "AC-HWGATE"
+  full_name: "Adaptive Context-Aware Hierarchical Windowed Graph Attention Transformer Encoder"
+  version: "3.0.0-production-40w"
+  sequence_length: 32
+  num_joints: 133          # 33 Pose + 21 Left Hand + 21 Right Hand + 58 Selected Face
+  coords_per_joint: 2      # x, y normalized
+  channels_per_joint: 6    # Position (2) + Velocity (2) + Acceleration (2)
+  feature_dim: 798         # 133 joints * 6 channels
+  embed_dim: 128           # VRAM-safe for RTX 3050 (4 GB)
+  num_heads: 4
+  num_layers: 3
+  window_size: 8
+  dropout: 0.15
+  num_classes: 40          # Authoritative 40 ISL Classes
+
+training:
+  batch_size: 8            # Physical batch size (fits comfortably in 4GB VRAM)
+  gradient_accumulation_steps: 4  # Effective batch size = 32 (8 * 4)
+  learning_rate: 0.0003
+  min_learning_rate: 0.00001
+  weight_decay: 0.0001
+  max_epochs: 45
+  early_stopping_patience: 12
+  mixed_precision: true    # FP16 / AMP for RTX 3050
+  gradient_clip_val: 1.0
+  seed: 42
+  validation_split: 0.15
+  test_split: 0.15
+  label_smoothing: 0.05
+
+paths:
+  dataset_name: "vidit031/isl-isolated-40words"
+  dataset_url: "https://huggingface.co/datasets/vidit031/isl-isolated-40words"
+  raw_video_dir: "data/raw_40words"
+  cache_dir: "data/cache"
+  personal_data_dir: "data/personal"
+  label_map_path: "models/label_map.json"
+  preprocessing_config_path: "models/preprocessing_config.json"
+  checkpoint_dir: "checkpoints"
+  checkpoint_path: "checkpoints/achwgate_best.pth"
+  checkpoint_last_path: "checkpoints/achwgate_last.pth"
+  onnx_path: "models/achwgate.onnx"
+  backend_onnx_path: "backend/models/ac_hwgate.onnx"
+  results_csv: "results.csv"
+  results_json: "reports/final_metrics.json"
+  confusion_matrix_png: "reports/confusion_matrix.png"
+  per_class_metrics_csv: "reports/per_class_metrics.csv"
+  dataset_report_json: "reports/dataset_report.json"
+  dataset_report_txt: "reports/dataset_report.txt"
+
+inference:
+  device: "cuda"
+  confidence_threshold: 0.65
+  unknown_sign_threshold: 0.40
+  duplicate_cooldown_frames: 20
+  stability_window: 4
+  rolling_buffer_size: 32
+  input_coordinates: "normalized"
+  min_hand_detection_confidence: 0.5
+  prototype_distance_threshold: 1.8

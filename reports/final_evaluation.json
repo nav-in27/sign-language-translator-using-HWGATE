@@ -1,0 +1,31 @@
+{
+  "model_name": "AC-HWGATE",
+  "num_classes": 40,
+  "train_samples": 2671,
+  "val_samples": 544,
+  "test_samples": 544,
+  "test_accuracy": 88.6,
+  "test_macro_f1": 89.79,
+  "test_weighted_f1": 88.12,
+  "test_macro_precision": 90.84,
+  "test_macro_recall": 90.67,
+  "best_val_macro_f1": 90.95,
+  "parameters": 972191,
+  "training_time_sec": 455.5,
+  "worst_classes": [
+    {
+      "class": "eat",
+      "f1": 0.296
+    }
+  ],
+  "config": {
+    "epochs": 50,
+    "batch_size": 16,
+    "lr": 0.0005,
+    "dropout": 0.15,
+    "embed_dim": 128,
+    "num_heads": 4,
+    "num_layers": 3,
+    "label_smoothing": 0.05
+  }
+}

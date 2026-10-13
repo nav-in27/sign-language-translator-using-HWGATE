@@ -6,7 +6,13 @@ SCRATCH_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__
 ISL_REC_DIR = os.path.join(SCRATCH_DIR, "isl_recognition")
 sys.path.append(ISL_REC_DIR)
 
-from model import ISLModel as HWGATEModel
+try:
+    from model import ISLModel as HWGATEModel  # type: ignore
+except ImportError:
+    try:
+        from models.ac_hwgate import ACHWGATE as HWGATEModel  # type: ignore
+    except ImportError:
+        HWGATEModel = None  # type: ignore
 
 # Load label map
 with open(os.path.join(ISL_REC_DIR, "label_map.json"), "r") as f:
@@ -15,6 +21,7 @@ reverse_map = {v: k for k, v in label_map.items()}
 num_classes = len(label_map)
 
 # Load model
+assert HWGATEModel is not None, "HWGATEModel could not be imported"
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = HWGATEModel(num_classes=num_classes).to(device)
 weights_path = os.path.join(ISL_REC_DIR, "best_model.pth")

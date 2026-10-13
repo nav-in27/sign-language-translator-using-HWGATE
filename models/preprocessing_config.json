@@ -1,0 +1,15 @@
+{
+  "num_joints": 133,
+  "sequence_length": 32,
+  "in_channels": 6,
+  "features": [
+    "px",
+    "py",
+    "vx",
+    "vy",
+    "ax",
+    "ay"
+  ],
+  "num_classes": 105,
+  "model_architecture": "AC-HWGATE"
+}

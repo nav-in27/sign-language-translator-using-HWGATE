@@ -1,0 +1,796 @@
+{
+  "total_classes": 108,
+  "classes_ge_15": 81,
+  "classes_ge_20": 80,
+  "classes_ge_50": 78,
+  "classes": [
+    {
+      "class": "drink",
+      "count": 209,
+      "sources": [
+        "cache",
+        "video_dataset",
+        "isl500"
+      ]
+    },
+    {
+      "class": "hello",
+      "count": 171,
+      "sources": [
+        "cache",
+        "video_dataset",
+        "isl500"
+      ]
+    },
+    {
+      "class": "me",
+      "count": 159,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "eat",
+      "count": 151,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "school",
+      "count": 120,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "market",
+      "count": 119,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "friend",
+      "count": 117,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "thank_you",
+      "count": 111,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "mother",
+      "count": 104,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "please",
+      "count": 101,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "sister",
+      "count": 99,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "she",
+      "count": 98,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "sit",
+      "count": 98,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "you",
+      "count": 98,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "father",
+      "count": 97,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "help",
+      "count": 97,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "he",
+      "count": 96,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "no",
+      "count": 96,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "go",
+      "count": 95,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "student",
+      "count": 95,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "water",
+      "count": 92,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "food",
+      "count": 91,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "yes",
+      "count": 91,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "tea",
+      "count": 89,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "what",
+      "count": 89,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "where",
+      "count": 89,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "teacher",
+      "count": 88,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "today",
+      "count": 88,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "home",
+      "count": 79,
+      "sources": [
+        "cache",
+        "isl500"
+      ]
+    },
+    {
+      "class": "come",
+      "count": 64,
+      "sources": [
+        "cache",
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "bear",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "break",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "brinjal",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "budget",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "busy",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "cabbage",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "carrot",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "cauliflower",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "chilli",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "clean",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "close",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "cook",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "crocodile",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "cry",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "cucumber",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "deer",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "elephant",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "exam",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "fedup",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "fever",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "giraffe",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "give",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "good_afternoon",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "good_morning",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "hug",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "injury",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "interview",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "jump",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "karnataka",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "key",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "knife",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "lemon",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "lion",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "man",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "maths",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "maybe",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "monkey",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "onion",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "peacock",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "pigeon",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "pour",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "radish",
+      "count": 60,
+      "sources": [
+        "video_dataset"
+      ]
+    },
+    {
+      "class": "temple",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "tiger",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "umbrella",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "uncle",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "wife",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "wrong",
+      "count": 60,
+      "sources": [
+        "additional"
+      ]
+    },
+    {
+      "class": "okay",
+      "count": 23,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "hospital",
+      "count": 21,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "loud",
+      "count": 17,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "good",
+      "count": 12,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "healthy",
+      "count": 12,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "big",
+      "count": 11,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "old",
+      "count": 10,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "cow",
+      "count": 8,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "sorry",
+      "count": 6,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "cat",
+      "count": 5,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "sick",
+      "count": 5,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "bird",
+      "count": 4,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "stop",
+      "count": 4,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "bad",
+      "count": 3,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "brother",
+      "count": 3,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "cold",
+      "count": 3,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "dog",
+      "count": 3,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "goodbye",
+      "count": 3,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "happy",
+      "count": 3,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "narrow",
+      "count": 3,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "read",
+      "count": 3,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "write",
+      "count": 3,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "hat",
+      "count": 2,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "stand",
+      "count": 2,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "when",
+      "count": 2,
+      "sources": [
+        "cache"
+      ]
+    },
+    {
+      "class": "animal",
+      "count": 1,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "fish",
+      "count": 1,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "pant",
+      "count": 1,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "quiet",
+      "count": 1,
+      "sources": [
+        "vivit"
+      ]
+    },
+    {
+      "class": "shoes",
+      "count": 1,
+      "sources": [
+        "vivit"
+      ]
+    }
+  ]
+}

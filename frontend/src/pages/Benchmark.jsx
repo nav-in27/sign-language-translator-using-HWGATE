@@ -110,7 +110,7 @@ function Benchmark() {
     <div className="benchmark-container">
       <header className="benchmark-header">
         <h1>Model Evaluation Benchmark</h1>
-        <p>Measured Live Results</p>
+        <p>Measured Live Results (Primary: AC-HWGATE | Baseline: CWA-HWGATE)</p>
       </header>
 
       <div className="controls">
@@ -135,10 +135,12 @@ function Benchmark() {
       {resultsData && (
         <div className="results-content">
           <div className="dataset-info">
-            <h3>Dataset Info</h3>
+            <h3>Dataset & Pipeline Info</h3>
+            <p><strong>Primary Model:</strong> {resultsData.primary_model || "AC-HWGATE"}</p>
+            <p><strong>Dataset:</strong> {resultsData.dataset_info.dataset_name || "ISL500 / ISL-DATA"}</p>
+            <p><strong>Classes:</strong> {resultsData.dataset_info.num_classes} ISL Words</p>
             <p>Total Samples: {resultsData.dataset_info.total_samples}</p>
             <p>Train/Test Split: {resultsData.dataset_info.train_samples} / {resultsData.dataset_info.test_samples}</p>
-            <p>Classes: {resultsData.dataset_info.num_classes}</p>
             <p>Evaluation Time: {resultsData.evaluation_time}</p>
           </div>
 

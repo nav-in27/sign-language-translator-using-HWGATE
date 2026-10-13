@@ -1,50 +1,62 @@
 {
     "dataset_info": {
-        "total_samples": 12360,
-        "train_samples": 10506,
-        "test_samples": 1854,
-        "num_classes": 103
+        "dataset_name": "Unified ISL 40-Class Dataset (Stratified v2)",
+        "total_samples": 3759,
+        "train_samples": 2671,
+        "test_samples": 544,
+        "num_classes": 40
     },
-    "evaluation_time": "2026-10-03 22:37:41",
+    "evaluation_time": "2026-10-11 22:52:49",
+    "primary_model": "AC-HWGATE",
     "results": [
         {
-            "model": "CWA-HWGATE (V3 SOTA)",
-            "accuracy": 0.9654800431499461,
-            "f1": 0.9653040575220383,
-            "latency_ms": 0.05699451430072805,
-            "fps": 17545.548238617517,
-            "model_size_mb": 4.108303070068359,
-            "avg_confidence": 0.936663806438446,
+            "model": "AC-HWGATE (Production SOTA)",
+            "accuracy": 0.8860294117647058,
+            "f1": 0.8979289759083905,
+            "latency_ms": 1.6200340846005608,
+            "fps": 617.2709633122084,
+            "model_size_mb": 3.7086181640625,
+            "avg_confidence": 0.8657498359680176,
             "is_best": true
         },
         {
+            "model": "CWA-HWGATE (Baseline)",
+            "accuracy": 0.6911029411764705,
+            "f1": 0.6824260216903768,
+            "latency_ms": 0.36147675093482523,
+            "fps": 2766.4296456518205,
+            "model_size_mb": 1.623199462890625,
+            "avg_confidence": 0.7099148654937744,
+            "is_best": false
+        },
+        {
             "model": "ST-GCN Baseline",
-            "accuracy": 0.7820388349514563,
-            "f1": 0.7625902054424103,
-            "latency_ms": 0.10543985145634689,
-            "fps": 9484.080128982441,
-            "model_size_mb": 2.259566688537598,
-            "avg_confidence": 0.7774309593439102,
+            "accuracy": 0.6468014705882352,
+            "f1": 0.6285502831358734,
+            "latency_ms": 2.5920545353608975,
+            "fps": 385.79435207013023,
+            "model_size_mb": 2.410601806640625,
+            "avg_confidence": 0.6752848720550537,
             "is_best": false
         },
         {
             "model": "BiLSTM Sequence Model",
-            "accuracy": 0.71445523193096,
-            "f1": 0.6853658808406472,
-            "latency_ms": 0.13678683432174732,
-            "fps": 7310.645099423966,
-            "model_size_mb": 2.9579782104492187,
-            "avg_confidence": 0.7212311309576035,
+            "accuracy": 0.6025,
+            "f1": 0.5836538343404538,
+            "latency_ms": 3.402071577661178,
+            "fps": 293.93855395819446,
+            "model_size_mb": 3.152325439453125,
+            "avg_confidence": 0.640654878616333,
             "is_best": false
         },
         {
-            "model": "Standard 1D-CNN",
-            "accuracy": 0.627562028047465,
-            "f1": 0.5984885156636638,
-            "latency_ms": 0.05414478858569165,
-            "fps": 18468.998145913178,
-            "model_size_mb": 1.643321228027344,
-            "avg_confidence": 0.6556646645069122,
+            "model": "Standard 1D/2D CNN Baseline",
+            "accuracy": 0.5138970588235293,
+            "f1": 0.4938609367496148,
+            "latency_ms": 1.2960272676804487,
+            "fps": 771.5887041402605,
+            "model_size_mb": 1.85430908203125,
+            "avg_confidence": 0.5800523900985718,
             "is_best": false
         }
     ]

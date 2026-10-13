@@ -35,10 +35,16 @@ frontend/.nx/
 .DS_Store
 
 # Datasets & Extraction Caches
+data/
+data_temporal_sequences/
 training/data_extracted/
 training/data_extracted_full/
+training/data_isl500/
+training/isl500_meta/
 *.npy
+*.npz
 *.pt
+*.h5
 
 # Large Model Weights (Keep code & lightweight ONNX if needed)
 *.pth

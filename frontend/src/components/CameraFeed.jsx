@@ -58,9 +58,16 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
 
   useEffect(() => {
     let camera = null;
+    let holistic = null;
+    let mounted = true;
+    let isProcessing = false;
     
     // Wait for globals to load from CDN
     const checkGlobals = setInterval(() => {
+      if (!mounted) {
+        clearInterval(checkGlobals);
+        return;
+      }
       if (window.Holistic && window.Camera) {
         clearInterval(checkGlobals);
         startMediaPipe();
@@ -68,74 +75,95 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
     }, 100);
 
     const startMediaPipe = () => {
-      const holistic = new window.Holistic({locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
-      }});
-      
-      holistic.setOptions({
-        modelComplexity: 1,
-        smoothLandmarks: true,
-        enableSegmentation: false,
-        smoothSegmentation: false,
-        refineFaceLandmarks: false,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5
-      });
-      
-      holistic.onResults((results) => {
-        if (onModelStatus) onModelStatus("MediaPipe Active");
+      if (!mounted) return;
+      try {
+        holistic = new window.Holistic({locateFile: (file) => {
+          return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
+        }});
         
-        if (!canvasRef.current) return;
-        const canvasCtx = canvasRef.current.getContext('2d');
-        canvasCtx.save();
-        canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        holistic.setOptions({
+          modelComplexity: 1,
+          smoothLandmarks: true,
+          enableSegmentation: false,
+          smoothSegmentation: false,
+          refineFaceLandmarks: false,
+          minDetectionConfidence: 0.5,
+          minTrackingConfidence: 0.5
+        });
         
-        // Draw the video frame
-        canvasCtx.drawImage(results.image, 0, 0, canvasRef.current.width, canvasRef.current.height);
-        
-        // Draw Skeleton overlays with high-contrast vibrant colors
-        if (results.poseLandmarks) {
-          window.drawConnectors(canvasCtx, results.poseLandmarks, window.POSE_CONNECTIONS, {color: '#ccff00', lineWidth: 4});
-          window.drawLandmarks(canvasCtx, results.poseLandmarks, {color: '#ff0055', lineWidth: 3, radius: 4});
-        }
-        if (results.leftHandLandmarks) {
-          window.drawConnectors(canvasCtx, results.leftHandLandmarks, window.HAND_CONNECTIONS, {color: '#00f3ff', lineWidth: 4});
-          window.drawLandmarks(canvasCtx, results.leftHandLandmarks, {color: '#ccff00', lineWidth: 2, radius: 3});
-        }
-        if (results.rightHandLandmarks) {
-          window.drawConnectors(canvasCtx, results.rightHandLandmarks, window.HAND_CONNECTIONS, {color: '#00f3ff', lineWidth: 4});
-          window.drawLandmarks(canvasCtx, results.rightHandLandmarks, {color: '#ff0055', lineWidth: 2, radius: 3});
-        }
-        
-        canvasCtx.restore();
-        
-        // Send keypoints to parent for backend inference
-        const { keypoints, confidences } = get133Keypoints(results);
-        
-        // Send keypoints whenever tracking has keypoint data
-        onFrameCaptured(keypoints, confidences);
-      });
+        holistic.onResults((results) => {
+          if (!mounted) return;
+          if (onModelStatus) onModelStatus("MediaPipe Active");
+          
+          if (!canvasRef.current) return;
+          const canvasCtx = canvasRef.current.getContext('2d');
+          canvasCtx.save();
+          canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+          
+          // Draw the video frame
+          canvasCtx.drawImage(results.image, 0, 0, canvasRef.current.width, canvasRef.current.height);
+          
+          // Draw Skeleton overlays with high-contrast vibrant colors
+          if (results.poseLandmarks) {
+            window.drawConnectors(canvasCtx, results.poseLandmarks, window.POSE_CONNECTIONS, {color: '#ccff00', lineWidth: 4});
+            window.drawLandmarks(canvasCtx, results.poseLandmarks, {color: '#ff0055', lineWidth: 3, radius: 4});
+          }
+          if (results.leftHandLandmarks) {
+            window.drawConnectors(canvasCtx, results.leftHandLandmarks, window.HAND_CONNECTIONS, {color: '#00f3ff', lineWidth: 4});
+            window.drawLandmarks(canvasCtx, results.leftHandLandmarks, {color: '#ccff00', lineWidth: 2, radius: 3});
+          }
+          if (results.rightHandLandmarks) {
+            window.drawConnectors(canvasCtx, results.rightHandLandmarks, window.HAND_CONNECTIONS, {color: '#00f3ff', lineWidth: 4});
+            window.drawLandmarks(canvasCtx, results.rightHandLandmarks, {color: '#ff0055', lineWidth: 2, radius: 3});
+          }
+          
+          canvasCtx.restore();
+          
+          // Send keypoints to parent for backend inference
+          const { keypoints, confidences } = get133Keypoints(results);
+          
+          // Send keypoints whenever tracking has keypoint data
+          onFrameCaptured(keypoints, confidences);
+        });
 
-      if (videoRef.current) {
-        camera = new window.Camera(videoRef.current, {
-          onFrame: async () => {
-            if (videoRef.current) {
-              await holistic.send({image: videoRef.current});
-            }
-          },
-          width: 960,
-          height: 720
-        });
-        
-        camera.start().then(() => {
-          setIsStreaming(true);
-        });
+        if (videoRef.current && mounted) {
+          camera = new window.Camera(videoRef.current, {
+            onFrame: async () => {
+              if (!mounted || !videoRef.current || isProcessing) return;
+              isProcessing = true;
+              try {
+                await holistic.send({image: videoRef.current});
+              } catch (frameErr) {
+                // Ignore transient frame errors
+              } finally {
+                isProcessing = false;
+              }
+            },
+            width: 640,
+            height: 480
+          });
+          
+          camera.start().then(() => {
+            if (mounted) setIsStreaming(true);
+          }).catch((camErr) => {
+            console.error("Camera start error:", camErr);
+            if (onModelStatus) onModelStatus("Camera Error");
+          });
+        }
+      } catch (initErr) {
+        console.error("MediaPipe initialization error:", initErr);
       }
     };
 
     return () => {
+      mounted = false;
       clearInterval(checkGlobals);
-      if (camera) camera.stop();
+      if (camera) {
+        try { camera.stop(); } catch (e) {}
+      }
+      if (holistic) {
+        try { holistic.close(); } catch (e) {}
+      }
     };
   }, []);
 
@@ -150,8 +178,8 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
       {/* Visible high-res canvas with skeletal drawing */}
       <canvas 
         ref={canvasRef} 
-        width={960} 
-        height={720} 
+        width={640} 
+        height={480} 
         className="main-camera-canvas"
       />
       {!isStreaming && (

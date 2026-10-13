@@ -1,0 +1,23 @@
+{
+  "model_name": "AC-HWGATE",
+  "dataset_name": "Unified ISL 40-Class Dataset (Stratified v2)",
+  "num_classes": 40,
+  "train_samples": 2671,
+  "val_samples": 544,
+  "test_samples": 544,
+  "top1_accuracy": 88.60,
+  "macro_precision": 90.84,
+  "macro_recall": 90.67,
+  "macro_f1": 89.79,
+  "weighted_f1": 88.12,
+  "inference_latency_ms": 1.62,
+  "fps": 617.3,
+  "parameters": 972191,
+  "model_size_mb": 3.71,
+  "worst_classes": [
+    {
+      "class": "eat",
+      "f1": 0.296
+    }
+  ]
+}

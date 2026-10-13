@@ -20,8 +20,8 @@ confidences = [[1.0] for _ in range(133)]
 print("Testing prediction loop...")
 for i in range(40):
     try:
-        label, conf = isl_model.predict(keypoints, confidences)
-        print(f"Frame {i}: label={label}, conf={conf}")
+        label, conf, is_unknown = isl_model.predict(keypoints, confidences)
+        print(f"Frame {i}: label={label}, conf={conf}, is_unknown={is_unknown}")
     except Exception as e:
         import traceback
         traceback.print_exc()

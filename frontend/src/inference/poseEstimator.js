@@ -10,7 +10,7 @@ export const extractPose = async (imageData) => {
   await new Promise(resolve => setTimeout(resolve, 15));
   
   // Mock 133 keypoints (x, y) and their confidence score
-  // This satisfies the input shape for the CWA-HWGATE PyTorch model we wrote
+  // This satisfies the input shape for the AC-HWGATE PyTorch model
   const mockKeypoints = Array.from({ length: 133 }, () => [Math.random(), Math.random()]);
   const mockConfidence = Array.from({ length: 133 }, () => [Math.random()]);
 

@@ -61,7 +61,9 @@ def main():
     output_dir = r"C:\Users\navee\.gemini\antigravity-ide\scratch\isl-translator\training\data_extracted_full"
     os.makedirs(output_dir, exist_ok=True)
     
-    mp_holistic = mp.solutions.holistic
+    from typing import Any
+    mp_solutions: Any = mp.solutions
+    mp_holistic = mp_solutions.holistic
     holistic = mp_holistic.Holistic(static_image_mode=True, min_detection_confidence=0.5)
     
     total_processed = 0

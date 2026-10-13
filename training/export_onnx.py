@@ -1,34 +1,45 @@
+"""
+AC-HWGATE Production ONNX Export Engine.
+Exports the trained Adaptive Context-Aware Hierarchical Windowed Graph Attention
+Transformer Encoder (AC-HWGATE) model into optimized ONNX Runtime format.
+"""
 import os
 import sys
 import torch
+import torch.nn as nn
 import numpy as np
 import json
 import onnxruntime as ort
 
-# Add parent dir to sys.path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from models.cwa_hwgate import CWA_HWGATE
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(BASE_DIR)
+sys.path.insert(0, BASE_DIR)
+from models.ac_hwgate import ACHWGATE
 
 def export_model_to_onnx(model_path=None, onnx_output_path=None):
-    base_dir = os.path.dirname(os.path.abspath(__file__))
     if model_path is None:
-        model_path = os.path.join(base_dir, "checkpoints", "best_model.pth")
-        if not os.path.exists(model_path):
-            model_path = os.path.join(base_dir, "cwa_hwgate_pretrained.pth")
+        model_path = os.path.join(BASE_DIR, "checkpoints", "ac_hwgate_best.pth")
     if onnx_output_path is None:
-        onnx_output_path = os.path.join(base_dir, "model.onnx")
+        onnx_output_path = os.path.join(ROOT_DIR, "backend", "models", "ac_hwgate.onnx")
         
+    os.makedirs(os.path.dirname(onnx_output_path), exist_ok=True)
     device = torch.device('cpu')
-    label_map_path = os.path.join(base_dir, "label_map.json")
-    with open(label_map_path, "r") as f:
-        label_map = json.load(f)
-    num_classes = len(label_map)
     
-    embed_dim = 256
-    num_heads = 8
-    num_layers = 4
+    # Load label map to determine number of classes
+    label_map_path = os.path.join(BASE_DIR, "label_map.json")
+    if os.path.exists(label_map_path):
+        with open(label_map_path, "r") as f:
+            label_map = json.load(f)
+        num_classes = len(label_map)
+    else:
+        num_classes = 500
+        
+    embed_dim = 128
+    num_heads = 4
+    num_layers = 3
     num_joints = 133
-    in_channels = 2
+    in_channels = 6
+    sequence_length = 32
     
     state_dict = None
     if os.path.exists(model_path):
@@ -42,18 +53,19 @@ def export_model_to_onnx(model_path=None, onnx_output_path=None):
             num_layers = cfg.get('num_layers', num_layers)
         elif isinstance(checkpoint, dict):
             state_dict = checkpoint
-            for key in ['classifier.6.weight', 'classifier.weight']:
+            for key in ['classifier.5.weight', 'classifier.weight']:
                 if key in state_dict:
                     num_classes = state_dict[key].shape[0]
                     break
-        print(f"[+] Loaded weights from {model_path} ({num_classes} classes)")
+        print(f"[+] Loaded AC-HWGATE weights from {model_path} ({num_classes} classes)")
     else:
-        print(f"[!] Warning: {model_path} not found. Exporting uninitialized model.")
+        print(f"[!] Note: {model_path} not found. Exporting uninitialized AC-HWGATE model ({num_classes} classes).")
         
-    model = CWA_HWGATE(
+    model = ACHWGATE(
         num_classes=num_classes,
         num_joints=num_joints,
         in_channels=in_channels,
+        sequence_length=sequence_length,
         embed_dim=embed_dim,
         num_heads=num_heads,
         num_layers=num_layers
@@ -63,39 +75,53 @@ def export_model_to_onnx(model_path=None, onnx_output_path=None):
         model.load_state_dict(state_dict, strict=False)
     model.eval()
     
-    # Export with dynamic sequence length and batch size
-    dummy_keypoints = torch.randn(1, 16, num_joints, in_channels, dtype=torch.float32)
-    dummy_confidences = torch.ones(1, 16, num_joints, 1, dtype=torch.float32)
+    # Wrap model to export both logits and penultimate embeddings
+    class ACHWGATE_Export_Wrapper(nn.Module):
+        def __init__(self, m):
+            super().__init__()
+            self.m = m
+        def forward(self, x):
+            return self.m(x, return_embeddings=True)
+
+    export_model = ACHWGATE_Export_Wrapper(model)
+
+    # Export with dynamic batch size [B, 32, 133, 6]
+    dummy_input = torch.randn(1, sequence_length, num_joints, in_channels, dtype=torch.float32)
     
     torch.onnx.export(
-        model,
-        (dummy_keypoints, dummy_confidences),
+        export_model,
+        (dummy_input,),
         onnx_output_path,
         export_params=True,
-        input_names=['keypoints', 'confidences'],
-        output_names=['logits'],
+        input_names=['keypoints'],
+        output_names=['logits', 'embeddings'],
         dynamic_axes={
-            'keypoints': {0: 'batch_size', 1: 'sequence_length'},
-            'confidences': {0: 'batch_size', 1: 'sequence_length'},
-            'logits': {1: 'batch_size'}
+            'keypoints': {0: 'batch_size'},
+            'logits': {0: 'batch_size'},
+            'embeddings': {0: 'batch_size'}
         },
         opset_version=14,
         do_constant_folding=True,
         dynamo=False
     )
-    print(f"[+] ONNX model exported successfully to {onnx_output_path}")
+    print(f"[+] AC-HWGATE ONNX model exported successfully to {onnx_output_path}")
     
-    # Verify ONNX Runtime compatibility across multiple sequence lengths
-    print("[+] Verifying ONNX model across dynamic sequence lengths (1, 8, 16, 64)...")
-    session = ort.InferenceSession(onnx_output_path)
-    for T in [1, 8, 16, 64]:
-        k_test = np.random.randn(1, T, 133, 2).astype(np.float32)
-        c_test = np.ones((1, T, 133, 1), dtype=np.float32)
-        ort_out = session.run(None, {'keypoints': k_test, 'confidences': c_test})
-        out_shape = ort_out[0].shape
-        print(f"  Test Sequence Length T={T:02d} -> Logits Output Shape: {out_shape} [OK]")
+    # Also write a copy to training/model.onnx for training scripts compatibility
+    tr_copy = os.path.join(BASE_DIR, "model.onnx")
+    with open(onnx_output_path, "rb") as sf, open(tr_copy, "wb") as df:
+        df.write(sf.read())
         
-    print("[+] ONNX Runtime dynamic sequence verification PASSED!")
+    # Verify ONNX Runtime compatibility
+    print("[+] Verifying AC-HWGATE ONNX Runtime inference (logits + embeddings)...")
+    session = ort.InferenceSession(onnx_output_path)
+    for b in [1, 2, 4]:
+        k_test = np.random.randn(b, 32, 133, 6).astype(np.float32)
+        ort_out = session.run(None, {'keypoints': k_test})
+        logits_shape = np.asarray(ort_out[0]).shape
+        emb_shape = np.asarray(ort_out[1]).shape
+        print(f"  Test Batch B={b} -> Logits: {logits_shape}, Embeddings: {emb_shape} [OK]")
+        
+    print(f"[+] AC-HWGATE ONNX Runtime verification PASSED ({num_classes} classes + 128-dim embeddings)!")
     return onnx_output_path
 
 if __name__ == "__main__":

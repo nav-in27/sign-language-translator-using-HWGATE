@@ -11,7 +11,10 @@ SCRATCH_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__
 ISL_REC_DIR = os.path.join(SCRATCH_DIR, "isl_recognition")
 sys.path.append(ISL_REC_DIR)
 
-from inference import ISLModel, ISLModelLite
+try:
+    from backend.retrain_model import ISLModelLite
+except ImportError:
+    from retrain_model import ISLModelLite
 from translator import nmt_engine
 
 def run_evaluation():

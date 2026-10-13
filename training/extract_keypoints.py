@@ -58,7 +58,9 @@ def process_dataset(root_dir, output_dir):
     Reads images from root_dir (which has subfolders for each class),
     extracts keypoints, and saves them as .pt files in output_dir.
     """
-    mp_holistic = mp.solutions.holistic
+    from typing import Any
+    mp_solutions: Any = mp.solutions
+    mp_holistic = mp_solutions.holistic
     holistic = mp_holistic.Holistic(static_image_mode=True, min_detection_confidence=0.5)
     
     if not os.path.exists(output_dir):

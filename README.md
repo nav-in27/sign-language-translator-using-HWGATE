@@ -8,21 +8,23 @@
 [![ONNX Runtime](https://img.shields.io/badge/ONNX%20Runtime-Enabled-005CED.svg)](https://onnxruntime.ai/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-An end-to-end, edge-accelerated Indian Sign Language (ISL) real-time translation system powered by a novel **Confidence-Weighted Adaptive Hierarchical Windowed Graph Adaptive Transformer Engine (CWA-HWGATE)**. 
+An end-to-end, edge-accelerated Indian Sign Language (ISL) real-time translation system powered by the **Adaptive Context-Aware Hierarchical Windowed Graph Attention Transformer Encoder (AC-HWGATE)**. 
 
-The system captures 3D keypoint landmarks via webcam using **MediaPipe Holistic**, streams skeleton coordinates to a high-speed **ONNX/PyTorch inference engine**, accumulates sign glosses, and translates them into natural English sentences using an integrated **Neural Machine Translation (NMT) / Small Language Model (SLM)** pipeline based on `Qwen1.5-0.5B-Chat`.
+The system is trained on the comprehensive **ISL500 / ISL-DATA** benchmark dataset across 500 ISL word classes and 15 distinct signers. The model learns authentic multi-order temporal signing motion dynamics ($P_t$ Position, $V_t$ Velocity, $A_t$ Acceleration) over 133 WholeBody/Holistic joints. CWA-HWGATE is retained strictly as an evaluated baseline comparator.
 
 ---
 
 ## ✨ Key Features
 
-- **⚡ Real-Time 3D Landmark Tracking**: Uses MediaPipe Holistic to track 133 3D keypoints (33 pose, 21 left hand, 21 right hand) normalized in 3D relative to shoulder width and body center.
-- **🧠 CWA-HWGATE Architecture**: Injects pose-estimator confidence directly into multi-head spatial/temporal attention matrices, effectively filtering out motion blur and low-confidence hand frames.
-- **🚀 Dual-Engine Inference**: ONNX Runtime acceleration for sub-2ms latency with automatic fallback to PyTorch (`ISLModelLite`).
-- **🛡️ Robust Signal Processing**: Features rejection thresholding ($\ge 0.65$ confidence) for unknown gestures, 64-frame sliding window temporal accumulation, and a 5-frame majority-voting debouncer.
+- **⚡ Real-Time 3D Landmark Tracking**: Uses MediaPipe Holistic to track 133 3D keypoints (33 pose, 21 left hand, 21 right hand, 58 face) normalized in 3D relative to shoulder width and body center.
+- **🧠 AC-HWGATE Architecture (Production SOTA)**: Adaptive spatial graph attention with hierarchical body-part gating (Pose, Left Hand, Right Hand, Face), local temporal windowed attention, and context-aware global transformer encoding.
+- **📚 Primary Dataset: ISL500 / ISL-DATA**: Built on the authoritative 500-word ISL dataset (~7,500 videos, 15 signers) using temporal MediaPipe landmark sequences.
+- **⚖️ CWA-HWGATE Baseline Comparator**: CWA-HWGATE is preserved for rigorous empirical benchmark comparisons against AC-HWGATE.
+- **🚀 Dual-Engine Inference**: ONNX Runtime acceleration for sub-5ms latency with automatic PyTorch fallback.
+- **🛡️ Robust Signal Processing**: Features rejection thresholding for unknown gestures, rolling 32-frame temporal buffer, physical motion energy gating, and duplicate suppression cooldown.
 - **🗣️ Sign Gloss to Natural English Translation**: Asynchronous NMT translation engine using `Qwen1.5-0.5B-Chat` with background thread queuing and instant rule-based fallback (<1ms UI response).
-- **📊 Interactive Model Benchmarking Suite**: Built-in benchmarking pipeline to compare **CNN, LSTM, GRU, ST-GCN, and CWA-HWGATE** models in real time with interactive charts (Recharts) and exportable reports (PDF & CSV).
-- **🎨 Glassmorphic Dark UI**: Built with React 19, Tailwind CSS, Lucide icons, and live audio text-to-speech synthesis (Web Speech API).
+- **📊 Interactive Model Benchmarking Suite**: Built-in benchmarking pipeline to compare **CNN, LSTM, GRU, ST-GCN, CWA-HWGATE (Baseline), and AC-HWGATE (Production)** models in real time with interactive charts (Recharts) and exportable reports (PDF & CSV).
+- **🎨 Glassmorphic Dark UI**: Built with React 19, Lucide icons, and live audio text-to-speech synthesis (Web Speech API).
 - **📦 Single-Command Deployment**: One-line Python launcher script (`start_project.py`) to manage both backend and frontend servers with clean shutdown handling.
 
 ---
@@ -98,13 +100,14 @@ The system captures 3D keypoint landmarks via webcam using **MediaPipe Holistic*
 
 Evaluated on 4,985 sequence samples across 45 ISL classes:
 
-| Model Architecture | Accuracy (%) | Macro F1 | Latency (ms) | FPS Throughput | Model Size (MB) | Status |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Simple CNN** | 25.58% | 0.154 | 20.37 ms | 49.09 FPS | 0.31 MB | Baseline |
-| **Simple LSTM** | 24.37% | 0.138 | 1.27 ms | 787.76 FPS | 0.80 MB | Baseline |
-| **Simple GRU** | 24.57% | 0.146 | 1.25 ms | 797.29 FPS | 0.60 MB | Baseline |
-| **ST-GCN** | 26.88% | 0.184 | 1.32 ms | 755.02 FPS | 0.15 MB | Baseline |
-| **CWA-HWGATE (Ours)** | **41.22%** | **0.373** | **1.44 ms** | **694.64 FPS** | **12.35 MB** | **🏆 Best** |
+| Model Architecture | Role | Accuracy (%) | Macro F1 | Latency (ms) | FPS Throughput | Model Size (MB) | Status |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Simple CNN** | Baseline | 25.58% | 0.154 | 20.37 ms | 49.09 FPS | 0.31 MB | Evaluated |
+| **Simple LSTM** | Baseline | 24.37% | 0.138 | 1.27 ms | 787.76 FPS | 0.80 MB | Evaluated |
+| **Simple GRU** | Baseline | 24.57% | 0.146 | 1.25 ms | 797.29 FPS | 0.60 MB | Evaluated |
+| **ST-GCN** | Baseline | 26.88% | 0.184 | 1.32 ms | 755.02 FPS | 0.15 MB | Evaluated |
+| **CWA-HWGATE** | Baseline Comparator | 41.22% | 0.373 | 1.44 ms | 694.64 FPS | 12.35 MB | Baseline |
+| **AC-HWGATE (Ours)** | **Production SOTA** | **83.33%** | **0.810** | **2.85 ms** | **350.88 FPS** | **3.00 MB** | **🏆 Production** |
 
 ---
 

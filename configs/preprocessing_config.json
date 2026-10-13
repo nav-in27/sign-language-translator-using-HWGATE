@@ -1,0 +1,22 @@
+{
+  "num_joints": 133,
+  "channels_per_joint": 6,
+  "sequence_length": 32,
+  "feature_dim": 798,
+  "joints_breakdown": {
+    "pose": 33,
+    "left_hand": 21,
+    "right_hand": 21,
+    "face": 58
+  },
+  "motion_channels": [
+    "pos_x",
+    "pos_y",
+    "vel_x",
+    "vel_y",
+    "acc_x",
+    "acc_y"
+  ],
+  "normalization": "hierarchical_torso_anchored",
+  "num_classes": 40
+}

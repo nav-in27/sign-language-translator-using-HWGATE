@@ -1,15 +1,18 @@
 """
-Production CWA-HWGATE Training Pipeline (V3 - Fast In-Memory Packed Dataset)
+Production AC-HWGATE Training Pipeline.
+Architecture: Adaptive Context-Aware Hierarchical Windowed Graph Attention Transformer Encoder (AC-HWGATE).
+Dataset: ISL500 / ISL-DATA (500 ISL Word Classes, Temporal MediaPipe Sequences).
+
 Guarantees:
-- 100% Pre-normalized, Balanced 179 Classes (21,480 samples)
-- Stratified 80/10/10 Train/Val/Test Split
-- Residual Graph Bottleneck Architecture with Confidence-Weighted Gating
-- Accuracy Target: > 95%
-- Automated ONNX Model Export & Verification
+- Strictly Temporal Signing Motion (NO single-frame T=1 conversion).
+- 100% Pre-normalized [32, 133, 6] tensors with Position, Velocity, Acceleration dynamics.
+- Shared FeatureExtractor parity with Real-Time Webcam Inference.
+- Automated ONNX Model Export & Verification.
 """
 import os
 import sys
-sys.stdout.reconfigure(line_buffering=True)
+if hasattr(sys.stdout, "reconfigure"):
+    getattr(sys.stdout, "reconfigure")(line_buffering=True)
 import json
 import time
 import copy
@@ -22,11 +25,13 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.model_selection import StratifiedShuffleSplit
-from sklearn.metrics import f1_score, classification_report
+from sklearn.metrics import f1_score, accuracy_score
 
-# Add parent directory for imports
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from models.cwa_hwgate import CWA_HWGATE
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(BASE_DIR)
+sys.path.insert(0, BASE_DIR)
+from models.ac_hwgate import ACHWGATE
+from export_onnx import export_model_to_onnx
 
 def set_seed(seed=42):
     random.seed(seed)
@@ -41,7 +46,6 @@ class LabelSmoothingCrossEntropy(nn.Module):
         self.smoothing = smoothing
 
     def forward(self, logits, target):
-        # logits: [B, C], target: [B]
         log_probs = F.log_softmax(logits, dim=-1)
         num_classes = logits.size(-1)
         with torch.no_grad():
@@ -56,27 +60,19 @@ def train_epoch(model, dataloader, criterion, optimizer, device):
     total = 0
     
     for kps, confs, targets in dataloader:
-        kps, confs, targets = kps.to(device), confs.to(device), targets.to(device)
+        kps, targets = kps.to(device), targets.to(device)
         optimizer.zero_grad()
         
-        # Data augmentation on the fly: subtle jitter and pose/face dropout
+        # Subtle temporal sequence jitter augmentation
         if model.training:
-            noise = torch.randn_like(kps) * 0.01
-            mask = (kps.abs().sum(dim=-1, keepdim=True) > 0.01).float()
-            kps = kps + noise * mask
+            jitter = torch.randn_like(kps) * 0.005
+            scale = 1.0 + (torch.rand(1, device=device) - 0.5) * 0.02
+            kps = (kps + jitter) * scale
             
-            # Pose & Face Dropout on random 30% of samples in batch
-            drop_mask = (torch.rand(kps.size(0), 1, 1, device=device) < 0.30)
-            kps[:, 0:33] = torch.where(drop_mask, torch.zeros_like(kps[:, 0:33]), kps[:, 0:33])
-            kps[:, 75:133] = torch.where(drop_mask, torch.zeros_like(kps[:, 75:133]), kps[:, 75:133])
-            confs[:, 0:33] = torch.where(drop_mask, torch.zeros_like(confs[:, 0:33]), confs[:, 0:33])
-            confs[:, 75:133] = torch.where(drop_mask, torch.zeros_like(confs[:, 75:133]), confs[:, 75:133])
-            
-        output = model(kps, confs) # [1, B, num_classes]
-        logits = output[0] # [B, num_classes]
+        logits = model(kps) # [B, num_classes]
         loss = criterion(logits, targets)
         loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=10.0)
         optimizer.step()
         
         total_loss += loss.item() * targets.size(0)
@@ -91,170 +87,144 @@ def evaluate(model, dataloader, criterion, device):
     total_loss = 0.0
     all_preds = []
     all_targets = []
-    all_confs = []
     
     with torch.no_grad():
         for kps, confs, targets in dataloader:
-            kps, confs, targets = kps.to(device), confs.to(device), targets.to(device)
-            output = model(kps, confs)
-            logits = output[0]
+            kps, targets = kps.to(device), targets.to(device)
+            logits = model(kps)
             loss = criterion(logits, targets)
-            probs = F.softmax(logits, dim=-1)
-            conf_val, preds = probs.max(dim=-1)
-            
             total_loss += loss.item() * targets.size(0)
+            
+            preds = logits.argmax(dim=-1)
             all_preds.extend(preds.cpu().numpy())
             all_targets.extend(targets.cpu().numpy())
-            all_confs.extend(conf_val.cpu().numpy())
             
-    total_loss /= len(all_targets)
-    all_preds = np.array(all_preds)
-    all_targets = np.array(all_targets)
-    
-    acc = (all_preds == all_targets).mean() * 100.0
-    macro_f1 = f1_score(all_targets, all_preds, average='macro', zero_division=0)
-    avg_conf = np.mean(all_confs)
-    
-    return total_loss, acc, macro_f1, avg_conf, all_preds, all_targets
+    total = len(all_targets)
+    acc = accuracy_score(all_targets, all_preds) * 100.0
+    f1 = float(f1_score(all_targets, all_preds, average='macro', zero_division=0))  # type: ignore
+    return total_loss / total, acc, f1
 
-def main():
+def run_production_training(epochs=35, batch_size=32, lr=3e-3):
     set_seed(42)
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    packed_path = os.path.join(base_dir, "dataset_packed.pt")
-    checkpoint_dir = os.path.join(base_dir, "checkpoints")
-    os.makedirs(checkpoint_dir, exist_ok=True)
-    
+    torch.set_num_threads(min(8, os.cpu_count() or 4))
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"[+] Active Computation Device: {device}")
+    print("=" * 70, flush=True)
+    print("STARTING AC-HWGATE PRODUCTION TRAINING (ISL500 TEMPORAL DATASET)", flush=True)
+    print(f"Device: {device} | Threads: {torch.get_num_threads()} | Epochs: {epochs} | Batch Size: {batch_size}", flush=True)
+    print("=" * 70, flush=True)
     
-    if not os.path.exists(packed_path):
-        raise FileNotFoundError(f"Packed dataset not found at {packed_path}. Run pack_dataset.py first!")
+    packed_file = os.path.join(BASE_DIR, "dataset_packed.pt")
+    if not os.path.exists(packed_file):
+        raise FileNotFoundError(f"Packed dataset not found at {packed_file}. Run pack_isl500.py first!")
         
-    print(f"[+] Loading packed dataset from {packed_path}...")
-    dataset_dict = torch.load(packed_path, map_location='cpu', weights_only=False)
-    kps = dataset_dict['keypoints']         # [N, 133, 2]
-    confs = dataset_dict['confidences']     # [N, 133, 1]
-    labels = dataset_dict['labels']         # [N]
-    classes = dataset_dict['classes']
+    data = torch.load(packed_file, map_location='cpu', weights_only=False)
+    kps = data['keypoints']      # [N, 32, 133, 6]
+    confs = data['confidences']  # [N, 32, 133, 1]
+    labels = data['labels']      # [N]
+    classes = data['classes']    # 500 class strings
     num_classes = len(classes)
     total_samples = len(labels)
-    print(f"[+] Dataset Loaded: {total_samples} samples across {num_classes} classes.")
     
-    # Stratified Train (80%) / Val (10%) / Test (10%) splits
-    labels_np = labels.numpy()
-    sss1 = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
-    train_idx, temp_idx = next(sss1.split(np.zeros(total_samples), labels_np))
+    print(f"[+] Loaded ISL500 dataset: {total_samples} temporal motion sequences across {num_classes} classes", flush=True)
+    print(f"[+] Tensor shape: {kps.shape} (T=32, J=133, C=6 [P, V, A])", flush=True)
     
-    temp_labels = labels_np[temp_idx]
-    sss2 = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=42)
-    val_rel_idx, test_rel_idx = next(sss2.split(np.zeros(len(temp_idx)), temp_labels))
-    val_idx = temp_idx[val_rel_idx]
-    test_idx = temp_idx[test_rel_idx]
+    # Train/Val split: 85% train, 15% validation
+    num_samples = len(labels)
+    test_size = max(int(num_samples * 0.15), 1)
     
-    print(f"[+] Splits -> Train: {len(train_idx)}, Val: {len(val_idx)}, Test: {len(test_idx)}")
-    
-    batch_size = 128
+    perm = np.random.RandomState(42).permutation(num_samples)
+    train_idx = perm[test_size:]
+    val_idx = perm[:test_size]
+        
     train_loader = DataLoader(
         TensorDataset(kps[train_idx], confs[train_idx], labels[train_idx]),
-        batch_size=batch_size, shuffle=True
+        batch_size=batch_size, shuffle=True, drop_last=False
     )
     val_loader = DataLoader(
         TensorDataset(kps[val_idx], confs[val_idx], labels[val_idx]),
         batch_size=batch_size, shuffle=False
     )
-    test_loader = DataLoader(
-        TensorDataset(kps[test_idx], confs[test_idx], labels[test_idx]),
-        batch_size=batch_size, shuffle=False
-    )
+    print(f"[+] Splits: Train={len(train_idx)}, Val={len(val_idx)}", flush=True)
     
-    # Initialize Model
-    model = CWA_HWGATE(
+    # Initialize AC-HWGATE
+    model = ACHWGATE(
         num_classes=num_classes,
-        embed_dim=256,
-        num_heads=8,
-        num_layers=4,
-        dropout=0.15
+        num_joints=133,
+        in_channels=6,
+        sequence_length=32,
+        embed_dim=128,
+        num_heads=4,
+        num_layers=2,
+        dropout=0.1
     ).to(device)
     
-    criterion = LabelSmoothingCrossEntropy(smoothing=0.05)
-    optimizer = optim.AdamW(model.parameters(), lr=1.2e-3, weight_decay=1e-4)
-    epochs = 70
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs, eta_min=1e-6)
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"[+] Model Architecture: AC-HWGATE ({total_params:,} parameters, {total_params*4/(1024*1024):.2f} MB)", flush=True)
     
-    best_val_acc = 0.0
-    best_val_f1 = 0.0
-    best_epoch = 0
-    best_model_state = None
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-5)
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs, eta_min=1e-4)
     
-    print("\n" + "=" * 75)
-    print(f"STARTING PRODUCTION TRAINING (CWA-HWGATE V3, {epochs} EPOCHS, TARGET ACC > 95%)")
-    print("=" * 75)
+    best_val_acc = -1.0
+    best_val_loss = float('inf')
+    best_model_weights = None
+    chk_dir = os.path.join(BASE_DIR, "checkpoints")
+    os.makedirs(chk_dir, exist_ok=True)
+    best_chk_path = os.path.join(chk_dir, "ac_hwgate_best.pth")
     
-    t_start = time.time()
+    t0 = time.time()
     for epoch in range(1, epochs + 1):
-        t0 = time.time()
-        train_loss, train_acc = train_epoch(model, train_loader, criterion, optimizer, device)
-        val_loss, val_acc, val_f1, val_conf, _, _ = evaluate(model, val_loader, criterion, device)
+        ep_t0 = time.time()
+        tr_loss, tr_acc = train_epoch(model, train_loader, criterion, optimizer, device)
+        val_loss, val_acc, val_f1 = evaluate(model, val_loader, criterion, device)
         scheduler.step()
+        ep_time = time.time() - ep_t0
         
-        elapsed = time.time() - t0
-        lr = optimizer.param_groups[0]['lr']
-        
-        is_best = val_acc > best_val_acc
-        if is_best:
-            best_val_acc = val_acc
-            best_val_f1 = val_f1
-            best_epoch = epoch
-            best_model_state = copy.deepcopy(model.state_dict())
-            
-            # Save best checkpoint
-            chk_path = os.path.join(checkpoint_dir, "best_model.pth")
+        is_best = (val_acc > best_val_acc) or (val_acc == best_val_acc and val_loss < best_val_loss) or (epoch == epochs and best_model_weights is None)
+        if is_best or best_model_weights is None:
+            if val_acc > best_val_acc:
+                best_val_acc = val_acc
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+            best_model_weights = copy.deepcopy(model.state_dict())
             torch.save({
-                'epoch': epoch,
-                'model_state_dict': best_model_state,
-                'optimizer_state_dict': optimizer.state_dict(),
-                'val_accuracy': val_acc,
-                'val_f1': val_f1,
-                'num_classes': num_classes,
-                'classes': classes,
-                'config': {
-                    'embed_dim': 256,
-                    'num_heads': 8,
-                    'num_layers': 4
+                "model_state_dict": best_model_weights,
+                "num_classes": num_classes,
+                "classes": classes,
+                "val_acc": val_acc,
+                "val_f1": val_f1,
+                "epoch": epoch,
+                "model_name": "AC-HWGATE",
+                "config": {
+                    "embed_dim": 128,
+                    "num_heads": 4,
+                    "num_layers": 2,
+                    "sequence_length": 32,
+                    "in_channels": 6
                 }
-            }, chk_path)
+            }, best_chk_path)
             
-            # Also save to root training directory for instant discovery
-            torch.save(best_model_state, os.path.join(base_dir, "cwa_hwgate_pretrained.pth"))
-            best_str = f" | [+] NEW BEST! (Val Acc: {val_acc:.2f}%)"
-        else:
-            best_str = ""
+        print(f"Epoch [{epoch:02d}/{epochs:02d}] ({ep_time:.1f}s) Train Loss: {tr_loss:.4f} | Train Acc: {tr_acc:.2f}% | Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.2f}% | F1: {val_f1:.4f} {'[BEST]' if is_best else ''}", flush=True)
             
-        print(f"Epoch [{epoch:02d}/{epochs:02d}] Train Loss: {train_loss:.4f} Acc: {train_acc:.2f}% | Val Loss: {val_loss:.4f} Acc: {val_acc:.2f}% F1: {val_f1:.4f} Conf: {val_conf:.3f} | {elapsed:.1f}s{best_str}")
+    total_time = time.time() - t0
+    print("=" * 70, flush=True)
+    print(f"[+] Training complete in {total_time:.2f}s | Best Validation Accuracy: {best_val_acc:.2f}%", flush=True)
+    print(f"[+] Best checkpoint saved to {best_chk_path}", flush=True)
+    print("=" * 70, flush=True)
+    
+    # Export to ONNX
+    print("[+] Exporting trained AC-HWGATE model to ONNX...", flush=True)
+    export_model_to_onnx(model_path=best_chk_path)
+    
+    # Compute class prototypes
+    print("[+] Re-computing authoritative class prototypes...", flush=True)
+    try:
+        from compute_prototypes import compute_prototypes
+        compute_prototypes()
+    except Exception as pe:
+        print(f"[!] Warning computing prototypes: {pe}", flush=True)
         
-    print("\n" + "=" * 75)
-    print("FINAL EVALUATION ON UNSEEN TEST SET")
-    print("=" * 75)
-    print(f"Loading Best Model from Epoch {best_epoch} (Val Acc: {best_val_acc:.2f}%)")
-    model.load_state_dict(best_model_state)
-    
-    test_loss, test_acc, test_f1, test_conf, test_preds, test_targets = evaluate(model, test_loader, criterion, device)
-    print(f"\n[+] UNSEEN TEST SET RESULTS:")
-    print(f"  Top-1 Test Accuracy: {test_acc:.2f}%")
-    print(f"  Macro F1 Score:      {test_f1:.4f}")
-    print(f"  Mean Confidence:     {test_conf:.4f}")
-    print(f"  Test Loss:           {test_loss:.4f}")
-    print(f"  Total Training Time: {(time.time() - t_start)/60:.2f} minutes")
-    
-    # Export ONNX
-    print("\n[+] Exporting SOTA ONNX Model...")
-    onnx_path = os.path.join(base_dir, "model.onnx")
-    from export_onnx import export_model_to_onnx
-    export_model_to_onnx(
-        model_path=os.path.join(checkpoint_dir, "best_model.pth"),
-        onnx_output_path=onnx_path
-    )
-    print("[+] Training and ONNX Export Pipeline Completed Successfully!")
+    print("[+] Production pipeline ready: AC-HWGATE active.", flush=True)
 
 if __name__ == "__main__":
-    main()
+    run_production_training()

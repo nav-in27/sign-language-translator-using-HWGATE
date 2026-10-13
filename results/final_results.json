@@ -1,0 +1,20 @@
+{
+  "model_name": "AC-HWGATE",
+  "target_accuracy": 0.95,
+  "ideal_target_accuracy": 0.97,
+  "validation_accuracy": 0.8666666666666667,
+  "test_accuracy": 0.8333333333333334,
+  "macro_f1": 0.8099999999999999,
+  "weighted_f1": 0.81,
+  "precision": 0.8428571428571429,
+  "recall": 0.8333333333333334,
+  "number_of_classes": 10,
+  "number_of_train_samples": 140,
+  "number_of_val_samples": 30,
+  "number_of_test_samples": 30,
+  "sequence_length": 32,
+  "num_joints": 133,
+  "in_channels": 6,
+  "parameters": 723816,
+  "training_time_seconds": 101.85235643386841
+}

@@ -1,0 +1,101 @@
+{
+  "model_name": "AC-HWGATE",
+  "dataset_name": "vidit031/isl-isolated-40words",
+  "num_classes": 40,
+  "test_samples": 107,
+  "test_signers": 37,
+  "top1_accuracy": 63.55,
+  "top3_accuracy": 85.98,
+  "macro_precision": 59.32,
+  "macro_recall": 58.8,
+  "macro_f1": 56.61,
+  "weighted_f1": 62.07,
+  "inference_latency_ms": 0.58,
+  "fps": 1719.6,
+  "parameters": 972191,
+  "model_size_mb": 3.71,
+  "best_classes": [
+    {
+      "class_name": "father",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "teacher",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "school",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "okay",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "hospital",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "help",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "hello",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "tea",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "when",
+      "accuracy_percent": 100.0
+    },
+    {
+      "class_name": "write",
+      "accuracy_percent": 100.0
+    }
+  ],
+  "worst_classes": [
+    {
+      "class_name": "she",
+      "accuracy_percent": 33.33
+    },
+    {
+      "class_name": "he",
+      "accuracy_percent": 33.33
+    },
+    {
+      "class_name": "you",
+      "accuracy_percent": 33.33
+    },
+    {
+      "class_name": "come",
+      "accuracy_percent": 0.0
+    },
+    {
+      "class_name": "brother",
+      "accuracy_percent": 0.0
+    },
+    {
+      "class_name": "me",
+      "accuracy_percent": 0.0
+    },
+    {
+      "class_name": "read",
+      "accuracy_percent": 0.0
+    },
+    {
+      "class_name": "mother",
+      "accuracy_percent": 0.0
+    },
+    {
+      "class_name": "goodbye",
+      "accuracy_percent": 0.0
+    },
+    {
+      "class_name": "stop",
+      "accuracy_percent": 0.0
+    }
+  ]
+}

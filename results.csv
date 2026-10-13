@@ -1,0 +1,6 @@
+Model,Accuracy,F1 Score,Latency (ms),FPS,Model Size (MB),Role
+AC-HWGATE (Production SOTA),88.60%,89.79%,1.62,617.3,3.71 MB,Production SOTA
+CWA-HWGATE (Baseline),69.11%,68.24%,0.36,2766.4,1.62 MB,Baseline
+ST-GCN Baseline,64.68%,62.86%,2.59,385.8,2.41 MB,Baseline
+BiLSTM Sequence Model,60.25%,58.37%,3.40,293.9,3.15 MB,Baseline
+Standard 1D/2D CNN Baseline,51.39%,49.39%,1.30,771.6,1.85 MB,Baseline

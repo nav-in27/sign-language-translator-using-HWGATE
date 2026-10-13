@@ -240,7 +240,7 @@ def train():
     patience_counter = 0
     
     # Mixed precision for speed
-    scaler = torch.amp.GradScaler('cuda') if device.type == 'cuda' else None
+    scaler = torch.cuda.amp.GradScaler(enabled=True) if device.type == 'cuda' else None
     
     for epoch in range(num_epochs):
         model.train()
@@ -255,7 +255,7 @@ def train():
             optimizer.zero_grad()
             
             if scaler:
-                with torch.amp.autocast('cuda'):
+                with torch.cuda.amp.autocast(dtype=torch.float16):
                     outputs = model(X)
                     loss = criterion(outputs, y)
                 scaler.scale(loss).backward()

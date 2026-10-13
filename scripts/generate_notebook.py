@@ -1,0 +1,138 @@
+"""
+Generates the authoritative Google Colab training notebook for AC-HWGATE.
+"""
+import json
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+nb_dir = BASE_DIR / "notebooks"
+nb_dir.mkdir(parents=True, exist_ok=True)
+
+cells = [
+    {
+        "cell_type": "markdown",
+        "metadata": {},
+        "source": [
+            "# AC-HWGATE: Indian Sign Language (ISL) Master Cloud Training Pipeline\n",
+            "\n",
+            "**Model:** AC-HWGATE (Adaptive Context-Aware Hierarchical Windowed Graph Attention Transformer Encoder)\n",
+            "**Dataset:** Indian Sign Language 40-Class Temporal Benchmark (ISL500 + Vidit031)\n",
+            "**Hardware:** Google Colab GPU (T4 / V100 / A100) with PyTorch AMP FP16\n",
+            "\n",
+            "This notebook provides the complete reproducible training pipeline for AC-HWGATE, featuring:\n",
+            "- Automated dataset acquisition from Hugging Face\n",
+            "- 32-frame MediaPipe landmark sequences with 6-channel motion dynamics (Position + Velocity + Acceleration)\n",
+            "- Signer-independent disjoint splits (Zero video and zero signer leakage)\n",
+            "- Tiny overfit sanity verification\n",
+            "- 7 systematic training experiments (EXP_A through EXP_G)\n",
+            "- ONNX export with bit-level parity verification (< 1e-4)\n",
+            "- Class prototype embedding extraction for multi-signal unknown gesture rejection\n"
+        ]
+    },
+    {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# 1. Environment Setup & GPU Check\n",
+            "!nvidia-smi\n",
+            "!pip install -q torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118\n",
+            "!pip install -q onnx onnxruntime scikit-learn pandas numpy matplotlib pyyaml h5py tqdm mediapipe\n"
+        ]
+    },
+    {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# 2. Clone Repository or Setup Directory Structure\n",
+            "import os\n",
+            "import torch\n",
+            "print(f'CUDA Available: {torch.cuda.is_available()}')\n",
+            "if torch.cuda.is_available():\n",
+            "    print(f'Device: {torch.cuda.get_device_name(0)}')\n",
+            "\n",
+            "!git clone https://github.com/nav-in27/sign-language-translator-using-HWGATE.git /content/isl-translator || true\n",
+            "%cd /content/isl-translator\n"
+        ]
+    },
+    {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# 3. Automated Dataset Acquisition\n",
+            "!python scripts/download_isl500.py\n",
+            "!python scripts/build_unified_dataset.py\n"
+        ]
+    },
+    {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# 4. Mandatory Tiny Overfit Sanity Test\n",
+            "!python training/test_overfit_tiny.py\n"
+        ]
+    },
+    {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# 5. Execute Master Training Pipeline & Controlled Experiments\n",
+            "!python train_maximum.py --force\n"
+        ]
+    },
+    {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# 6. Evaluate Test Set & Display Confusion Matrix\n",
+            "from IPython.display import Image, display\n",
+            "import json\n",
+            "\n",
+            "with open('reports/final_metrics.json', 'r') as f:\n",
+            "    metrics = json.load(f)\n",
+            "print('=== FINAL BENCHMARK METRICS ===')\n",
+            "for k, v in metrics.items():\n",
+            "    print(f'{k:25s}: {v}')\n",
+            "\n",
+            "display(Image('reports/confusion_matrix.png'))\n"
+        ]
+    },
+    {
+        "cell_type": "code",
+        "execution_count": None,
+        "metadata": {},
+        "outputs": [],
+        "source": [
+            "# 7. Package Trained Checkpoint & ONNX Deliverables\n",
+            "!zip -r /content/achwgate_production_artifacts.zip models/ checkpoints/ reports/ configs/\n",
+            "print('[+] Artifacts packaged to /content/achwgate_production_artifacts.zip')\n"
+        ]
+    }
+]
+
+nb = {
+    "cells": cells,
+    "metadata": {
+        "language_info": {"name": "python"},
+        "accelerator": "GPU"
+    },
+    "nbformat": 4,
+    "nbformat_minor": 4
+}
+
+out_path = nb_dir / "AC_HWGATE_Training_Pipeline.ipynb"
+with open(out_path, "w", encoding="utf-8") as f:
+    json.dump(nb, f, indent=2)
+
+print(f"[+] Created clean AC-HWGATE Colab Notebook: {out_path}")
