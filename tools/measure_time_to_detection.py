@@ -14,6 +14,7 @@ import os
 import time
 import glob
 import numpy as np
+import json
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,6 @@ sys.path.insert(0, str(BASE_DIR / "training"))
 
 from inference import ISLInferenceEngine
 from translator import nmt_engine
-from live_inference import TRANSLATION_MAP
 
 def run_time_to_detection_benchmark():
     print("=" * 80)
@@ -47,34 +47,47 @@ def run_time_to_detection_benchmark():
     print(f"{'SIGN':<14} | {'STATUS':<10} | {'PRED CLASS':<14} | {'CONF':<7} | {'TIME TO DETECT':<15} | {'TRANSLATION'}")
     print("-" * 80)
 
+    # Preload test split if available
+    test_split_path = BASE_DIR / "data" / "unified_136class" / "test_split.npz"
+    test_split_data = None
+    if test_split_path.exists():
+        test_split_data = np.load(test_split_path, allow_pickle=True)
+
+    with open(BASE_DIR / "configs" / "authoritative_136_classes_manifest.json", "r", encoding="utf-8") as f:
+        manifest = json.load(f)
+    classes_list = manifest["classes"] if isinstance(manifest, dict) and "classes" in manifest else manifest
+
     for sign in target_signs:
-        # Search for files under data/isl500_landmarks
-        sign_dirs = [
-            BASE_DIR / "data" / "isl500_landmarks" / sign,
-            BASE_DIR / "data" / "isl500_landmarks" / sign.replace("_", " "),
-            BASE_DIR / "data" / "isl500_landmarks" / sign.replace(" ", "_")
-        ]
         files = []
+        sign_dirs = [
+            BASE_DIR / "data" / "additional_landmarks" / sign,
+            BASE_DIR / "data" / "additional_landmarks" / sign.replace("_", " "),
+            BASE_DIR / "data" / "additional_landmarks" / sign.replace(" ", "_")
+        ]
         for d in sign_dirs:
             if d.exists():
                 files.extend(glob.glob(str(d / "*.npz")))
 
-        if not files:
-            # Fallback to test_split.npz
+        clips_to_test = []
+        if files:
+            for fpath in files[:3]:
+                data = np.load(fpath, allow_pickle=True)
+                raw = data["features"] if "features" in data else data["keypoints"]
+                clips_to_test.append(raw[:, :, :2])
+        elif test_split_data is not None and sign in classes_list:
+            c_idx = classes_list.index(sign)
+            matches = np.where(test_split_data["labels"] == c_idx)[0]
+            for idx in matches[:3]:
+                raw = test_split_data["features"][idx]
+                clips_to_test.append(raw[:, :, :2])
+
+        if not clips_to_test:
             continue
 
-        # Test up to 3 clips per class
-        for fpath in files[:3]:
+        for raw_kps_seq in clips_to_test:
             total_trials += 1
-            data = np.load(fpath)
-            feat = data["features"] # [32, 133, 6]
-            raw_kps_seq = feat[:, :, :2] # [32, 133, 2] positions
-
-            # Reset engine state to simulate a fresh gesture
-            engine.raw_frame_buffer.clear()
-            engine.candidate_history.clear()
-            engine.missing_frames_counter = 0
-            engine.last_confirmed_sign = None
+            # Reset engine state completely to simulate a fresh isolated gesture
+            engine.reset()
 
             confirmed_frame = None
             pred_class = None
@@ -103,8 +116,7 @@ def run_time_to_detection_benchmark():
                 detection_times_ms.append(time_to_detect_ms)
 
                 # Get English translation
-                norm_key = pred_class.lower().replace("_", " ")
-                translation = TRANSLATION_MAP.get(norm_key, pred_class.capitalize() + ".")
+                translation = nmt_engine.translate_sign(pred_class)
 
                 results_table.append({
                     "sign": sign.upper(),
@@ -150,9 +162,7 @@ def run_time_to_detection_benchmark():
 
     rejected_count = 0
     for name, seq in negative_tests:
-        engine.raw_frame_buffer.clear()
-        engine.candidate_history.clear()
-        engine.last_confirmed_sign = None
+        engine.reset()
 
         triggered = False
         status = "DETECTING"

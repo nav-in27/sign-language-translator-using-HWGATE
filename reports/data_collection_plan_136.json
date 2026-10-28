@@ -1,0 +1,2414 @@
+{
+  "protocol": "Prioritize independently recorded sessions; never count tilt/crop augmentations as independent groups.",
+  "recommended_trial_design": {
+    "minimum_repetitions_per_new_group": 3,
+    "recommended_signers": "At least 3 distinct signers where available",
+    "capture_rules": [
+      "one intended label entered before each trial",
+      "new camera session per group",
+      "preserve failed and rejected trials",
+      "keep evaluation recordings outside training until protocol is finalized"
+    ]
+  },
+  "rows": [
+    {
+      "class": "afternoon",
+      "priority_score": 4.0952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "hat",
+          "count": 1
+        },
+        {
+          "predicted_class": "tall",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "evening",
+      "priority_score": 4.0952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "beautiful",
+          "count": 1
+        },
+        {
+          "predicted_class": "dress",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "friday",
+      "priority_score": 4.0952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "minute",
+          "count": 1
+        },
+        {
+          "predicted_class": "sunday",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "saturday",
+      "priority_score": 4.0952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "friday",
+          "count": 1
+        },
+        {
+          "predicted_class": "sunday",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "sunday",
+      "priority_score": 4.0952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "friday",
+          "count": 1
+        },
+        {
+          "predicted_class": "hat",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "tomorrow",
+      "priority_score": 4.0952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "bad",
+          "count": 1
+        },
+        {
+          "predicted_class": "hat",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "cheap",
+      "priority_score": 3.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "sick",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "deaf",
+      "priority_score": 3.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "quiet",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "expensive",
+      "priority_score": 3.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "bad",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "light",
+      "priority_score": 3.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "narrow",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "loose",
+      "priority_score": 3.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "suit",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "ugly",
+      "priority_score": 3.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "pocket",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "beautiful",
+      "priority_score": 3.7619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "young",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "minute",
+      "priority_score": 3.7619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "quiet",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "thursday",
+      "priority_score": 3.7619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "friday",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "today",
+      "priority_score": 3.7619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "minute",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "year",
+      "priority_score": 3.7619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "time",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "yesterday",
+      "priority_score": 3.7619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "sunday",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "fish",
+      "priority_score": 3.75,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "horse",
+          "count": 1
+        },
+        {
+          "predicted_class": "slow",
+          "count": 1
+        },
+        {
+          "predicted_class": "time",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "bad",
+      "priority_score": 3.7,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "evening",
+          "count": 1
+        },
+        {
+          "predicted_class": "fast",
+          "count": 1
+        },
+        {
+          "predicted_class": "good",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "blind",
+      "priority_score": 3.5,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "flat",
+      "priority_score": 3.5,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 1,
+      "known_test_confusions": [],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "night",
+      "priority_score": 3.4286,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 2,
+      "known_test_confusions": [],
+      "reasons": [
+        "low validation recall",
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "pocket",
+      "priority_score": 3.3974,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "quiet",
+          "count": 1
+        },
+        {
+          "predicted_class": "young",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "young",
+      "priority_score": 3.3667,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "bad",
+          "count": 2
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "dress",
+      "priority_score": 3.2156,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.18181818181818182,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "light",
+          "count": 1
+        },
+        {
+          "predicted_class": "new",
+          "count": 1
+        },
+        {
+          "predicted_class": "shoes",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "week",
+      "priority_score": 3.1952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.5,
+      "validation_f1": 0.4,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "tuesday",
+          "count": 1
+        },
+        {
+          "predicted_class": "wet",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "wednesday",
+      "priority_score": 3.0952,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.5,
+      "validation_f1": 0.5,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "hot",
+          "count": 1
+        },
+        {
+          "predicted_class": "time",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "dog",
+      "priority_score": 3.0833,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "suit",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "clothing",
+      "priority_score": 3.0641,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "dress",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "month",
+      "priority_score": 2.9286,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.5,
+      "validation_f1": 0.6666666666666666,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "long",
+          "count": 1
+        },
+        {
+          "predicted_class": "minute",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "time",
+      "priority_score": 2.9286,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.5,
+      "validation_f1": 0.6666666666666666,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "fish",
+          "count": 1
+        },
+        {
+          "predicted_class": "long",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "fast",
+      "priority_score": 2.8333,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.2,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "good",
+          "count": 1
+        },
+        {
+          "predicted_class": "pocket",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "quiet",
+      "priority_score": 2.8111,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.2222222222222222,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "bad",
+          "count": 1
+        },
+        {
+          "predicted_class": "young",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "mouse",
+      "priority_score": 2.75,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [
+        "low validation recall"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "new",
+      "priority_score": 2.7,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.0,
+      "validation_f1": 0.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [
+        "low validation recall"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "wet",
+      "priority_score": 2.7,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.3333333333333333,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "happy",
+          "count": 1
+        },
+        {
+          "predicted_class": "old",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "short",
+      "priority_score": 2.6208,
+      "train_samples": 16,
+      "train_groups": 16,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.4,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "hot",
+          "count": 1
+        },
+        {
+          "predicted_class": "small",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "tall",
+      "priority_score": 2.5333,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.5,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "hat",
+          "count": 1
+        },
+        {
+          "predicted_class": "warm",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "tuesday",
+      "priority_score": 2.4286,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 0.5,
+      "validation_f1": 0.5,
+      "test_groups": 2,
+      "known_test_confusions": [],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "dry",
+      "priority_score": 2.4143,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.2857142857142857,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "wet",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cold",
+      "priority_score": 2.3143,
+      "train_samples": 14,
+      "train_groups": 14,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.4,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "healthy",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "wide",
+      "priority_score": 2.2,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.5,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "narrow",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "low validation recall",
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "hat",
+      "priority_score": 2.1308,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.26666666666666666,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "sick",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "animal",
+      "priority_score": 2.0833,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.6666666666666666,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "happy",
+          "count": 1
+        },
+        {
+          "predicted_class": "suit",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "horse",
+      "priority_score": 2.0833,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 0.3333333333333333,
+      "validation_f1": 0.3333333333333333,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [
+        "low validation recall"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "monday",
+      "priority_score": 1.9619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 1.0,
+      "validation_f1": 0.8,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "tuesday",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "long",
+      "priority_score": 1.9222,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.4444444444444444,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "light",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "female",
+      "priority_score": 1.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 1,
+      "known_test_confusions": [
+        {
+          "predicted_class": "famous",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "sad",
+      "priority_score": 1.8333,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 1.0,
+      "validation_f1": 0.6666666666666666,
+      "test_groups": 1,
+      "known_test_confusions": [],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "good",
+      "priority_score": 1.7952,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.5714285714285714,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "warm",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "narrow",
+      "priority_score": 1.7952,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.5714285714285714,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "happy",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "hour",
+      "priority_score": 1.7619,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 2,
+      "known_test_confusions": [
+        {
+          "predicted_class": "long",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "observed confusion errors",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "small",
+      "priority_score": 1.6875,
+      "train_samples": 16,
+      "train_groups": 16,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.6666666666666666,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "animal",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "morning",
+      "priority_score": 1.6286,
+      "train_samples": 7,
+      "train_groups": 7,
+      "validation_samples": 2,
+      "validation_recall": 1.0,
+      "validation_f1": 0.8,
+      "test_groups": 2,
+      "known_test_confusions": [],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 3
+    },
+    {
+      "class": "shirt",
+      "priority_score": 1.6197,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.4444444444444444,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "suit",
+      "priority_score": 1.6167,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.8,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "small",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "happy",
+      "priority_score": 1.5667,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.8,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "hot",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "curved",
+      "priority_score": 1.5,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 1,
+      "known_test_confusions": [],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "famous",
+      "priority_score": 1.5,
+      "train_samples": 6,
+      "train_groups": 6,
+      "validation_samples": 1,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 1,
+      "known_test_confusions": [],
+      "reasons": [
+        "fewer than 10 independent training groups",
+        "small validation sample"
+      ],
+      "recommended_new_groups": 4
+    },
+    {
+      "class": "still",
+      "priority_score": 1.5,
+      "train_samples": 9,
+      "train_groups": 3,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 1,
+      "known_test_confusions": [],
+      "reasons": [
+        "fewer than 10 independent training groups"
+      ],
+      "recommended_new_groups": 7
+    },
+    {
+      "class": "healthy",
+      "priority_score": 1.4879,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 0.5454545454545454,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "shirt",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "slow",
+      "priority_score": 1.4619,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.5714285714285714,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "skirt",
+      "priority_score": 1.4167,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "pant",
+          "count": 2
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "t_shirt",
+      "priority_score": 1.3974,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "happy",
+          "count": 1
+        },
+        {
+          "predicted_class": "shirt",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "hot",
+      "priority_score": 1.3667,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.6666666666666666,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "warm",
+      "priority_score": 1.3667,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.6666666666666666,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "bird",
+      "priority_score": 1.2833,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 0.6666666666666666,
+      "validation_f1": 0.8,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "big",
+      "priority_score": 1.1762,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 0.8571428571428571,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "healthy",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "old",
+      "priority_score": 1.1762,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 0.8571428571428571,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "hat",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cat",
+      "priority_score": 1.0833,
+      "train_samples": 12,
+      "train_groups": 12,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "t_shirt",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "shoes",
+      "priority_score": 1.0641,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "light",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "sick",
+      "priority_score": 1.0333,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "wet",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "key",
+      "priority_score": 0.881,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "give",
+          "count": 2
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "umbrella",
+      "priority_score": 0.881,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "budget",
+          "count": 1
+        },
+        {
+          "predicted_class": "wife",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cow",
+      "priority_score": 0.8736,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 0.8571428571428571,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "pant",
+      "priority_score": 0.7308,
+      "train_samples": 13,
+      "train_groups": 13,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "loud",
+      "priority_score": 0.7,
+      "train_samples": 15,
+      "train_groups": 15,
+      "validation_samples": 3,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "tea",
+      "priority_score": 0.5476,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [
+        {
+          "predicted_class": "man",
+          "count": 1
+        }
+      ],
+      "reasons": [
+        "observed confusion errors"
+      ],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "bear",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "break",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "brinjal",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "budget",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "busy",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cabbage",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "carrot",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cauliflower",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "chilli",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "clean",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "close",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "come",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cook",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "crocodile",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cry",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "cucumber",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "deer",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "drink",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "elephant",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "exam",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "fedup",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "fever",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "giraffe",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "give",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "good_afternoon",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "good_morning",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "hello",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "hug",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "injury",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "interview",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "jump",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "karnataka",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "knife",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "lemon",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "lion",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "man",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "maths",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "maybe",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "monkey",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "onion",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "peacock",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "pigeon",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "pour",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "radish",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "sparrow",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "switch",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "temple",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "thank_you",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "tiger",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "turtle",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "uncle",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "vegetables",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "volcano",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "what_is_your_name",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "wife",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "write",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    },
+    {
+      "class": "wrong",
+      "priority_score": 0.2143,
+      "train_samples": 42,
+      "train_groups": 14,
+      "validation_samples": 9,
+      "validation_recall": 1.0,
+      "validation_f1": 1.0,
+      "test_groups": 3,
+      "known_test_confusions": [],
+      "reasons": [],
+      "recommended_new_groups": 0
+    }
+  ]
+}

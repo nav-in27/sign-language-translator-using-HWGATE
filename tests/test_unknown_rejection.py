@@ -27,9 +27,15 @@ for p in [ROOT_DIR, BACKEND_DIR, TRAINING_DIR]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from inference import isl_model
+try:
+    from backend.inference import isl_model
+except ImportError:
+    from inference import isl_model
 from fastapi.testclient import TestClient
-from app import app
+try:
+    from backend.app import app
+except ImportError:
+    from app import app
 
 class TestUnknownSignRejection(unittest.TestCase):
     @classmethod
@@ -38,10 +44,12 @@ class TestUnknownSignRejection(unittest.TestCase):
 
     def setUp(self):
         # Reset engine state between tests
-        isl_model.raw_frame_buffer.clear()
-        isl_model.candidate_history.clear()
-        isl_model.last_emitted_sign = None
-        isl_model.cooldown_counter = 0
+        isl_model.reset()
+        from app import session_state
+        session_state["gloss_buffer"] = []
+        session_state["last_gloss"] = ""
+        session_state["last_translated"] = ""
+        session_state["last_sign_time"] = 0.0
 
     def test_01_missing_hand_quality_rejects_unknown(self):
         """1. When hand keypoints have zero/low confidence, reject as UNKNOWN_SIGN."""

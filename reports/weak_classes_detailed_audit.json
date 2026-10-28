@@ -1,0 +1,2014 @@
+{
+  "total_classes": 136,
+  "perfect_classes_count": 64,
+  "zero_f1_classes_count": 25,
+  "weak_classes_count": 25,
+  "zero_f1_classes": [
+    {
+      "idx": 0,
+      "class": "afternoon",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 2,
+      "class": "bad",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 4,
+      "class": "beautiful",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 16,
+      "class": "cheap",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 20,
+      "class": "clothing",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 29,
+      "class": "deaf",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 32,
+      "class": "dress",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 36,
+      "class": "evening",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 38,
+      "class": "expensive",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 42,
+      "class": "female",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 46,
+      "class": "friday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 67,
+      "class": "light",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 70,
+      "class": "loose",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 81,
+      "class": "narrow",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 83,
+      "class": "night",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 93,
+      "class": "sad",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 94,
+      "class": "saturday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 105,
+      "class": "sunday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 114,
+      "class": "time",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 116,
+      "class": "tomorrow",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 119,
+      "class": "ugly",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 126,
+      "class": "week",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 133,
+      "class": "year",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 134,
+      "class": "yesterday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 135,
+      "class": "young",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  ],
+  "weak_classes": [
+    {
+      "idx": 91,
+      "class": "quiet",
+      "support": 3,
+      "f1": 0.2222222222222222,
+      "precision": 0.16666666666666666,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 40,
+      "class": "fast",
+      "support": 3,
+      "f1": 0.25,
+      "precision": 0.2,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 97,
+      "class": "short",
+      "support": 3,
+      "f1": 0.2857142857142857,
+      "precision": 0.25,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 89,
+      "class": "pocket",
+      "support": 3,
+      "f1": 0.3333333333333333,
+      "precision": 0.3333333333333333,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 117,
+      "class": "tuesday",
+      "support": 2,
+      "f1": 0.3333333333333333,
+      "precision": 0.25,
+      "recall": 0.5
+    },
+    {
+      "idx": 44,
+      "class": "fish",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 53,
+      "class": "hat",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.25,
+      "recall": 1.0
+    },
+    {
+      "idx": 69,
+      "class": "long",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 75,
+      "class": "minute",
+      "support": 2,
+      "f1": 0.4,
+      "precision": 0.3333333333333333,
+      "recall": 0.5
+    },
+    {
+      "idx": 80,
+      "class": "mouse",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 95,
+      "class": "shirt",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.2857142857142857,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 101,
+      "class": "small",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 107,
+      "class": "t_shirt",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 108,
+      "class": "tall",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 127,
+      "class": "wet",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 28,
+      "class": "curved",
+      "support": 1,
+      "f1": 0.5,
+      "precision": 0.3333333333333333,
+      "recall": 1.0
+    },
+    {
+      "idx": 58,
+      "class": "hour",
+      "support": 2,
+      "f1": 0.5,
+      "precision": 0.5,
+      "recall": 0.5
+    },
+    {
+      "idx": 79,
+      "class": "morning",
+      "support": 2,
+      "f1": 0.5,
+      "precision": 0.5,
+      "recall": 0.5
+    },
+    {
+      "idx": 82,
+      "class": "new",
+      "support": 3,
+      "f1": 0.5,
+      "precision": 1.0,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 84,
+      "class": "old",
+      "support": 3,
+      "f1": 0.5,
+      "precision": 1.0,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 96,
+      "class": "shoes",
+      "support": 3,
+      "f1": 0.5,
+      "precision": 0.4,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 5,
+      "class": "big",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 31,
+      "class": "dog",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 34,
+      "class": "dry",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 100,
+      "class": "slow",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    }
+  ],
+  "perfect_classes": [
+    {
+      "idx": 3,
+      "class": "bear",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 6,
+      "class": "bird",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 8,
+      "class": "break",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 9,
+      "class": "brinjal",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 10,
+      "class": "budget",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 11,
+      "class": "busy",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 12,
+      "class": "cabbage",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 13,
+      "class": "carrot",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 14,
+      "class": "cat",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 15,
+      "class": "cauliflower",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 17,
+      "class": "chilli",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 18,
+      "class": "clean",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 19,
+      "class": "close",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 21,
+      "class": "cold",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 22,
+      "class": "come",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 23,
+      "class": "cook",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 24,
+      "class": "cow",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 25,
+      "class": "crocodile",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 26,
+      "class": "cry",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 27,
+      "class": "cucumber",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 30,
+      "class": "deer",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 33,
+      "class": "drink",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 35,
+      "class": "elephant",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 37,
+      "class": "exam",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 41,
+      "class": "fedup",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 43,
+      "class": "fever",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 50,
+      "class": "good_afternoon",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 51,
+      "class": "good_morning",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 55,
+      "class": "hello",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 56,
+      "class": "horse",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 59,
+      "class": "hug",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 60,
+      "class": "injury",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 61,
+      "class": "interview",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 62,
+      "class": "jump",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 63,
+      "class": "karnataka",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 65,
+      "class": "knife",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 66,
+      "class": "lemon",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 68,
+      "class": "lion",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 72,
+      "class": "man",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 73,
+      "class": "maths",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 74,
+      "class": "maybe",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 77,
+      "class": "monkey",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 85,
+      "class": "onion",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 86,
+      "class": "pant",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 87,
+      "class": "peacock",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 88,
+      "class": "pigeon",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 90,
+      "class": "pour",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 92,
+      "class": "radish",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 99,
+      "class": "skirt",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 102,
+      "class": "sparrow",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 103,
+      "class": "still",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 106,
+      "class": "switch",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 110,
+      "class": "temple",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 111,
+      "class": "thank_you",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 113,
+      "class": "tiger",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 118,
+      "class": "turtle",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 120,
+      "class": "umbrella",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 121,
+      "class": "uncle",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 122,
+      "class": "vegetables",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 123,
+      "class": "volcano",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 128,
+      "class": "what_is_your_name",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 130,
+      "class": "wife",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 131,
+      "class": "write",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 132,
+      "class": "wrong",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  ],
+  "all_class_performance": [
+    {
+      "idx": 0,
+      "class": "afternoon",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 2,
+      "class": "bad",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 4,
+      "class": "beautiful",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 16,
+      "class": "cheap",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 20,
+      "class": "clothing",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 29,
+      "class": "deaf",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 32,
+      "class": "dress",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 36,
+      "class": "evening",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 38,
+      "class": "expensive",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 42,
+      "class": "female",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 46,
+      "class": "friday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 67,
+      "class": "light",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 70,
+      "class": "loose",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 81,
+      "class": "narrow",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 83,
+      "class": "night",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 93,
+      "class": "sad",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 94,
+      "class": "saturday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 105,
+      "class": "sunday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 114,
+      "class": "time",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 116,
+      "class": "tomorrow",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 119,
+      "class": "ugly",
+      "support": 1,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 126,
+      "class": "week",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 133,
+      "class": "year",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 134,
+      "class": "yesterday",
+      "support": 2,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 135,
+      "class": "young",
+      "support": 3,
+      "f1": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "idx": 91,
+      "class": "quiet",
+      "support": 3,
+      "f1": 0.2222222222222222,
+      "precision": 0.16666666666666666,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 40,
+      "class": "fast",
+      "support": 3,
+      "f1": 0.25,
+      "precision": 0.2,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 97,
+      "class": "short",
+      "support": 3,
+      "f1": 0.2857142857142857,
+      "precision": 0.25,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 89,
+      "class": "pocket",
+      "support": 3,
+      "f1": 0.3333333333333333,
+      "precision": 0.3333333333333333,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 117,
+      "class": "tuesday",
+      "support": 2,
+      "f1": 0.3333333333333333,
+      "precision": 0.25,
+      "recall": 0.5
+    },
+    {
+      "idx": 44,
+      "class": "fish",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 53,
+      "class": "hat",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.25,
+      "recall": 1.0
+    },
+    {
+      "idx": 69,
+      "class": "long",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 75,
+      "class": "minute",
+      "support": 2,
+      "f1": 0.4,
+      "precision": 0.3333333333333333,
+      "recall": 0.5
+    },
+    {
+      "idx": 80,
+      "class": "mouse",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 95,
+      "class": "shirt",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.2857142857142857,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 101,
+      "class": "small",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 107,
+      "class": "t_shirt",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 108,
+      "class": "tall",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 127,
+      "class": "wet",
+      "support": 3,
+      "f1": 0.4,
+      "precision": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 28,
+      "class": "curved",
+      "support": 1,
+      "f1": 0.5,
+      "precision": 0.3333333333333333,
+      "recall": 1.0
+    },
+    {
+      "idx": 58,
+      "class": "hour",
+      "support": 2,
+      "f1": 0.5,
+      "precision": 0.5,
+      "recall": 0.5
+    },
+    {
+      "idx": 79,
+      "class": "morning",
+      "support": 2,
+      "f1": 0.5,
+      "precision": 0.5,
+      "recall": 0.5
+    },
+    {
+      "idx": 82,
+      "class": "new",
+      "support": 3,
+      "f1": 0.5,
+      "precision": 1.0,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 84,
+      "class": "old",
+      "support": 3,
+      "f1": 0.5,
+      "precision": 1.0,
+      "recall": 0.3333333333333333
+    },
+    {
+      "idx": 96,
+      "class": "shoes",
+      "support": 3,
+      "f1": 0.5,
+      "precision": 0.4,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 5,
+      "class": "big",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 31,
+      "class": "dog",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 34,
+      "class": "dry",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 100,
+      "class": "slow",
+      "support": 3,
+      "f1": 0.5714285714285714,
+      "precision": 0.5,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 7,
+      "class": "blind",
+      "support": 1,
+      "f1": 0.6666666666666666,
+      "precision": 0.5,
+      "recall": 1.0
+    },
+    {
+      "idx": 39,
+      "class": "famous",
+      "support": 1,
+      "f1": 0.6666666666666666,
+      "precision": 0.5,
+      "recall": 1.0
+    },
+    {
+      "idx": 45,
+      "class": "flat",
+      "support": 1,
+      "f1": 0.6666666666666666,
+      "precision": 0.5,
+      "recall": 1.0
+    },
+    {
+      "idx": 54,
+      "class": "healthy",
+      "support": 3,
+      "f1": 0.6666666666666666,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 76,
+      "class": "monday",
+      "support": 2,
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    {
+      "idx": 78,
+      "class": "month",
+      "support": 2,
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    {
+      "idx": 104,
+      "class": "suit",
+      "support": 3,
+      "f1": 0.6666666666666666,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 112,
+      "class": "thursday",
+      "support": 2,
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    {
+      "idx": 115,
+      "class": "today",
+      "support": 2,
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    {
+      "idx": 125,
+      "class": "wednesday",
+      "support": 2,
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "recall": 0.5
+    },
+    {
+      "idx": 52,
+      "class": "happy",
+      "support": 3,
+      "f1": 0.75,
+      "precision": 0.6,
+      "recall": 1.0
+    },
+    {
+      "idx": 57,
+      "class": "hot",
+      "support": 3,
+      "f1": 0.75,
+      "precision": 0.6,
+      "recall": 1.0
+    },
+    {
+      "idx": 1,
+      "class": "animal",
+      "support": 3,
+      "f1": 0.8,
+      "precision": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 71,
+      "class": "loud",
+      "support": 3,
+      "f1": 0.8,
+      "precision": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 98,
+      "class": "sick",
+      "support": 3,
+      "f1": 0.8,
+      "precision": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 129,
+      "class": "wide",
+      "support": 3,
+      "f1": 0.8,
+      "precision": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "idx": 49,
+      "class": "good",
+      "support": 3,
+      "f1": 0.8571428571428571,
+      "precision": 0.75,
+      "recall": 1.0
+    },
+    {
+      "idx": 124,
+      "class": "warm",
+      "support": 3,
+      "f1": 0.8571428571428571,
+      "precision": 0.75,
+      "recall": 1.0
+    },
+    {
+      "idx": 109,
+      "class": "tea",
+      "support": 9,
+      "f1": 0.875,
+      "precision": 1.0,
+      "recall": 0.7777777777777778
+    },
+    {
+      "idx": 47,
+      "class": "giraffe",
+      "support": 9,
+      "f1": 0.9,
+      "precision": 0.8181818181818182,
+      "recall": 1.0
+    },
+    {
+      "idx": 64,
+      "class": "key",
+      "support": 9,
+      "f1": 0.9411764705882353,
+      "precision": 1.0,
+      "recall": 0.8888888888888888
+    },
+    {
+      "idx": 48,
+      "class": "give",
+      "support": 9,
+      "f1": 0.9473684210526315,
+      "precision": 0.9,
+      "recall": 1.0
+    },
+    {
+      "idx": 3,
+      "class": "bear",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 6,
+      "class": "bird",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 8,
+      "class": "break",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 9,
+      "class": "brinjal",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 10,
+      "class": "budget",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 11,
+      "class": "busy",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 12,
+      "class": "cabbage",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 13,
+      "class": "carrot",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 14,
+      "class": "cat",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 15,
+      "class": "cauliflower",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 17,
+      "class": "chilli",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 18,
+      "class": "clean",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 19,
+      "class": "close",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 21,
+      "class": "cold",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 22,
+      "class": "come",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 23,
+      "class": "cook",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 24,
+      "class": "cow",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 25,
+      "class": "crocodile",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 26,
+      "class": "cry",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 27,
+      "class": "cucumber",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 30,
+      "class": "deer",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 33,
+      "class": "drink",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 35,
+      "class": "elephant",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 37,
+      "class": "exam",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 41,
+      "class": "fedup",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 43,
+      "class": "fever",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 50,
+      "class": "good_afternoon",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 51,
+      "class": "good_morning",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 55,
+      "class": "hello",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 56,
+      "class": "horse",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 59,
+      "class": "hug",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 60,
+      "class": "injury",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 61,
+      "class": "interview",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 62,
+      "class": "jump",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 63,
+      "class": "karnataka",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 65,
+      "class": "knife",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 66,
+      "class": "lemon",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 68,
+      "class": "lion",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 72,
+      "class": "man",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 73,
+      "class": "maths",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 74,
+      "class": "maybe",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 77,
+      "class": "monkey",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 85,
+      "class": "onion",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 86,
+      "class": "pant",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 87,
+      "class": "peacock",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 88,
+      "class": "pigeon",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 90,
+      "class": "pour",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 92,
+      "class": "radish",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 99,
+      "class": "skirt",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 102,
+      "class": "sparrow",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 103,
+      "class": "still",
+      "support": 3,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 106,
+      "class": "switch",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 110,
+      "class": "temple",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 111,
+      "class": "thank_you",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 113,
+      "class": "tiger",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 118,
+      "class": "turtle",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 120,
+      "class": "umbrella",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 121,
+      "class": "uncle",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 122,
+      "class": "vegetables",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 123,
+      "class": "volcano",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 128,
+      "class": "what_is_your_name",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 130,
+      "class": "wife",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 131,
+      "class": "write",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "idx": 132,
+      "class": "wrong",
+      "support": 9,
+      "f1": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  ]
+}

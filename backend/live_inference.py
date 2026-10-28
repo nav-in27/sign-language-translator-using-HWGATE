@@ -107,13 +107,20 @@ class LiveISLInferenceEngine:
         print(f"[AC-HWGATE Engine] Initializing on device: {self.device}")
 
         # 1. Load Label Map
-        actual_label_map_path = str(label_map_path) if label_map_path is not None else str(self.base_dir / "data" / "unified_50class" / "class_names.json")
-        if not os.path.exists(actual_label_map_path):
-            actual_label_map_path = str(self.base_dir / "configs" / "selected_50_classes_manifest.json")
-        if not os.path.exists(actual_label_map_path):
-            actual_label_map_path = str(self.base_dir / "models" / "label_map.json")
-        if not os.path.exists(actual_label_map_path):
-            actual_label_map_path = str(self.base_dir / "configs" / "label_map.json")
+        label_candidates = [
+            label_map_path,
+            str(self.base_dir / "configs" / "authoritative_136_classes_manifest.json"),
+            str(self.base_dir / "data" / "unified_136class" / "label_map.json"),
+            str(self.base_dir / "models" / "label_map.json"),
+            str(self.base_dir / "backend" / "models" / "label_map.json"),
+            str(self.base_dir / "configs" / "selected_104_classes_manifest.json"),
+            str(self.base_dir / "data" / "unified_50class" / "class_names.json"),
+        ]
+        actual_label_map_path = None
+        for cand in label_candidates:
+            if cand and os.path.exists(cand):
+                actual_label_map_path = cand
+                break
 
         if os.path.exists(actual_label_map_path):
             with open(actual_label_map_path, "r", encoding="utf-8") as f:
@@ -132,10 +139,17 @@ class LiveISLInferenceEngine:
             self.num_classes = len(self.classes)
 
         # 2. Load Model
-        actual_model_path = str(model_path) if model_path is not None else str(self.base_dir / "checkpoints" / "achwgate_best.pth")
+        self.onnx_session = None
+        actual_model_path = str(model_path) if model_path is not None else str(self.base_dir / "checkpoints" / "achwgate_136class_production_best.pth")
+        if actual_model_path.endswith(".onnx") and os.path.exists(actual_model_path):
+            import onnxruntime as ort
+            self.onnx_session = ort.InferenceSession(actual_model_path, providers=["CPUExecutionProvider"])
+            actual_model_path = str(self.base_dir / "checkpoints" / "achwgate_136class_production_best.pth")
+            if not os.path.exists(actual_model_path):
+                actual_model_path = str(self.base_dir / "checkpoints" / "achwgate_best.pth")
 
         self.model = ACHWGATE(num_classes=self.num_classes).to(self.device)
-        if os.path.exists(actual_model_path):
+        if os.path.exists(actual_model_path) and not actual_model_path.endswith(".onnx"):
             ckpt = torch.load(actual_model_path, map_location=self.device, weights_only=False)
             state_dict = ckpt['model_state_dict'] if 'model_state_dict' in ckpt else ckpt
             self.model.load_state_dict(state_dict)
@@ -224,17 +238,22 @@ class LiveISLInferenceEngine:
         if not hands_present:
             self.current_state = "IDLE"
             self.last_confirmed_sign = None
+            self.missing_hand_counter = getattr(self, "missing_hand_counter", 0) + 1
+            if self.missing_hand_counter >= 3:
+                self.raw_frame_buffer.clear()
             self.last_latency_ms = (time.perf_counter() - t0) * 1000.0
             return {
                 "sign": "WAITING",
                 "confidence": 0.0,
                 "status": "IDLE",
+                "action": "waiting",
                 "translation": "Show a sign to begin...",
                 "speak_trigger": False,
                 "latency_ms": round(self.last_latency_ms, 2),
                 "sentence": " ".join([TRANSLATION_MAP.get(s, s) for s in self.confirmed_sentence])
             }
 
+        self.missing_hand_counter = 0
         self.raw_frame_buffer.append(raw_kps)
 
         # Early start: if less than minimum frames (8), return DETECTING immediately
@@ -245,7 +264,8 @@ class LiveISLInferenceEngine:
                 "sign": "DETECTING...",
                 "confidence": 0.0,
                 "status": "DETECTING",
-                "translation": "Evaluating sign...",
+                "action": "stabilizing",
+                "translation": "",
                 "speak_trigger": False,
                 "latency_ms": round(self.last_latency_ms, 2),
                 "sentence": " ".join([TRANSLATION_MAP.get(s, s) for s in self.confirmed_sentence])
@@ -333,6 +353,7 @@ class LiveISLInferenceEngine:
                 "sign": candidate_sign.upper(),
                 "confidence": round(raw_conf * 100.0, 1),
                 "status": "CONFIRMED",
+                "action": "confirmed",
                 "translation": english_trans,
                 "speak_trigger": speak_now,
                 "latency_ms": round(self.last_latency_ms, 2),
@@ -347,10 +368,16 @@ class LiveISLInferenceEngine:
             "sign": "DETECTING...",
             "confidence": round(raw_conf * 100.0, 1) if not is_unknown else 0.0,
             "status": "DETECTING",
-            "translation": "Evaluating sign...",
+            "action": "rejected" if is_unknown else "stabilizing",
+            "translation": "",
             "speak_trigger": False,
             "latency_ms": round(self.last_latency_ms, 2),
             "sentence": " ".join([TRANSLATION_MAP.get(s, s) for s in self.confirmed_sentence])
         }
         self.last_result = result
         return result
+
+    def confirm_sign(self, sign: str):
+        self.last_confirmed_sign = sign
+        while len(self.raw_frame_buffer) > 6:
+            self.raw_frame_buffer.popleft()

@@ -1,0 +1,203 @@
+{
+  "current_production": {
+    "car": 0.9515235457063712,
+    "frr": 0.04847645429362879,
+    "far": 0.86,
+    "accuracy_among_accepted": 0.9374090247452693,
+    "overall_val_acc": 0.9030470914127424
+  },
+  "gate_ablation": {
+    "gate3_alone": {
+      "car": 0.9515235457063712,
+      "far": 0.86,
+      "acc": 0.9374090247452693
+    },
+    "gate4_alone": {
+      "car": 1.0,
+      "far": 1.0,
+      "acc": 0.9030470914127424
+    },
+    "combined": {
+      "car": 0.9515235457063712,
+      "far": 0.86,
+      "acc": 0.9374090247452693
+    }
+  },
+  "calibration_grid": [
+    {
+      "min_confidence": 0.15,
+      "min_prototype_sim": 0.25,
+      "car_coverage": 0.9806094182825484,
+      "far_unsupported": 0.915,
+      "accuracy_among_accepted": 0.9180790960451978
+    },
+    {
+      "min_confidence": 0.15,
+      "min_prototype_sim": 0.35,
+      "car_coverage": 0.9806094182825484,
+      "far_unsupported": 0.915,
+      "accuracy_among_accepted": 0.9180790960451978
+    },
+    {
+      "min_confidence": 0.15,
+      "min_prototype_sim": 0.45,
+      "car_coverage": 0.9806094182825484,
+      "far_unsupported": 0.915,
+      "accuracy_among_accepted": 0.9180790960451978
+    },
+    {
+      "min_confidence": 0.15,
+      "min_prototype_sim": 0.55,
+      "car_coverage": 0.9806094182825484,
+      "far_unsupported": 0.915,
+      "accuracy_among_accepted": 0.9180790960451978
+    },
+    {
+      "min_confidence": 0.15,
+      "min_prototype_sim": 0.65,
+      "car_coverage": 0.9806094182825484,
+      "far_unsupported": 0.885,
+      "accuracy_among_accepted": 0.9180790960451978
+    },
+    {
+      "min_confidence": 0.25,
+      "min_prototype_sim": 0.25,
+      "car_coverage": 0.9515235457063712,
+      "far_unsupported": 0.86,
+      "accuracy_among_accepted": 0.9374090247452693
+    },
+    {
+      "min_confidence": 0.25,
+      "min_prototype_sim": 0.35,
+      "car_coverage": 0.9515235457063712,
+      "far_unsupported": 0.86,
+      "accuracy_among_accepted": 0.9374090247452693
+    },
+    {
+      "min_confidence": 0.25,
+      "min_prototype_sim": 0.45,
+      "car_coverage": 0.9515235457063712,
+      "far_unsupported": 0.86,
+      "accuracy_among_accepted": 0.9374090247452693
+    },
+    {
+      "min_confidence": 0.25,
+      "min_prototype_sim": 0.55,
+      "car_coverage": 0.9515235457063712,
+      "far_unsupported": 0.86,
+      "accuracy_among_accepted": 0.9374090247452693
+    },
+    {
+      "min_confidence": 0.25,
+      "min_prototype_sim": 0.65,
+      "car_coverage": 0.9515235457063712,
+      "far_unsupported": 0.83,
+      "accuracy_among_accepted": 0.9374090247452693
+    },
+    {
+      "min_confidence": 0.35,
+      "min_prototype_sim": 0.25,
+      "car_coverage": 0.907202216066482,
+      "far_unsupported": 0.75,
+      "accuracy_among_accepted": 0.9587786259541985
+    },
+    {
+      "min_confidence": 0.35,
+      "min_prototype_sim": 0.35,
+      "car_coverage": 0.907202216066482,
+      "far_unsupported": 0.75,
+      "accuracy_among_accepted": 0.9587786259541985
+    },
+    {
+      "min_confidence": 0.35,
+      "min_prototype_sim": 0.45,
+      "car_coverage": 0.907202216066482,
+      "far_unsupported": 0.75,
+      "accuracy_among_accepted": 0.9587786259541985
+    },
+    {
+      "min_confidence": 0.35,
+      "min_prototype_sim": 0.55,
+      "car_coverage": 0.907202216066482,
+      "far_unsupported": 0.75,
+      "accuracy_among_accepted": 0.9587786259541985
+    },
+    {
+      "min_confidence": 0.35,
+      "min_prototype_sim": 0.65,
+      "car_coverage": 0.907202216066482,
+      "far_unsupported": 0.73,
+      "accuracy_among_accepted": 0.9587786259541985
+    },
+    {
+      "min_confidence": 0.45,
+      "min_prototype_sim": 0.25,
+      "car_coverage": 0.8864265927977839,
+      "far_unsupported": 0.605,
+      "accuracy_among_accepted": 0.971875
+    },
+    {
+      "min_confidence": 0.45,
+      "min_prototype_sim": 0.35,
+      "car_coverage": 0.8864265927977839,
+      "far_unsupported": 0.605,
+      "accuracy_among_accepted": 0.971875
+    },
+    {
+      "min_confidence": 0.45,
+      "min_prototype_sim": 0.45,
+      "car_coverage": 0.8864265927977839,
+      "far_unsupported": 0.605,
+      "accuracy_among_accepted": 0.971875
+    },
+    {
+      "min_confidence": 0.45,
+      "min_prototype_sim": 0.55,
+      "car_coverage": 0.8864265927977839,
+      "far_unsupported": 0.605,
+      "accuracy_among_accepted": 0.971875
+    },
+    {
+      "min_confidence": 0.45,
+      "min_prototype_sim": 0.65,
+      "car_coverage": 0.8864265927977839,
+      "far_unsupported": 0.6,
+      "accuracy_among_accepted": 0.971875
+    },
+    {
+      "min_confidence": 0.55,
+      "min_prototype_sim": 0.25,
+      "car_coverage": 0.8642659279778393,
+      "far_unsupported": 0.47,
+      "accuracy_among_accepted": 0.9823717948717948
+    },
+    {
+      "min_confidence": 0.55,
+      "min_prototype_sim": 0.35,
+      "car_coverage": 0.8642659279778393,
+      "far_unsupported": 0.47,
+      "accuracy_among_accepted": 0.9823717948717948
+    },
+    {
+      "min_confidence": 0.55,
+      "min_prototype_sim": 0.45,
+      "car_coverage": 0.8642659279778393,
+      "far_unsupported": 0.47,
+      "accuracy_among_accepted": 0.9823717948717948
+    },
+    {
+      "min_confidence": 0.55,
+      "min_prototype_sim": 0.55,
+      "car_coverage": 0.8642659279778393,
+      "far_unsupported": 0.47,
+      "accuracy_among_accepted": 0.9823717948717948
+    },
+    {
+      "min_confidence": 0.55,
+      "min_prototype_sim": 0.65,
+      "car_coverage": 0.8642659279778393,
+      "far_unsupported": 0.465,
+      "accuracy_among_accepted": 0.9823717948717948
+    }
+  ]
+}

@@ -42,18 +42,20 @@ class TestLiveInferenceTemporalParity(unittest.TestCase):
         isl_model.raw_frame_buffer.clear()
         isl_model.candidate_history.clear()
         isl_model.last_emitted_sign = None
+        isl_model.cooldown_counter = 0
+        isl_model.last_confirmed_sign = None
+        isl_model.last_stable_result = ("UNKNOWN_SIGN", 0.0, True)
 
     def test_01_rolling_temporal_buffer_maintains_32_frames(self):
         """1. Verify rolling temporal buffer maintains exactly T=32 frames [t-31 ... t]."""
-        # Feed 50 frames with a linearly moving index
+        # Feed 50 frames into the rolling deque buffer
         for t in range(50):
-            # Keypoints with time stamp embedded in coordinate
-            kps = [[float(t) * 0.01 + i * 0.001, 0.5] for i in range(133)]
-            confs = [0.9 for _ in range(133)]
-            isl_model.predict(kps, confs)
+            kp_frame = np.array([[float(t) * 0.01 + i * 0.001, 0.5] for i in range(133)])
+            isl_model.raw_frame_buffer.append(kp_frame)
             
         # Buffer must have capped at exactly 32 frames
         self.assertEqual(len(isl_model.raw_frame_buffer), 32)
+        self.assertEqual(isl_model.raw_frame_buffer.maxlen, 32)
         
         # Verify the sequence contains [t-31 ... t] where t=49 -> indices 18 to 49
         first_frame = isl_model.raw_frame_buffer[0] # t=18

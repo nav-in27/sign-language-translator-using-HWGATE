@@ -35,10 +35,14 @@ class FeatureExtractor:
         Returns: np.ndarray of shape (133, 2), dtype float32
         """
         kps = np.zeros((self.num_joints, 2), dtype=np.float32)
-        idx = 0
+        if isinstance(results, np.ndarray):
+            if results.shape[0] >= self.num_joints and results.shape[-1] >= 2:
+                return results[:self.num_joints, :2].astype(np.float32)
+            return kps
 
         # 1. Pose (33 joints)
-        if results and results.pose_landmarks:
+        idx = 0
+        if results is not None and getattr(results, "pose_landmarks", None):
             for lm in results.pose_landmarks.landmark:
                 if idx < 33:
                     kps[idx] = [lm.x, lm.y]

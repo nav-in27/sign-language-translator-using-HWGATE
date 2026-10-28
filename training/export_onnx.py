@@ -18,7 +18,19 @@ from models.ac_hwgate import ACHWGATE
 
 def export_model_to_onnx(model_path=None, onnx_output_path=None):
     if model_path is None:
-        model_path = os.path.join(BASE_DIR, "checkpoints", "ac_hwgate_best.pth")
+        candidates = [
+            os.path.join(ROOT_DIR, "checkpoints", "achwgate_136class_production_best.pth"),
+            os.path.join(ROOT_DIR, "checkpoints", "achwgate_136class_best.pth"),
+            os.path.join(ROOT_DIR, "checkpoints", "achwgate_best.pth"),
+            os.path.join(BASE_DIR, "checkpoints", "ac_hwgate_best.pth"),
+        ]
+        for c in candidates:
+            if os.path.exists(c):
+                model_path = c
+                break
+        if model_path is None:
+            model_path = candidates[0]
+
     if onnx_output_path is None:
         onnx_output_path = os.path.join(ROOT_DIR, "backend", "models", "ac_hwgate.onnx")
         
@@ -26,13 +38,26 @@ def export_model_to_onnx(model_path=None, onnx_output_path=None):
     device = torch.device('cpu')
     
     # Load label map to determine number of classes
-    label_map_path = os.path.join(BASE_DIR, "label_map.json")
-    if os.path.exists(label_map_path):
-        with open(label_map_path, "r") as f:
-            label_map = json.load(f)
-        num_classes = len(label_map)
-    else:
-        num_classes = 500
+    label_map_paths = [
+        os.path.join(ROOT_DIR, "configs", "authoritative_136_classes_manifest.json"),
+        os.path.join(ROOT_DIR, "data", "unified_136class", "label_map.json"),
+        os.path.join(ROOT_DIR, "models", "label_map.json"),
+        os.path.join(BASE_DIR, "label_map.json"),
+    ]
+    num_classes = 136
+    for lp in label_map_paths:
+        if os.path.exists(lp):
+            with open(lp, "r", encoding="utf-8") as f:
+                d = json.load(f)
+                if "classes" in d:
+                    num_classes = len(d["classes"])
+                    break
+                elif "class_to_idx" in d:
+                    num_classes = len(d["class_to_idx"])
+                    break
+                elif isinstance(d, dict):
+                    num_classes = len(d)
+                    break
         
     embed_dim = 128
     num_heads = 4
@@ -106,11 +131,50 @@ def export_model_to_onnx(model_path=None, onnx_output_path=None):
     )
     print(f"[+] AC-HWGATE ONNX model exported successfully to {onnx_output_path}")
     
-    # Also write a copy to training/model.onnx for training scripts compatibility
+    # Also write a copy to models/achwgate.onnx and training/model.onnx
+    models_onnx = os.path.join(ROOT_DIR, "models", "achwgate.onnx")
     tr_copy = os.path.join(BASE_DIR, "model.onnx")
-    with open(onnx_output_path, "rb") as sf, open(tr_copy, "wb") as df:
-        df.write(sf.read())
+    for cp in [models_onnx, tr_copy]:
+        os.makedirs(os.path.dirname(cp), exist_ok=True)
+        with open(onnx_output_path, "rb") as sf, open(cp, "wb") as df:
+            df.write(sf.read())
+        print(f"[+] Synchronized ONNX model to: {cp}")
+
+    # Compute Class Prototypes from clean train split
+    train_npz = os.path.join(ROOT_DIR, "data", "unified_136class", "train_split.npz")
+    if os.path.exists(train_npz):
+        print("[*] Computing 128-dim class prototypes from clean train split...")
+        data = np.load(train_npz, allow_pickle=True)
+        X_tr = data["features"]
+        y_tr = data["labels"]
+        session = ort.InferenceSession(onnx_output_path)
         
+        all_embs = []
+        bs = 64
+        for i in range(0, len(X_tr), bs):
+            batch_x = X_tr[i:i+bs].astype(np.float32)
+            out = session.run(None, {'keypoints': batch_x})
+            all_embs.append(out[1])
+        all_embs = np.concatenate(all_embs, axis=0) # [N, 128]
+        
+        prototypes = np.zeros((num_classes, 128), dtype=np.float32)
+        for c in range(num_classes):
+            mask = (y_tr == c)
+            if np.any(mask):
+                c_embs = all_embs[mask]
+                proto = c_embs.mean(axis=0)
+                norm = np.linalg.norm(proto)
+                if norm > 1e-6:
+                    proto = proto / norm
+                prototypes[c] = proto
+            else:
+                prototypes[c] = np.zeros(128, dtype=np.float32)
+
+        for p_dir in [os.path.join(ROOT_DIR, "models"), os.path.join(ROOT_DIR, "backend", "models")]:
+            proto_file = os.path.join(p_dir, "class_prototypes.npy")
+            np.save(proto_file, prototypes)
+            print(f"[+] Saved {num_classes}x128 class prototypes to: {proto_file}")
+
     # Verify ONNX Runtime compatibility
     print("[+] Verifying AC-HWGATE ONNX Runtime inference (logits + embeddings)...")
     session = ort.InferenceSession(onnx_output_path)
@@ -125,4 +189,9 @@ def export_model_to_onnx(model_path=None, onnx_output_path=None):
     return onnx_output_path
 
 if __name__ == "__main__":
-    export_model_to_onnx()
+    import argparse
+    parser = argparse.ArgumentParser(description="Export AC-HWGATE to ONNX")
+    parser.add_argument("--model_path", type=str, default=None, help="Path to PyTorch checkpoint")
+    parser.add_argument("--onnx_output_path", type=str, default=None, help="Output path for ONNX artifact")
+    args = parser.parse_args()
+    export_model_to_onnx(model_path=args.model_path, onnx_output_path=args.onnx_output_path)

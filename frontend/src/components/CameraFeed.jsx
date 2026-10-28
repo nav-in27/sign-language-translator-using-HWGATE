@@ -1,8 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 
-const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
+const CameraFeed = ({ onFrameCaptured, onModelStatus, onFrameTelemetry }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const frameSeqIdRef = useRef(0);
+  const lastFrameTimestampRef = useRef(0);
   const [isStreaming, setIsStreaming] = useState(false);
 
   const get133Keypoints = (results) => {
@@ -119,11 +121,24 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
           
           canvasCtx.restore();
           
-          // Send keypoints to parent for backend inference
+          // Send keypoints to parent for backend inference with monotonic sequence ID & timestamp
           const { keypoints, confidences } = get133Keypoints(results);
+          frameSeqIdRef.current += 1;
+          const timestamp = Date.now() / 1000.0;
+          const frameIntervalMs = lastFrameTimestampRef.current ? (timestamp * 1000) - lastFrameTimestampRef.current : 0;
+          lastFrameTimestampRef.current = timestamp * 1000;
+          if (onFrameTelemetry) {
+            onFrameTelemetry({
+              seqId: frameSeqIdRef.current,
+              timestamp,
+              fps: frameIntervalMs > 0 ? Math.round(1000 / frameIntervalMs) : 0,
+              poseDetected: Boolean(results.poseLandmarks),
+              handsDetected: Boolean(results.leftHandLandmarks || results.rightHandLandmarks),
+            });
+          }
           
           // Send keypoints whenever tracking has keypoint data
-          onFrameCaptured(keypoints, confidences);
+          onFrameCaptured(keypoints, confidences, frameSeqIdRef.current, timestamp);
         });
 
         if (videoRef.current && mounted) {
@@ -152,6 +167,7 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus }) => {
         }
       } catch (initErr) {
         console.error("MediaPipe initialization error:", initErr);
+        if (onModelStatus) onModelStatus("MediaPipe Error");
       }
     };
 

@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import CameraFeed from '../components/CameraFeed';
+import { API_BASE_URL, WS_BASE_URL } from '../config';
 import '../index.css';
 
 // Minimal fallback formatter: does NOT fabricate sentences.
@@ -8,113 +9,238 @@ function formatGlossToEnglish(label) {
   if (!label || label === "WAITING FOR SIGN" || label === "DETECTING..." || label === "UNKNOWN_SIGN") {
     return "";
   }
-  // Simple title case — no sentence fabrication
   const clean = label.toLowerCase().replace(/_/g, " ").trim();
   return clean.charAt(0).toUpperCase() + clean.slice(1);
 }
 
+function normalizeRecognitionState(state) {
+  const normalized = String(state || "WAITING").toUpperCase();
+  if (normalized === "COLLECTING_FRAMES" || normalized === "BUFFERING") return "LISTENING";
+  if (normalized === "RECOGNIZING" || normalized === "PROVISIONAL") return "RECOGNIZING";
+  if (normalized === "WAITING" || normalized === "NO_SIGN") return "READY";
+  return normalized;
+}
+
 function LiveTranslator() {
-  const [detectedSign, setDetectedSign] = useState("WAITING FOR SIGN");
-  const [uiState, setUiState] = useState("WAITING"); // WAITING, DETECTING, CONFIRMED
-  const [confidence, setConfidence] = useState(0);
-  const [translation, setTranslation] = useState("");
-  const [rawGlosses, setRawGlosses] = useState([]);
+  // 1. Current recognition state (READY, LISTENING, RECOGNIZING, CONFIRMED, UNCERTAIN)
+  const [recognitionState, setRecognitionState] = useState("READY");
+
+  // 2. Current buffer progress
+  const [bufferProgress, setBufferProgress] = useState({ length: 0, required: 16, percentage: 0 });
+
+  // 3. Current provisional prediction
+  const [currentProvisional, setCurrentProvisional] = useState({ sign: null, confidence: 0 });
+
+  // 4. Current confirmed sign
+  const [currentConfirmed, setCurrentConfirmed] = useState({
+    sign: null,
+    confidence: 0,
+    eventId: null,
+    timestamp: null
+  });
+
+  // 5. Confirmed-sign history (list of unique confirmed sign tokens)
+  const [confirmedHistory, setConfirmedHistory] = useState([]);
+
+  // 6. Current translation (only set for the current confirmed sign window)
+  const [currentTranslation, setCurrentTranslation] = useState("");
+
+  // 7. Historical translations (list of { eventId, sign, translation, timestamp })
+  const [historicalTranslations, setHistoricalTranslations] = useState([]);
+
+  // 8. Speech status (READY, SPEAKING: "...", MUTED, ERROR)
+  const [speechStatus, setSpeechStatus] = useState("READY");
+
+  // Diagnostic and telemetry state
   const [trackingStatus, setTrackingStatus] = useState("MediaPipe Active");
   const [backendStatus, setBackendStatus] = useState("Connecting...");
   const [fps, setFps] = useState(30);
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [audioState, setAudioState] = useState("READY"); // READY, SPEAKING, MUTED
+  const [modelStatus, setModelStatus] = useState({ ready: null });
+  const [topPredictions, setTopPredictions] = useState([]);
+  const [rejectionReason, setRejectionReason] = useState('');
+  const [cameraDiagnostics, setCameraDiagnostics] = useState({ fps: 0, handsDetected: false, poseDetected: false });
 
-  // Refs for stateful debounce, speech prevention, and WebSocket streaming
+  // Refs for stateful debounce, sequence ID tracking, and speech prevention
   const wsRef = useRef(null);
   const isWsConnectedRef = useRef(false);
-  const lastConfirmedSignRef = useRef(null);
+  const sessionIdRef = useRef(
+    typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `sess_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
+  );
+  const lastProcessedSessionIdRef = useRef(null);
+  const lastProcessedSeqIdRef = useRef(0);
+  const lastProcessedWindowIdRef = useRef(null);
+  const lastSpokenEventIdRef = useRef(null);
+  const lastConfirmedEventIdRef = useRef(null);
   const isHttpPendingRef = useRef(false);
   const lastFrameTimeRef = useRef(Date.now());
+  const socketGenerationRef = useRef(0);
   const soundEnabledRef = useRef(soundEnabled);
   soundEnabledRef.current = soundEnabled;
 
-  // Robust Non-blocking Speech Synthesis (handles Chromium queue state)
-  const speakText = useCallback((text) => {
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/model/status`, { cache: 'no-store' })
+      .then((response) => response.json())
+      .then((data) => {
+        setModelStatus(data);
+        setBackendStatus(data.ready ? `${data.engine} • ${data.num_classes} classes` : "Model unavailable");
+      })
+      .catch(() => {
+        setModelStatus({ ready: false, load_error: "Model status endpoint unavailable" });
+        setBackendStatus("Backend unavailable");
+      });
+  }, []);
+
+  // Documented state reset helper
+  const clearConfirmedState = useCallback((reason) => {
+    console.log(`[LiveTranslator] Cleared confirmed state. Reason: ${reason}`);
+    setCurrentConfirmed({ sign: null, confidence: 0, eventId: null, timestamp: null });
+    setCurrentTranslation("");
+  }, []);
+
+  // Robust Non-blocking Speech Synthesis (strictly tied to unique event_id)
+  const speakText = useCallback((text, eventId) => {
     if (!soundEnabledRef.current || !('speechSynthesis' in window) || !text) {
       return;
     }
     try {
-      // Unfreeze synthesis queue if paused
       if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
       }
-      window.speechSynthesis.cancel(); // Prevent audio overlap
+      window.speechSynthesis.cancel(); // Cancel obsolete or previous audio
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 1.05;
+      utterance.rate = 1.0;
       utterance.pitch = 1.0;
       utterance.lang = 'en-US';
 
-      setAudioState(`SPEAKING: "${text}"`);
+      setSpeechStatus(`SPEAKING: "${text}"`);
       utterance.onend = () => {
-        setAudioState(soundEnabledRef.current ? "READY" : "MUTED");
+        setSpeechStatus(soundEnabledRef.current ? "READY" : "MUTED");
       };
-      utterance.onerror = () => {
-        setAudioState(soundEnabledRef.current ? "READY" : "MUTED");
+      utterance.onerror = (e) => {
+        console.warn("[TTS Error]", e);
+        setSpeechStatus(soundEnabledRef.current ? "READY" : "MUTED");
       };
 
-      // Asynchronous speak (never blocks render or inference thread)
+      // Asynchronous speak (never blocks render or inference capture thread)
       setTimeout(() => {
         window.speechSynthesis.speak(utterance);
-      }, 10);
+      }, 0);
     } catch (err) {
-      console.warn("TTS Error:", err);
-      setAudioState("READY");
+      console.warn("TTS Exception:", err);
+      setSpeechStatus("READY");
     }
   }, []);
 
   // Process prediction payload from backend (shared by WebSocket and HTTP)
   const handlePredictionPayload = useCallback((data) => {
-    if (!data || data.error) return;
+    if (!data) return;
+    if (data.error) {
+      setRecognitionState("ERROR");
+      setBackendStatus(`Backend error: ${data.error}`);
+      return;
+    }
+
+    // Associate responses with session and window IDs; ignore stale responses that arrive out of order
+    if (data.session_id) {
+      if (lastProcessedSessionIdRef.current && data.session_id !== lastProcessedSessionIdRef.current) {
+        console.log(`[LiveTranslator] Backend session changed from ${lastProcessedSessionIdRef.current} to ${data.session_id}; resetting seq tracker`);
+        lastProcessedSeqIdRef.current = 0;
+      }
+      lastProcessedSessionIdRef.current = data.session_id;
+    }
+
+    // Discard stale out-of-order sequence responses
+    if (data.seq_id && data.seq_id <= lastProcessedSeqIdRef.current) {
+      return;
+    }
+    if (data.seq_id) {
+      lastProcessedSeqIdRef.current = data.seq_id;
+    }
+    if (data.window_id !== undefined && data.window_id !== null) {
+      lastProcessedWindowIdRef.current = data.window_id;
+    }
 
     if (data.engine) {
       setBackendStatus(data.engine);
     }
 
-    const label = data.label || "";
-    const status = data.status || (data.is_unknown ? "DETECTING" : "CONFIRMED");
+    // Update temporal buffer progress
+    const bufLen = Number(data.buffer_length ?? data.live_diagnostics?.buffer_length ?? 0);
+    const bufReq = Number(data.buffer_required ?? data.live_diagnostics?.required_frames ?? 16);
+    const bufPct = Math.min(100, Math.round((bufLen / Math.max(1, bufReq)) * 100));
+    setBufferProgress({ length: bufLen, required: bufReq, percentage: bufPct });
+
+    setTopPredictions(Array.isArray(data.top_predictions) ? data.top_predictions : []);
+    setRejectionReason(data.rejection_reason || '');
+
+    const rawState = data.state || data.status || "WAITING";
+    const state = normalizeRecognitionState(rawState);
     const conf = Number(data.confidence) || 0.0;
+    setRecognitionState(state);
 
-    if (status === "CONFIRMED" && !data.is_unknown && label !== "UNKNOWN_SIGN") {
-      const formattedLabel = label.toUpperCase();
-      setUiState("CONFIRMED");
-      setDetectedSign(formattedLabel);
-      setConfidence(conf);
+    if (state === "CONFIRMED" && !data.is_unknown && data.confirmed_sign) {
+      const activeSign = data.confirmed_sign.toUpperCase();
+      const translationText = typeof data.translation === "string" ? data.translation.trim() : formatGlossToEnglish(activeSign);
+      const eventId = data.event_id || `evt_${activeSign}_${Date.now()}`;
 
-      // Instant English Translation from backend or dynamic formatter
-      const englishSentence = data.translation || formatGlossToEnglish(label);
-      setTranslation(englishSentence);
-
-      // Update confirmed sign history
-      setRawGlosses((prev) => {
-        if (prev.length === 0 || prev[prev.length - 1] !== formattedLabel) {
-          const nextList = [...prev, formattedLabel];
-          return nextList.slice(-6);
-        }
-        return prev;
+      // Update current confirmed sign and translation
+      setCurrentConfirmed({
+        sign: activeSign,
+        confidence: conf,
+        eventId: eventId,
+        timestamp: Date.now()
       });
+      setCurrentTranslation(translationText);
+      setCurrentProvisional({ sign: null, confidence: 0 });
 
-      // Speak once per confirmed sign event
-      if (formattedLabel !== lastConfirmedSignRef.current) {
-        lastConfirmedSignRef.current = formattedLabel;
-        speakText(englishSentence);
+      // Update confirmed history and historical translations strictly on unique event_id
+      if (eventId !== lastConfirmedEventIdRef.current) {
+        lastConfirmedEventIdRef.current = eventId;
+
+        setConfirmedHistory((prev) => {
+          if (prev.length > 0 && prev[prev.length - 1] === activeSign) {
+            return prev;
+          }
+          return [...prev, activeSign].slice(-8);
+        });
+
+        if (translationText) {
+          setHistoricalTranslations((prev) => {
+            if (prev.length > 0 && prev[prev.length - 1].eventId === eventId) {
+              return prev;
+            }
+            return [...prev, {
+              eventId,
+              sign: activeSign,
+              translation: translationText,
+              timestamp: Date.now()
+            }].slice(-6);
+          });
+        }
+
+        // Non-blocking TTS speech: strictly once per unique confirmed event_id
+        if (translationText && eventId !== lastSpokenEventIdRef.current) {
+          lastSpokenEventIdRef.current = eventId;
+          speakText(translationText, eventId);
+        }
       }
-    } else if (status === "DETECTING" || label === "DETECTING...") {
-      setUiState("DETECTING");
-      setDetectedSign("DETECTING...");
-      // Do not clear translation; allow user to read previous confirmed sign
+    } else if (state === "RECOGNIZING") {
+      // Only set provisional if backend returned a calibrated provisional_sign (never fall back to random argmax noise)
+      if (data.provisional_sign) {
+        setCurrentProvisional({
+          sign: data.provisional_sign.toUpperCase(),
+          confidence: conf
+        });
+      } else {
+        setCurrentProvisional({ sign: null, confidence: 0 });
+      }
     } else {
-      // WAITING FOR SIGN / Hands resting
-      setUiState("WAITING");
-      setDetectedSign("WAITING FOR SIGN");
-      setConfidence(0);
-      lastConfirmedSignRef.current = null; // Reset so next gesture triggers speech
+      // LISTENING, READY, UNCERTAIN
+      setCurrentProvisional({ sign: null, confidence: 0 });
     }
   }, [speakText]);
 
@@ -124,31 +250,51 @@ function LiveTranslator() {
     let ws = null;
 
     const connectWebSocket = () => {
+      const generation = socketGenerationRef.current + 1;
+      socketGenerationRef.current = generation;
       try {
-        ws = new WebSocket("ws://127.0.0.1:8000/ws/predict");
+        ws = new WebSocket(`${WS_BASE_URL}/ws/predict`);
         wsRef.current = ws;
 
         ws.onopen = () => {
+          if (generation !== socketGenerationRef.current) return;
+          lastProcessedSeqIdRef.current = 0;
+          setRecognitionState("NO_SIGN");
+          setCurrentProvisional({ sign: null, confidence: 0 });
+          clearConfirmedState("WebSocket connection initialized / new session started");
+          setConfirmedHistory([]);
+          setHistoricalTranslations([]);
+          setBufferProgress({ length: 0, required: 16, percentage: 0 });
+          setTopPredictions([]);
+          setRejectionReason("");
+          lastSpokenEventIdRef.current = null;
+          lastConfirmedEventIdRef.current = null;
           isWsConnectedRef.current = true;
           setBackendStatus("AC-HWGATE Real-Time (WebSocket)");
         };
 
         ws.onmessage = (event) => {
+          if (generation !== socketGenerationRef.current || ws !== wsRef.current) return;
           try {
             const data = JSON.parse(event.data);
             handlePredictionPayload(data);
           } catch (e) {
-            // Ignore parse errors
+            console.error("[LiveTranslator] Invalid backend message", e);
+            setRecognitionState("ERROR");
+            setBackendStatus("Backend message error");
           }
         };
 
         ws.onerror = () => {
           isWsConnectedRef.current = false;
-          setBackendStatus("AC-HWGATE Active (HTTP Fallback)");
+          setRecognitionState("ERROR");
+          setBackendStatus("WebSocket error; HTTP fallback");
         };
 
         ws.onclose = () => {
           isWsConnectedRef.current = false;
+          setRecognitionState("ERROR");
+          setBackendStatus("Backend disconnected; reconnecting");
           reconnectTimer = setTimeout(connectWebSocket, 2000);
         };
       } catch (err) {
@@ -166,18 +312,27 @@ function LiveTranslator() {
         ws.close();
       }
     };
-  }, [handlePredictionPayload]);
+  }, [handlePredictionPayload, clearConfirmedState]);
 
   // Frame captured by MediaPipe
-  const handleFrame = useCallback(async (keypoints, confidences) => {
+  const handleFrame = useCallback(async (keypoints, confidences, seqId, timestamp) => {
     const now = Date.now();
     const currentFps = Math.round(1000 / Math.max(1, (now - lastFrameTimeRef.current)));
     lastFrameTimeRef.current = now;
     if (Math.random() < 0.12) setFps(currentFps);
 
+    const payload = {
+      keypoints,
+      confidences,
+      seq_id: seqId || 0,
+      timestamp: timestamp || (now / 1000.0),
+      session_id: sessionIdRef.current,
+      trace_id: window.crypto?.randomUUID ? window.crypto.randomUUID() : `${Date.now()}-${seqId}`
+    };
+
     // If WebSocket is connected and ready, stream over WebSocket (< 2 ms latency)
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-      wsRef.current.send(JSON.stringify({ keypoints, confidences }));
+      wsRef.current.send(JSON.stringify(payload));
       return;
     }
 
@@ -186,14 +341,16 @@ function LiveTranslator() {
     isHttpPendingRef.current = true;
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/predict", {
+      const response = await fetch(`${API_BASE_URL}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ keypoints, confidences })
+        body: JSON.stringify(payload)
       });
       const data = await response.json();
+      if (data.error) setBackendStatus(`Backend error: ${data.error}`);
       handlePredictionPayload(data);
     } catch (err) {
+      setRecognitionState("ERROR");
       setBackendStatus("Backend Reconnecting...");
     } finally {
       isHttpPendingRef.current = false;
@@ -218,7 +375,7 @@ function LiveTranslator() {
               if (!next && 'speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
               }
-              setAudioState(next ? "READY" : "MUTED");
+              setSpeechStatus(next ? "READY" : "MUTED");
             }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -229,7 +386,12 @@ function LiveTranslator() {
           </button>
 
           <div className="status-chips">
-            <span className="chip online">AC-HWGATE 104-CLASS</span>
+            <span className="chip online">AC-HWGATE 136-CLASS</span>
+            <span className={`chip ${modelStatus?.ready === true ? 'online' : ''}`}>
+              {modelStatus?.ready === true
+                ? `MODEL READY • ${modelStatus.artifact_kind?.toUpperCase()}`
+                : modelStatus?.ready === false ? "MODEL FAILED" : "MODEL LOADING"}
+            </span>
             <span className="chip">{fps} FPS</span>
             <span className="chip online">{trackingStatus}</span>
           </div>
@@ -246,7 +408,7 @@ function LiveTranslator() {
               <span className="live-indicator"><span className="pulse-dot"></span>LIVE</span>
             </div>
             <div className="camera-wrapper">
-              <CameraFeed onFrameCaptured={handleFrame} onModelStatus={setTrackingStatus} />
+              <CameraFeed onFrameCaptured={handleFrame} onModelStatus={setTrackingStatus} onFrameTelemetry={setCameraDiagnostics} />
             </div>
           </div>
         </section>
@@ -254,25 +416,83 @@ function LiveTranslator() {
         {/* Right Column: Real-Time Detection, Translation, and Audio */}
         <section className="column-right info-section">
           {/* Card 1: Detected Sign */}
-          <div className={`card-box sign-card ${uiState.toLowerCase()}`}>
+          <div className={`card-box sign-card ${recognitionState.toLowerCase()}`}>
             <div className="card-header">
               <span className="header-label">DETECTED SIGN</span>
-              {uiState === "CONFIRMED" && (
-                <span className="confidence-badge">{(confidence * 100).toFixed(1)}% Match</span>
-              )}
+              <div className="header-badges">
+                <span className={`state-badge ${recognitionState.toLowerCase()}`}>
+                  {recognitionState}
+                </span>
+                {recognitionState === "CONFIRMED" && currentConfirmed.confidence > 0 && (
+                  <span className="confidence-badge">{(currentConfirmed.confidence * 100).toFixed(1)}% Match</span>
+                )}
+                {recognitionState === "RECOGNIZING" && currentProvisional.confidence > 0 && (
+                  <span className="eval-badge">Recognizing {(currentProvisional.confidence * 100).toFixed(0)}%</span>
+                )}
+                {recognitionState === "LISTENING" && (
+                  <span className="eval-badge">Listening</span>
+                )}
+              </div>
             </div>
-            <div className={`sign-display-text ${uiState.toLowerCase()}`}>
-              {detectedSign}
+            <div className={`sign-display-text ${recognitionState.toLowerCase()}`}>
+              {recognitionState === "CONFIRMED" && (currentConfirmed.sign || "CONFIRMED")}
+              {recognitionState === "RECOGNIZING" && (currentProvisional.sign ? currentProvisional.sign : "Recognizing...")}
+              {recognitionState === "LISTENING" && "Listening..."}
+              {recognitionState === "UNCERTAIN" && "Uncertain"}
+              {recognitionState === "READY" && "Ready — perform sign"}
+              {recognitionState === "ERROR" && "BACKEND ERROR"}
+              {recognitionState === "INITIALIZING" && "INITIALIZING..."}
             </div>
           </div>
 
+          {topPredictions.length > 0 && recognitionState !== "CONFIRMED" && (
+            <div className="prediction-diagnostics" aria-live="polite">
+              <div className="diagnostic-title">LIVE MODEL CANDIDATES</div>
+              <div className="prediction-list">
+                {topPredictions.slice(0, 3).map((prediction) => (
+                  <span className="prediction-pill" key={prediction.class}>
+                    {prediction.class.replace(/_/g, ' ')} {(Number(prediction.prob) * 100).toFixed(1)}%
+                  </span>
+                ))}
+              </div>
+              {rejectionReason && <div className="rejection-reason">{rejectionReason}</div>}
+              <div className="rejection-reason">
+                Camera {cameraDiagnostics.fps || "…"} FPS · pose {cameraDiagnostics.poseDetected ? "detected" : "missing"} · hands {cameraDiagnostics.handsDetected ? "detected" : "missing"} · status {recognitionState.toLowerCase()}
+              </div>
+            </div>
+          )}
+
           {/* Card 2: English Translation */}
-          <div className="card-box translation-card">
+          <div className={`card-box translation-card ${recognitionState.toLowerCase()}`}>
             <div className="card-header">
               <span className="header-label">ENGLISH TRANSLATION</span>
+              {recognitionState === "CONFIRMED" && (
+                <span className="active-tag verified">CURRENT CONFIRMED</span>
+              )}
             </div>
-            <div className="translation-display-text">
-              {translation ? translation : "Perform a sign naturally to see English translation..."}
+            <div className="translation-content-area">
+              {recognitionState === "CONFIRMED" && currentTranslation ? (
+                <div className="current-confirmed-translation">
+                  <div className="confirmed-translation-text">{currentTranslation}</div>
+                </div>
+              ) : recognitionState === "UNCERTAIN" ? (
+                <div className="uncertain-translation-prompt">
+                  <span className="uncertain-icon">⚠️</span>
+                  <span className="uncertain-text">Uncertain — please repeat sign clearly</span>
+                </div>
+              ) : recognitionState === "LISTENING" ? (
+                <div className="ongoing-state-prompt">
+                  Listening for sign gesture...
+                </div>
+              ) : recognitionState === "RECOGNIZING" ? (
+                <div className="ongoing-state-prompt">
+                  Recognizing active sign gesture...
+                </div>
+              ) : (
+                <div className="ongoing-state-prompt">
+                  Perform a sign naturally to see English translation...
+                </div>
+              )}
             </div>
           </div>
 
@@ -282,9 +502,9 @@ function LiveTranslator() {
               <span className="header-label">AUDIO / SPEECH SYNTHESIS</span>
             </div>
             <div className="audio-status-row">
-              <div className={`audio-dot ${audioState.startsWith("SPEAKING") ? 'speaking' : soundEnabled ? 'ready' : 'muted'}`}></div>
+              <div className={`audio-dot ${speechStatus.startsWith("SPEAKING") ? 'speaking' : soundEnabled ? 'ready' : 'muted'}`}></div>
               <span className="audio-status-text">
-                {soundEnabled ? audioState : "AUDIO MUTED (Click button above to enable)"}
+                {soundEnabled ? speechStatus : "AUDIO MUTED (Click button above to enable)"}
               </span>
             </div>
           </div>
@@ -293,16 +513,27 @@ function LiveTranslator() {
           <div className="card-box gloss-history-card">
             <div className="card-header">
               <span className="header-label">CONFIRMED SIGN SEQUENCE</span>
+              {confirmedHistory.length > 0 && (
+                <span className="history-count-badge">{confirmedHistory.length} signs</span>
+              )}
             </div>
             <div className="gloss-chips-container">
-              {rawGlosses.length > 0 ? (
-                rawGlosses.map((g, i) => (
-                  <span key={i} className="gloss-chip">{g}</span>
+              {confirmedHistory.length > 0 ? (
+                confirmedHistory.map((g, i) => (
+                  <span key={`${g}-${i}`} className="gloss-chip">{g}</span>
                 ))
               ) : (
                 <span className="gloss-placeholder">---</span>
               )}
             </div>
+            {historicalTranslations.length > 0 && (
+              <div className="previous-confirmed-banner">
+                <span className="previous-tag">LATEST CONFIRMED TRANSLATION</span>
+                <span className="previous-value">
+                  "{historicalTranslations[historicalTranslations.length - 1].translation}"
+                </span>
+              </div>
+            )}
           </div>
         </section>
       </main>

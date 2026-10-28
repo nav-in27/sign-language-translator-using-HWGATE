@@ -1,0 +1,17 @@
+{
+  "sample_count": 0,
+  "accepted_count": 0,
+  "rejected_or_no_confirmation_count": 0,
+  "correct_count": 0,
+  "top1_accuracy_all_trials": null,
+  "accepted_accuracy": null,
+  "macro_f1": null,
+  "rejection_rate": null,
+  "missed_detection_rate": null,
+  "latency_sample_count": 0,
+  "confirmation_latency_p50_ms": null,
+  "confirmation_latency_p95_ms": null,
+  "per_class": {},
+  "insufficient_trial_classes": [],
+  "csv_report": "C:\\Users\\navee\\.gemini\\antigravity-ide\\scratch\\isl-translator\\reports\\webcam_trials_evaluation.csv"
+}

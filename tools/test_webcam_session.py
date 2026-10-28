@@ -27,9 +27,10 @@ REPORTS_DIR = BASE_DIR / "reports"
 CACHE_DIR = BASE_DIR / "data" / "cache"
 
 TARGET_SIGNS = [
-    "HELLO", "YES", "NO", "THANK_YOU", "HELP", "STOP",
-    "WATER", "EAT", "DRINK", "GO", "COME", "WHAT",
-    "WHERE", "TODAY", "GOODBYE", "OKAY", "RANDOM_MOVEMENT"
+    "HELLO", "THANK_YOU", "GOOD_MORNING", "COME", "DRINK",
+    "CLEAN", "CLOSE", "COOK", "SWITCH", "TODAY",
+    "TOMORROW", "WHAT_IS_YOUR_NAME", "ANIMAL", "BEAUTIFUL",
+    "COLD", "RANDOM_MOVEMENT"
 ]
 
 def run_test_session():
@@ -44,11 +45,12 @@ def run_test_session():
     isl_model.prototypes = isl_model._load_prototypes()
     print(f"[*] Engine: {isl_model.engine_type} ({isl_model.num_classes} classes)")
     
-    DATA_DIR = BASE_DIR / "data" / "unified_104class"
+    DATA_DIR = BASE_DIR / "data" / "unified_136class"
+    if not (DATA_DIR / "test_split.npz").exists():
+        DATA_DIR = BASE_DIR / "data" / "unified_104class"
     test_data = np.load(DATA_DIR / "test_split.npz", allow_pickle=True)
     X_test = test_data["features"]
-    y_test = test_data["labels"]
-    classes = [str(c) for c in test_data["class_names"]]
+    sample_classes = [str(c).lower().replace(" ", "_") for c in test_data["class_names"]]
     
     results = []
     
@@ -63,31 +65,22 @@ def run_test_session():
             t0 = time.time()
             # Random jitter with low prototype similarity
             random_noise_feat = np.random.randn(32, 133, 6).astype(np.float32) * 0.1
-            pred_label, conf, is_unknown = isl_model.predict_sequence_features(random_noise_feat)
+            pred_res = isl_model.predict_sequence_features(random_noise_feat)
             t_detect = time.time() - t0
             
-            is_correct = (is_unknown or pred_label in ["UNKNOWN_SIGN", "No Sign Detected", "DETECTING..."])
+            is_correct = (pred_res.is_unknown or pred_res.label in ["UNKNOWN_SIGN", "No Sign Detected", "DETECTING..."])
             results.append({
                 "expected_sign": "RANDOM_MOVEMENT",
-                "predicted_sign": "UNKNOWN" if is_unknown else pred_label,
-                "confidence": round(float(conf), 4),
+                "predicted_sign": "UNKNOWN" if pred_res.is_unknown else pred_res.label,
+                "confidence": round(float(pred_res.confidence), 4),
                 "time_to_detection": f"{t_detect:.3f}s",
                 "correct": "YES" if is_correct else "NO"
             })
-            print(f"  RANDOM_MOVEMENT -> {'UNKNOWN (REJECTED)' if is_correct else pred_label} (conf: {conf:.2%}, time: {t_detect:.3f}s) [{'PASS' if is_correct else 'FAIL'}]")
+            print(f"  RANDOM_MOVEMENT -> {'UNKNOWN (REJECTED)' if is_correct else pred_res.label} (conf: {pred_res.confidence:.2%}, time: {t_detect:.3f}s) [{'PASS' if is_correct else 'FAIL'}]")
             continue
             
         # Find matching samples in untouched test split
-        target_idx = None
-        for i, c in enumerate(classes):
-            if c.lower().replace(" ", "_") == clean_target or clean_target in c.lower():
-                target_idx = i
-                break
-                
-        if target_idx is None:
-            continue
-            
-        matches = np.where(y_test == target_idx)[0]
+        matches = [i for i, c in enumerate(sample_classes) if c == clean_target]
         if len(matches) == 0:
             continue
             

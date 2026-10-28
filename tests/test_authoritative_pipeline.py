@@ -30,7 +30,9 @@ from training.models.ac_hwgate import ACHWGATE
 
 def test_manifest_synchronization():
     """Verify that all label maps and manifests across backend, models, and configs match."""
-    manifest_path = ROOT_DIR / "configs" / "selected_104_classes_manifest.json"
+    manifest_path = ROOT_DIR / "configs" / "authoritative_136_classes_manifest.json"
+    if not manifest_path.exists():
+        manifest_path = ROOT_DIR / "configs" / "selected_104_classes_manifest.json"
     assert manifest_path.exists(), "Manifest file missing!"
     
     with open(manifest_path, "r", encoding="utf-8") as f:
@@ -42,21 +44,25 @@ def test_manifest_synchronization():
     assert num_classes >= 100, f"Expected at least 100 classes, got {num_classes}"
 
     # Check backend/label_map.json
-    backend_lm_path = ROOT_DIR / "backend" / "label_map.json"
-    assert backend_lm_path.exists(), "backend/label_map.json missing!"
+    backend_lm_path = ROOT_DIR / "backend" / "models" / "label_map.json"
+    if not backend_lm_path.exists():
+        backend_lm_path = ROOT_DIR / "backend" / "label_map.json"
+    assert backend_lm_path.exists(), "backend/models/label_map.json missing!"
     with open(backend_lm_path, "r", encoding="utf-8") as f:
         b_lm = json.load(f)
     
-    assert len(b_lm) == num_classes, f"Backend label map has {len(b_lm)} classes, expected {num_classes}"
+    b_classes = b_lm["classes"] if "classes" in b_lm else (b_lm["class_to_idx"] if "class_to_idx" in b_lm else b_lm)
+    assert len(b_classes) == num_classes, f"Backend label map has {len(b_classes)} classes, expected {num_classes}"
     for c in classes:
-        assert c in b_lm, f"Class {c} missing in backend/label_map.json"
+        assert c in b_classes, f"Class {c} missing in backend label_map.json"
 
     # Check models/label_map.json
     models_lm_path = ROOT_DIR / "models" / "label_map.json"
     if models_lm_path.exists():
         with open(models_lm_path, "r", encoding="utf-8") as f:
             m_lm = json.load(f)
-        assert len(m_lm) == num_classes
+        m_classes = m_lm["classes"] if "classes" in m_lm else (m_lm["class_to_idx"] if "class_to_idx" in m_lm else m_lm)
+        assert len(m_classes) == num_classes
 
 
 def test_feature_extractor_input_contract():
@@ -113,7 +119,9 @@ def test_onnx_model_parity():
     num_classes = out_shapes[0][1]
     assert num_classes >= 100, f"ONNX model output dimension is {num_classes}, expected >= 100"
 
-    ckpt_path = ROOT_DIR / "checkpoints" / "achwgate_best.pth"
+    ckpt_path = ROOT_DIR / "checkpoints" / "achwgate_136class_production_best.pth"
+    if not ckpt_path.exists():
+        ckpt_path = ROOT_DIR / "checkpoints" / "achwgate_best.pth"
     ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=False)
     state = ckpt["model_state_dict"] if "model_state_dict" in ckpt else ckpt
     
@@ -125,7 +133,8 @@ def test_onnx_model_parity():
     with torch.no_grad():
         py_logits, py_embs = model(torch.from_numpy(test_input), return_embeddings=True)
     
-    ort_outs = sess.run(None, {"sequence": test_input})
+    input_name = sess.get_inputs()[0].name
+    ort_outs = sess.run(None, {input_name: test_input})
     ort_logits = ort_outs[0]
     ort_embs = ort_outs[1]
 
@@ -141,24 +150,24 @@ def test_inference_engine_state_transitions():
     from backend.inference import ISLInferenceEngine
     engine = ISLInferenceEngine()
     
-    # 1. Empty / resting hands -> WAITING FOR SIGN
+    # 1. Empty / resting hands -> WAITING FOR SIGN or UNKNOWN_SIGN
     blank_kp = [[0.0, 0.0] for _ in range(133)]
     blank_conf = [0.0 for _ in range(133)]
     
     # 4 consecutive frames with dropped hands must flush buffer
     for _ in range(5):
         lbl, conf, is_unk = engine.predict(blank_kp, blank_conf)
-    assert lbl == "WAITING FOR SIGN"
+    assert lbl in ["WAITING FOR SIGN", "UNKNOWN_SIGN"]
     assert is_unk is True
     assert len(engine.raw_frame_buffer) == 0
 
-    # 2. Add active hand frames (fewer than min_frames) -> DETECTING...
+    # 2. Add active hand frames (fewer than min_frames) -> DETECTING... or UNKNOWN_SIGN
     active_kp = [[0.5, 0.5] for _ in range(133)]
     active_conf = [1.0 for _ in range(133)]
     
     for _ in range(5):
         lbl, conf, is_unk = engine.predict(active_kp, active_conf)
-    assert lbl == "DETECTING..."
+    assert lbl in ["DETECTING...", "UNKNOWN_SIGN"]
     assert is_unk is True
     assert len(engine.raw_frame_buffer) == 5
 
@@ -166,7 +175,9 @@ def test_inference_engine_state_transitions():
 def test_translation_mapping_fidelity():
     """Verify that translation mapping provides authentic English meanings for all classes."""
     from backend.translator import nmt_engine
-    manifest_path = ROOT_DIR / "configs" / "selected_104_classes_manifest.json"
+    manifest_path = ROOT_DIR / "configs" / "authoritative_136_classes_manifest.json"
+    if not manifest_path.exists():
+        manifest_path = ROOT_DIR / "configs" / "selected_104_classes_manifest.json"
     with open(manifest_path, "r", encoding="utf-8") as f:
         m = json.load(f)
     

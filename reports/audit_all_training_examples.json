@@ -1,0 +1,4236 @@
+{
+  "dataset_1_vivit": {
+    "dataset_name": "ProcessedData_vivit",
+    "source_path": "C:\\Users\\navee\\Downloads\\archive\\ProcessedData_vivit",
+    "total_classes": 76,
+    "total_videos": 1166,
+    "total_sessions": 334,
+    "exact_duplicates": 0,
+    "corrupted_sample_count": 0,
+    "classes": {
+      "afternoon": {
+        "raw_name": "afternoon",
+        "normalized_label": "afternoon",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_55xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4655.MOV",
+          "MVI_4656.MOV",
+          "MVI_4657.MOV"
+        ]
+      },
+      "animal": {
+        "raw_name": "animal",
+        "normalized_label": "animal",
+        "file_count": 18,
+        "session_count": 4,
+        "sessions": {
+          "Session_29xx": 1,
+          "Session_30xx": 11,
+          "Session_31xx": 3,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2999.MOV",
+          "MVI_3000.MOV",
+          "MVI_3001.MOV"
+        ]
+      },
+      "bad": {
+        "raw_name": "bad",
+        "normalized_label": "bad",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5161.MOV",
+          "MVI_5162.MOV",
+          "MVI_5163.MOV"
+        ]
+      },
+      "beautiful": {
+        "raw_name": "beautiful",
+        "normalized_label": "beautiful",
+        "file_count": 9,
+        "session_count": 2,
+        "sessions": {
+          "Session_95xx": 5,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9569.MOV",
+          "MVI_9570.MOV",
+          "MVI_9571.MOV"
+        ]
+      },
+      "big": {
+        "raw_name": "big",
+        "normalized_label": "big",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 6,
+          "Session_92xx": 3,
+          "Session_93xx": 6,
+          "Session_94xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5123.MOV",
+          "MVI_5124.MOV",
+          "MVI_5125.MOV"
+        ]
+      },
+      "bird": {
+        "raw_name": "bird",
+        "normalized_label": "bird",
+        "file_count": 18,
+        "session_count": 3,
+        "sessions": {
+          "Session_29xx": 3,
+          "Session_30xx": 12,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2987.MOV",
+          "MVI_2988.MOV",
+          "MVI_2989.MOV"
+        ]
+      },
+      "blind": {
+        "raw_name": "blind",
+        "normalized_label": "blind",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_95xx": 4,
+          "Session_98xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9584.MOV",
+          "MVI_9585.MOV",
+          "MVI_9586.MOV"
+        ]
+      },
+      "cat": {
+        "raw_name": "cat",
+        "normalized_label": "cat",
+        "file_count": 18,
+        "session_count": 3,
+        "sessions": {
+          "Session_29xx": 3,
+          "Session_30xx": 12,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2981.MOV",
+          "MVI_2982.MOV",
+          "MVI_2983.MOV"
+        ]
+      },
+      "cheap": {
+        "raw_name": "cheap",
+        "normalized_label": "cheap",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_96xx": 4,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9617.MOV",
+          "MVI_9618.MOV",
+          "MVI_9619.MOV"
+        ]
+      },
+      "clothing": {
+        "raw_name": "clothing",
+        "normalized_label": "clothing",
+        "file_count": 19,
+        "session_count": 7,
+        "sessions": {
+          "Session_37xx": 3,
+          "Session_38xx": 3,
+          "Session_40xx": 3,
+          "Session_42xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3716.MOV",
+          "MVI_3717.MOV",
+          "MVI_3718.MOV"
+        ]
+      },
+      "cold": {
+        "raw_name": "cold",
+        "normalized_label": "cold",
+        "file_count": 20,
+        "session_count": 6,
+        "sessions": {
+          "Session_51xx": 2,
+          "Session_52xx": 5,
+          "Session_53xx": 1,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 6
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5139.MOV",
+          "MVI_5140.MOV",
+          "MVI_5219.MOV"
+        ]
+      },
+      "cow": {
+        "raw_name": "cow",
+        "normalized_label": "cow",
+        "file_count": 19,
+        "session_count": 3,
+        "sessions": {
+          "Session_29xx": 3,
+          "Session_30xx": 13,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2990.MOV",
+          "MVI_2991.MOV",
+          "MVI_2992.MOV"
+        ]
+      },
+      "curved": {
+        "raw_name": "curved",
+        "normalized_label": "curved",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_96xx": 4,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9633.MOV",
+          "MVI_9634.MOV",
+          "MVI_9635.MOV"
+        ]
+      },
+      "deaf": {
+        "raw_name": "deaf",
+        "normalized_label": "deaf",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_95xx": 4,
+          "Session_98xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9580.MOV",
+          "MVI_9581.MOV",
+          "MVI_9582.MOV"
+        ]
+      },
+      "dog": {
+        "raw_name": "dog",
+        "normalized_label": "dog",
+        "file_count": 18,
+        "session_count": 3,
+        "sessions": {
+          "Session_29xx": 3,
+          "Session_30xx": 12,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2978.MOV",
+          "MVI_2979.MOV",
+          "MVI_2980.MOV"
+        ]
+      },
+      "dress": {
+        "raw_name": "dress",
+        "normalized_label": "dress",
+        "file_count": 19,
+        "session_count": 7,
+        "sessions": {
+          "Session_36xx": 3,
+          "Session_38xx": 3,
+          "Session_39xx": 3,
+          "Session_41xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3693.MOV",
+          "MVI_3694.MOV",
+          "MVI_3696.MOV"
+        ]
+      },
+      "dry": {
+        "raw_name": "dry",
+        "normalized_label": "dry",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5167.MOV",
+          "MVI_5168.MOV",
+          "MVI_5169.MOV"
+        ]
+      },
+      "evening": {
+        "raw_name": "evening",
+        "normalized_label": "evening",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_55xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4659.MOV",
+          "MVI_4660.MOV",
+          "MVI_4661.MOV"
+        ]
+      },
+      "expensive": {
+        "raw_name": "expensive",
+        "normalized_label": "expensive",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_96xx": 4,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9613.MOV",
+          "MVI_9614.MOV",
+          "MVI_9615.MOV"
+        ]
+      },
+      "famous": {
+        "raw_name": "famous",
+        "normalized_label": "famous",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_97xx": 4,
+          "Session_98xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9715.MOV",
+          "MVI_9716.MOV",
+          "MVI_9717.MOV"
+        ]
+      },
+      "fast": {
+        "raw_name": "fast",
+        "normalized_label": "fast",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 6,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 6
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5133.MOV",
+          "MVI_5134.MOV",
+          "MVI_5135.MOV"
+        ]
+      },
+      "female": {
+        "raw_name": "female",
+        "normalized_label": "female",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_96xx": 4,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9642.MOV",
+          "MVI_9643.MOV",
+          "MVI_9644.MOV"
+        ]
+      },
+      "fish": {
+        "raw_name": "fish",
+        "normalized_label": "fish",
+        "file_count": 18,
+        "session_count": 3,
+        "sessions": {
+          "Session_29xx": 3,
+          "Session_30xx": 12,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2984.MOV",
+          "MVI_2985.MOV",
+          "MVI_2986.MOV"
+        ]
+      },
+      "flat": {
+        "raw_name": "flat",
+        "normalized_label": "flat",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_96xx": 4,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9621.MOV",
+          "MVI_9622.MOV",
+          "MVI_9623.MOV"
+        ]
+      },
+      "friday": {
+        "raw_name": "friday",
+        "normalized_label": "friday",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4607.MOV",
+          "MVI_4608.MOV",
+          "MVI_4609.MOV"
+        ]
+      },
+      "good": {
+        "raw_name": "good",
+        "normalized_label": "good",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5158.MOV",
+          "MVI_5159.MOV",
+          "MVI_5160.MOV"
+        ]
+      },
+      "happy": {
+        "raw_name": "happy",
+        "normalized_label": "happy",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5183.MOV",
+          "MVI_5184.MOV",
+          "MVI_5185.MOV"
+        ]
+      },
+      "hat": {
+        "raw_name": "hat",
+        "normalized_label": "hat",
+        "file_count": 19,
+        "session_count": 7,
+        "sessions": {
+          "Session_36xx": 3,
+          "Session_38xx": 3,
+          "Session_39xx": 3,
+          "Session_41xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3688.MOV",
+          "MVI_3690.MOV",
+          "MVI_3691.MOV"
+        ]
+      },
+      "healthy": {
+        "raw_name": "healthy",
+        "normalized_label": "healthy",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5173.MOV",
+          "MVI_5174.MOV",
+          "MVI_5175.MOV"
+        ]
+      },
+      "horse": {
+        "raw_name": "horse",
+        "normalized_label": "horse",
+        "file_count": 18,
+        "session_count": 4,
+        "sessions": {
+          "Session_29xx": 3,
+          "Session_30xx": 9,
+          "Session_31xx": 3,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2996.MOV",
+          "MVI_2997.MOV",
+          "MVI_2998.MOV"
+        ]
+      },
+      "hot": {
+        "raw_name": "hot",
+        "normalized_label": "hot",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 6,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 6
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5136.MOV",
+          "MVI_5137.MOV",
+          "MVI_5138.MOV"
+        ]
+      },
+      "hour": {
+        "raw_name": "hour",
+        "normalized_label": "hour",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4639.MOV",
+          "MVI_4640.MOV",
+          "MVI_4641.MOV"
+        ]
+      },
+      "light": {
+        "raw_name": "light",
+        "normalized_label": "light",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_97xx": 4,
+          "Session_98xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9711.MOV",
+          "MVI_9712.MOV",
+          "MVI_9713.MOV"
+        ]
+      },
+      "long": {
+        "raw_name": "long",
+        "normalized_label": "long",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 6,
+          "Session_52xx": 3,
+          "Session_92xx": 5,
+          "Session_93xx": 4,
+          "Session_94xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5106.MOV",
+          "MVI_5107.MOV",
+          "MVI_5108.MOV"
+        ]
+      },
+      "loose": {
+        "raw_name": "loose",
+        "normalized_label": "loose",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_96xx": 4,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9650.MOV",
+          "MVI_9651.MOV",
+          "MVI_9652.MOV"
+        ]
+      },
+      "loud": {
+        "raw_name": "loud",
+        "normalized_label": "loud",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5177.MOV",
+          "MVI_5178.MOV",
+          "MVI_5179.MOV"
+        ]
+      },
+      "minute": {
+        "raw_name": "minute",
+        "normalized_label": "minute",
+        "file_count": 11,
+        "session_count": 4,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 1,
+          "Session_55xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4643.MOV",
+          "MVI_4644.MOV",
+          "MVI_4645.MOV"
+        ]
+      },
+      "monday": {
+        "raw_name": "monday",
+        "normalized_label": "monday",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_45xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4591.MOV",
+          "MVI_4592.MOV",
+          "MVI_4593.MOV"
+        ]
+      },
+      "month": {
+        "raw_name": "month",
+        "normalized_label": "month",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4631.MOV",
+          "MVI_4632.MOV",
+          "MVI_4633.MOV"
+        ]
+      },
+      "morning": {
+        "raw_name": "morning",
+        "normalized_label": "morning",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_55xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4651.MOV",
+          "MVI_4652.MOV",
+          "MVI_4653.MOV"
+        ]
+      },
+      "mouse": {
+        "raw_name": "mouse",
+        "normalized_label": "mouse",
+        "file_count": 18,
+        "session_count": 4,
+        "sessions": {
+          "Session_29xx": 3,
+          "Session_30xx": 9,
+          "Session_31xx": 3,
+          "Session_41xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_2993.MOV",
+          "MVI_2994.MOV",
+          "MVI_2995.MOV"
+        ]
+      },
+      "narrow": {
+        "raw_name": "narrow",
+        "normalized_label": "narrow",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 6,
+          "Session_92xx": 3,
+          "Session_93xx": 6,
+          "Session_94xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5120.MOV",
+          "MVI_5121.MOV",
+          "MVI_5122.MOV"
+        ]
+      },
+      "new": {
+        "raw_name": "new",
+        "normalized_label": "new",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5148.MOV",
+          "MVI_5150.MOV",
+          "MVI_5151.MOV"
+        ]
+      },
+      "night": {
+        "raw_name": "night",
+        "normalized_label": "night",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_55xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4663.MOV",
+          "MVI_4664.MOV",
+          "MVI_4665.MOV"
+        ]
+      },
+      "old": {
+        "raw_name": "old",
+        "normalized_label": "old",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5152.MOV",
+          "MVI_5153.MOV",
+          "MVI_5154.MOV"
+        ]
+      },
+      "pant": {
+        "raw_name": "pant",
+        "normalized_label": "pant",
+        "file_count": 19,
+        "session_count": 7,
+        "sessions": {
+          "Session_37xx": 3,
+          "Session_38xx": 3,
+          "Session_40xx": 3,
+          "Session_42xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3707.MOV",
+          "MVI_3708.MOV",
+          "MVI_3709.MOV"
+        ]
+      },
+      "pocket": {
+        "raw_name": "pocket",
+        "normalized_label": "pocket",
+        "file_count": 19,
+        "session_count": 7,
+        "sessions": {
+          "Session_37xx": 3,
+          "Session_38xx": 3,
+          "Session_40xx": 3,
+          "Session_42xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3713.MOV",
+          "MVI_3714.MOV",
+          "MVI_3715.MOV"
+        ]
+      },
+      "quiet": {
+        "raw_name": "quiet",
+        "normalized_label": "quiet",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5180.MOV",
+          "MVI_5181.MOV",
+          "MVI_5182.MOV"
+        ]
+      },
+      "sad": {
+        "raw_name": "sad",
+        "normalized_label": "sad",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_95xx": 4,
+          "Session_97xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9565.MOV",
+          "MVI_9566.MOV",
+          "MVI_9567.MOV"
+        ]
+      },
+      "saturday": {
+        "raw_name": "saturday",
+        "normalized_label": "saturday",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4611.MOV",
+          "MVI_4612.MOV",
+          "MVI_4613.MOV"
+        ]
+      },
+      "second": {
+        "raw_name": "second",
+        "normalized_label": "second",
+        "file_count": 3,
+        "session_count": 1,
+        "sessions": {
+          "Session_50xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5056.MOV",
+          "MVI_5057.MOV",
+          "MVI_5058.MOV"
+        ]
+      },
+      "shirt": {
+        "raw_name": "shirt",
+        "normalized_label": "shirt",
+        "file_count": 19,
+        "session_count": 8,
+        "sessions": {
+          "Session_37xx": 3,
+          "Session_38xx": 3,
+          "Session_39xx": 1,
+          "Session_40xx": 2,
+          "Session_42xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3701.MOV",
+          "MVI_3702.MOV",
+          "MVI_3703.MOV"
+        ]
+      },
+      "shoes": {
+        "raw_name": "shoes",
+        "normalized_label": "shoes",
+        "file_count": 19,
+        "session_count": 7,
+        "sessions": {
+          "Session_37xx": 3,
+          "Session_38xx": 3,
+          "Session_40xx": 3,
+          "Session_42xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3710.MOV",
+          "MVI_3711.MOV",
+          "MVI_3712.MOV"
+        ]
+      },
+      "short": {
+        "raw_name": "short",
+        "normalized_label": "short",
+        "file_count": 22,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 7,
+          "Session_52xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 6,
+          "Session_94xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5110.MOV",
+          "MVI_5111.MOV",
+          "MVI_5112.MOV"
+        ]
+      },
+      "sick": {
+        "raw_name": "sick",
+        "normalized_label": "sick",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5170.MOV",
+          "MVI_5171.MOV",
+          "MVI_5172.MOV"
+        ]
+      },
+      "skirt": {
+        "raw_name": "skirt",
+        "normalized_label": "skirt",
+        "file_count": 18,
+        "session_count": 8,
+        "sessions": {
+          "Session_36xx": 1,
+          "Session_37xx": 1,
+          "Session_38xx": 3,
+          "Session_39xx": 3,
+          "Session_42xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3699.MOV",
+          "MVI_3700.MOV",
+          "MVI_3844.MOV"
+        ]
+      },
+      "slow": {
+        "raw_name": "slow",
+        "normalized_label": "slow",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 6,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 6
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5130.MOV",
+          "MVI_5131.MOV",
+          "MVI_5132.MOV"
+        ]
+      },
+      "small": {
+        "raw_name": "small",
+        "normalized_label": "small",
+        "file_count": 22,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 7,
+          "Session_92xx": 3,
+          "Session_93xx": 5,
+          "Session_94xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5126.MOV",
+          "MVI_5127.MOV",
+          "MVI_5128.MOV"
+        ]
+      },
+      "suit": {
+        "raw_name": "suit",
+        "normalized_label": "suit",
+        "file_count": 18,
+        "session_count": 7,
+        "sessions": {
+          "Session_36xx": 2,
+          "Session_38xx": 3,
+          "Session_39xx": 3,
+          "Session_41xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3697.MOV",
+          "MVI_3698.MOV",
+          "MVI_3841.MOV"
+        ]
+      },
+      "sunday": {
+        "raw_name": "sunday",
+        "normalized_label": "sunday",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_45xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4586.MOV",
+          "MVI_4588.MOV",
+          "MVI_4589.MOV"
+        ]
+      },
+      "t_shirt": {
+        "raw_name": "t_shirt",
+        "normalized_label": "t_shirt",
+        "file_count": 19,
+        "session_count": 7,
+        "sessions": {
+          "Session_37xx": 3,
+          "Session_38xx": 3,
+          "Session_40xx": 3,
+          "Session_42xx": 1,
+          "Session_48xx": 3,
+          "Session_50xx": 3,
+          "Session_51xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_3704.MOV",
+          "MVI_3705.MOV",
+          "MVI_3706.MOV"
+        ]
+      },
+      "tall": {
+        "raw_name": "tall",
+        "normalized_label": "tall",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 6,
+          "Session_52xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 6,
+          "Session_94xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5114.MOV",
+          "MVI_5115.MOV",
+          "MVI_5116.MOV"
+        ]
+      },
+      "thursday": {
+        "raw_name": "thursday",
+        "normalized_label": "thursday",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4603.MOV",
+          "MVI_4604.MOV",
+          "MVI_4605.MOV"
+        ]
+      },
+      "time": {
+        "raw_name": "time",
+        "normalized_label": "time",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_55xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4667.MOV",
+          "MVI_4668.MOV",
+          "MVI_4669.MOV"
+        ]
+      },
+      "today": {
+        "raw_name": "today",
+        "normalized_label": "today",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4615.MOV",
+          "MVI_4616.MOV",
+          "MVI_4617.MOV"
+        ]
+      },
+      "tomorrow": {
+        "raw_name": "tomorrow",
+        "normalized_label": "tomorrow",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4619.MOV",
+          "MVI_4620.MOV",
+          "MVI_4621.MOV"
+        ]
+      },
+      "tuesday": {
+        "raw_name": "tuesday",
+        "normalized_label": "tuesday",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_45xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4595.MOV",
+          "MVI_4596.MOV",
+          "MVI_4597.MOV"
+        ]
+      },
+      "ugly": {
+        "raw_name": "ugly",
+        "normalized_label": "ugly",
+        "file_count": 8,
+        "session_count": 2,
+        "sessions": {
+          "Session_95xx": 4,
+          "Session_98xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_9576.MOV",
+          "MVI_9577.MOV",
+          "MVI_9578.MOV"
+        ]
+      },
+      "warm": {
+        "raw_name": "warm",
+        "normalized_label": "warm",
+        "file_count": 21,
+        "session_count": 6,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 6
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5141.MOV",
+          "MVI_5143.MOV",
+          "MVI_5144.MOV"
+        ]
+      },
+      "wednesday": {
+        "raw_name": "wednesday",
+        "normalized_label": "wednesday",
+        "file_count": 11,
+        "session_count": 4,
+        "sessions": {
+          "Session_45xx": 1,
+          "Session_46xx": 3,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4599.MOV",
+          "MVI_4600.MOV",
+          "MVI_4601.MOV"
+        ]
+      },
+      "week": {
+        "raw_name": "week",
+        "normalized_label": "week",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4627.MOV",
+          "MVI_4628.MOV",
+          "MVI_4629.MOV"
+        ]
+      },
+      "wet": {
+        "raw_name": "wet",
+        "normalized_label": "wet",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5164.MOV",
+          "MVI_5165.MOV",
+          "MVI_5166.MOV"
+        ]
+      },
+      "wide": {
+        "raw_name": "wide",
+        "normalized_label": "wide",
+        "file_count": 21,
+        "session_count": 5,
+        "sessions": {
+          "Session_51xx": 6,
+          "Session_52xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 6,
+          "Session_94xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5117.MOV",
+          "MVI_5118.MOV",
+          "MVI_5119.MOV"
+        ]
+      },
+      "year": {
+        "raw_name": "year",
+        "normalized_label": "year",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4635.MOV",
+          "MVI_4636.MOV",
+          "MVI_4637.MOV"
+        ]
+      },
+      "yesterday": {
+        "raw_name": "yesterday",
+        "normalized_label": "yesterday",
+        "file_count": 11,
+        "session_count": 3,
+        "sessions": {
+          "Session_46xx": 4,
+          "Session_50xx": 3,
+          "Session_54xx": 4
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_4623.MOV",
+          "MVI_4624.MOV",
+          "MVI_4625.MOV"
+        ]
+      },
+      "young": {
+        "raw_name": "young",
+        "normalized_label": "young",
+        "file_count": 21,
+        "session_count": 7,
+        "sessions": {
+          "Session_51xx": 3,
+          "Session_52xx": 3,
+          "Session_53xx": 3,
+          "Session_92xx": 3,
+          "Session_93xx": 3,
+          "Session_94xx": 3,
+          "Session_95xx": 3
+        },
+        "resolution": "224x224",
+        "fps": 10.0,
+        "avg_duration_sec": 3.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "MVI_5155.MOV",
+          "MVI_5156.MOV",
+          "MVI_5157.MOV"
+        ]
+      }
+    }
+  },
+  "dataset_2_video_dataset": {
+    "dataset_name": "Video_Dataset_Archive2",
+    "source_path": "C:\\Users\\navee\\Downloads\\archive (2)\\Video_Dataset\\Video_Dataset",
+    "total_classes": 61,
+    "total_videos": 3630,
+    "total_sessions": 1210,
+    "exact_duplicates": 18,
+    "corrupted_sample_count": 0,
+    "classes": {
+      "bear": {
+        "raw_name": "Bear",
+        "normalized_label": "bear",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.83,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_12_38_17_Pro.mp4",
+          "WIN_20231102_12_38_17_Pro_left_tilt.mp4",
+          "WIN_20231102_12_38_17_Pro_right_tilt.mp4"
+        ]
+      },
+      "break": {
+        "raw_name": "Break",
+        "normalized_label": "break",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.37,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_13_29_56_Pro.mp4",
+          "WIN_20231102_13_29_56_Pro_left_tilt.mp4",
+          "WIN_20231102_13_29_56_Pro_right_tilt.mp4"
+        ]
+      },
+      "brinjal": {
+        "raw_name": "Brinjal",
+        "normalized_label": "brinjal",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.8,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_10_52_48_Pro.mp4",
+          "WIN_20231102_10_52_48_Pro_left_tilt.mp4",
+          "WIN_20231102_10_52_48_Pro_right_tilt.mp4"
+        ]
+      },
+      "budget": {
+        "raw_name": "Budget",
+        "normalized_label": "budget",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.83,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_29_50_Pro.mp4",
+          "WIN_20230901_09_29_50_Pro_left_tilt.mp4",
+          "WIN_20230901_09_29_50_Pro_right_tilt.mp4"
+        ]
+      },
+      "busy": {
+        "raw_name": "Busy",
+        "normalized_label": "busy",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.4,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_14_45_26_Pro.mp4",
+          "WIN_20230831_14_45_26_Pro_left_tilt.mp4",
+          "WIN_20230831_14_45_26_Pro_right_tilt.mp4"
+        ]
+      },
+      "cabbage": {
+        "raw_name": "Cabbage",
+        "normalized_label": "cabbage",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.0,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_11_05_03_Pro.mp4",
+          "WIN_20231102_11_05_03_Pro_left_tilt.mp4",
+          "WIN_20231102_11_05_03_Pro_right_tilt.mp4"
+        ]
+      },
+      "carrot": {
+        "raw_name": "Carrot",
+        "normalized_label": "carrot",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.33,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_11_18_27_Pro.mp4",
+          "WIN_20231102_11_18_27_Pro_left_tilt.mp4",
+          "WIN_20231102_11_18_27_Pro_right_tilt.mp4"
+        ]
+      },
+      "cauliflower": {
+        "raw_name": "Cauliflower",
+        "normalized_label": "cauliflower",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.63,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_11_34_51_Pro.mp4",
+          "WIN_20231102_11_34_51_Pro_left_tilt.mp4",
+          "WIN_20231102_11_34_51_Pro_right_tilt.mp4"
+        ]
+      },
+      "chilli": {
+        "raw_name": "Chilli",
+        "normalized_label": "chilli",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.33,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_11_47_32_Pro.mp4",
+          "WIN_20231102_11_47_32_Pro_left_tilt.mp4",
+          "WIN_20231102_11_47_32_Pro_right_tilt.mp4"
+        ]
+      },
+      "clean": {
+        "raw_name": "Clean",
+        "normalized_label": "clean",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.03,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_10_29_32_Pro.mp4",
+          "WIN_20231103_10_29_32_Pro_left_tilt.mp4",
+          "WIN_20231103_10_29_32_Pro_right_tilt.mp4"
+        ]
+      },
+      "close": {
+        "raw_name": "Close",
+        "normalized_label": "close",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.2,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_10_35_06_Pro.mp4",
+          "WIN_20231103_10_35_06_Pro_left_tilt.mp4",
+          "WIN_20231103_10_35_06_Pro_right_tilt.mp4"
+        ]
+      },
+      "come": {
+        "raw_name": "Come",
+        "normalized_label": "come",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.33,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_10_41_41_Pro.mp4",
+          "WIN_20231103_10_41_41_Pro_left_tilt.mp4",
+          "WIN_20231103_10_41_41_Pro_right_tilt.mp4"
+        ]
+      },
+      "cook": {
+        "raw_name": "Cook",
+        "normalized_label": "cook",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.53,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_10_45_35_Pro.mp4",
+          "WIN_20231103_10_45_35_Pro_left_tilt.mp4",
+          "WIN_20231103_10_45_35_Pro_right_tilt.mp4"
+        ]
+      },
+      "crocodile": {
+        "raw_name": "Crocodile",
+        "normalized_label": "crocodile",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 7.37,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_12_46_01_Pro.mp4",
+          "WIN_20231102_12_46_01_Pro_left_tilt.mp4",
+          "WIN_20231102_12_46_01_Pro_right_tilt.mp4"
+        ]
+      },
+      "cry": {
+        "raw_name": "Cry",
+        "normalized_label": "cry",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.47,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_10_51_30_Pro.mp4",
+          "WIN_20231103_10_51_30_Pro_left_tilt.mp4",
+          "WIN_20231103_10_51_30_Pro_right_tilt.mp4"
+        ]
+      },
+      "cucumber": {
+        "raw_name": "Cucumber",
+        "normalized_label": "cucumber",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.63,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_11_56_56_Pro.mp4",
+          "WIN_20231102_11_56_56_Pro_left_tilt.mp4",
+          "WIN_20231102_11_56_56_Pro_right_tilt.mp4"
+        ]
+      },
+      "deer": {
+        "raw_name": "Deer",
+        "normalized_label": "deer",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.93,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_12_52_30_Pro.mp4",
+          "WIN_20231102_12_52_30_Pro_left_tilt.mp4",
+          "WIN_20231102_12_52_30_Pro_right_tilt.mp4"
+        ]
+      },
+      "drink": {
+        "raw_name": "Drink",
+        "normalized_label": "drink",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.8,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_10_55_48_Pro.mp4",
+          "WIN_20231103_10_55_48_Pro_left_tilt.mp4",
+          "WIN_20231103_10_55_48_Pro_right_tilt.mp4"
+        ]
+      },
+      "elephant": {
+        "raw_name": "Elephant",
+        "normalized_label": "elephant",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.8,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_12_59_25_Pro.mp4",
+          "WIN_20231102_12_59_25_Pro_left_tilt.mp4",
+          "WIN_20231102_12_59_25_Pro_right_tilt.mp4"
+        ]
+      },
+      "exam": {
+        "raw_name": "Exam",
+        "normalized_label": "exam",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.0,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_11_20_16_Pro.mp4",
+          "WIN_20231103_11_20_16_Pro_left_tilt.mp4",
+          "WIN_20231103_11_20_16_Pro_right_tilt.mp4"
+        ]
+      },
+      "fedup": {
+        "raw_name": "Fedup",
+        "normalized_label": "fedup",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_13_02_30_Pro.mp4",
+          "WIN_20231103_13_02_30_Pro_left_tilt.mp4",
+          "WIN_20231103_13_02_30_Pro_right_tilt.mp4"
+        ]
+      },
+      "fever": {
+        "raw_name": "Fever",
+        "normalized_label": "fever",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.0,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_10_05_26_Pro.mp4",
+          "WIN_20230901_10_05_26_Pro_left_tilt.mp4",
+          "WIN_20230901_10_05_26_Pro_right_tilt.mp4"
+        ]
+      },
+      "giraffe": {
+        "raw_name": "Giraffe",
+        "normalized_label": "giraffe",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 9.07,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_13_05_27_Pro.mp4",
+          "WIN_20231102_13_05_27_Pro_left_tilt.mp4",
+          "WIN_20231102_13_05_27_Pro_right_tilt.mp4"
+        ]
+      },
+      "give": {
+        "raw_name": "Give",
+        "normalized_label": "give",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 3.87,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_10_59_37_Pro.mp4",
+          "WIN_20231103_10_59_37_Pro_left_tilt.mp4",
+          "WIN_20231103_10_59_37_Pro_right_tilt.mp4"
+        ]
+      },
+      "good_afternoon": {
+        "raw_name": "Good afternoon",
+        "normalized_label": "good_afternoon",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.87,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_13_08_56_Pro.mp4",
+          "WIN_20231103_13_08_56_Pro_left_tilt.mp4",
+          "WIN_20231103_13_08_56_Pro_right_tilt.mp4"
+        ]
+      },
+      "good_morning": {
+        "raw_name": "Good Morning",
+        "normalized_label": "good_morning",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.2,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_13_17_04_Pro.mp4",
+          "WIN_20231103_13_17_04_Pro_left_tilt.mp4",
+          "WIN_20231103_13_17_04_Pro_right_tilt.mp4"
+        ]
+      },
+      "hello": {
+        "raw_name": "Hello",
+        "normalized_label": "hello",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 3.93,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_13_22_45_Pro.mp4",
+          "WIN_20231103_13_22_45_Pro_left_tilt.mp4",
+          "WIN_20231103_13_22_45_Pro_right_tilt.mp4"
+        ]
+      },
+      "hug": {
+        "raw_name": "Hug",
+        "normalized_label": "hug",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.13,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_14_29_40_Pro.mp4",
+          "WIN_20230831_14_29_40_Pro_left_tilt.mp4",
+          "WIN_20230831_14_29_40_Pro_right_tilt.mp4"
+        ]
+      },
+      "injury": {
+        "raw_name": "Injury",
+        "normalized_label": "injury",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 3.7,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_14_19_14_Pro.mp4",
+          "WIN_20230831_14_19_14_Pro_left_tilt.mp4",
+          "WIN_20230831_14_19_14_Pro_right_tilt.mp4"
+        ]
+      },
+      "interview": {
+        "raw_name": "Interview",
+        "normalized_label": "interview",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.27,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_45_57_Pro.mp4",
+          "WIN_20230901_09_45_57_Pro_left_tilt.mp4",
+          "WIN_20230901_09_45_57_Pro_right_tilt.mp4"
+        ]
+      },
+      "jump": {
+        "raw_name": "Jump",
+        "normalized_label": "jump",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.4,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_11_03_33_Pro.mp4",
+          "WIN_20231103_11_03_33_Pro_left_tilt.mp4",
+          "WIN_20231103_11_03_33_Pro_right_tilt.mp4"
+        ]
+      },
+      "karnataka": {
+        "raw_name": "Karnataka",
+        "normalized_label": "karnataka",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.03,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_11_14_01_Pro.mp4",
+          "WIN_20231103_11_14_01_Pro_left_tilt.mp4",
+          "WIN_20231103_11_14_01_Pro_right_tilt.mp4"
+        ]
+      },
+      "key": {
+        "raw_name": "Key",
+        "normalized_label": "key",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.13,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_22_12_Pro.mp4",
+          "WIN_20230901_09_22_12_Pro_left_tilt.mp4",
+          "WIN_20230901_09_22_12_Pro_right_tilt.mp4"
+        ]
+      },
+      "knife": {
+        "raw_name": "Knife",
+        "normalized_label": "knife",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.57,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_12_40_43_Pro.mp4",
+          "WIN_20230831_12_40_43_Pro_left_tilt.mp4",
+          "WIN_20230831_12_40_43_Pro_right_tilt.mp4"
+        ]
+      },
+      "lemon": {
+        "raw_name": "Lemon",
+        "normalized_label": "lemon",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.57,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_12_03_42_Pro.mp4",
+          "WIN_20231102_12_03_42_Pro_left_tilt.mp4",
+          "WIN_20231102_12_03_42_Pro_right_tilt.mp4"
+        ]
+      },
+      "lion": {
+        "raw_name": "Lion",
+        "normalized_label": "lion",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "880x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.17,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_13_10_25_Pro.mp4",
+          "WIN_20231102_13_10_25_Pro_left_tilt.mp4",
+          "WIN_20231102_13_10_25_Pro_right_tilt.mp4"
+        ]
+      },
+      "man": {
+        "raw_name": "Man",
+        "normalized_label": "man",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.93,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_12_29_00_Pro.mp4",
+          "WIN_20230831_12_29_00_Pro_left_tilt.mp4",
+          "WIN_20230831_12_29_00_Pro_right_tilt.mp4"
+        ]
+      },
+      "maths": {
+        "raw_name": "Maths",
+        "normalized_label": "maths",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.97,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_38_10_Pro.mp4",
+          "WIN_20230901_09_38_10_Pro_left_tilt.mp4",
+          "WIN_20230901_09_38_10_Pro_right_tilt.mp4"
+        ]
+      },
+      "maybe": {
+        "raw_name": "Maybe",
+        "normalized_label": "maybe",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.4,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_17_49_Pro.mp4",
+          "WIN_20230901_09_17_49_Pro_left_tilt.mp4",
+          "WIN_20230901_09_17_49_Pro_right_tilt.mp4"
+        ]
+      },
+      "monkey": {
+        "raw_name": "Monkey",
+        "normalized_label": "monkey",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.7,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_13_15_07_Pro.mp4",
+          "WIN_20231102_13_15_07_Pro_left_tilt.mp4",
+          "WIN_20231102_13_15_07_Pro_right_tilt.mp4"
+        ]
+      },
+      "onion": {
+        "raw_name": "Onion",
+        "normalized_label": "onion",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.83,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_12_12_33_Pro.mp4",
+          "WIN_20231102_12_12_33_Pro_left_tilt.mp4",
+          "WIN_20231102_12_12_33_Pro_right_tilt.mp4"
+        ]
+      },
+      "peacock": {
+        "raw_name": "Peacock",
+        "normalized_label": "peacock",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "760x720",
+        "fps": 30.0,
+        "avg_duration_sec": 3.83,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_12_51_54_Pro.mp4",
+          "WIN_20231103_12_51_54_Pro_left_tilt.mp4",
+          "WIN_20231103_12_51_54_Pro_right_tilt.mp4"
+        ]
+      },
+      "pigeon": {
+        "raw_name": "Pigeon",
+        "normalized_label": "pigeon",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "760x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.17,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_12_54_54_Pro.mp4",
+          "WIN_20231103_12_54_54_Pro_left_tilt.mp4",
+          "WIN_20231103_12_54_54_Pro_right_tilt.mp4"
+        ]
+      },
+      "pour": {
+        "raw_name": "Pour",
+        "normalized_label": "pour",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.97,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_11_09_17_Pro.mp4",
+          "WIN_20231103_11_09_17_Pro_left_tilt.mp4",
+          "WIN_20231103_11_09_17_Pro_right_tilt.mp4"
+        ]
+      },
+      "radish": {
+        "raw_name": "Radish",
+        "normalized_label": "radish",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.3,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_12_26_37_Pro.mp4",
+          "WIN_20231102_12_26_37_Pro_left_tilt.mp4",
+          "WIN_20231102_12_26_37_Pro_right_tilt.mp4"
+        ]
+      },
+      "sparrow": {
+        "raw_name": "Sparrow",
+        "normalized_label": "sparrow",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "760x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.7,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_12_58_35_Pro.mp4",
+          "WIN_20231103_12_58_35_Pro_left_tilt.mp4",
+          "WIN_20231103_12_58_35_Pro_right_tilt.mp4"
+        ]
+      },
+      "still": {
+        "raw_name": "Still",
+        "normalized_label": "still",
+        "file_count": 30,
+        "session_count": 10,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 7.47,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231014_19_04_36_Pro_Trim - Copy_cropped.mp4",
+          "WIN_20231014_19_04_36_Pro_Trim - Copy_cropped_left_tilt.mp4",
+          "WIN_20231014_19_04_36_Pro_Trim - Copy_cropped_right_tilt.mp4"
+        ]
+      },
+      "switch": {
+        "raw_name": "Switch",
+        "normalized_label": "switch",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.37,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_08_23_Pro.mp4",
+          "WIN_20230901_09_08_23_Pro_left_tilt.mp4",
+          "WIN_20230901_09_08_23_Pro_right_tilt.mp4"
+        ]
+      },
+      "tea": {
+        "raw_name": "Tea",
+        "normalized_label": "tea",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 8.43,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_12_01_07_Pro.mp4",
+          "WIN_20230831_12_01_07_Pro_left_tilt.mp4",
+          "WIN_20230831_12_01_07_Pro_right_tilt.mp4"
+        ]
+      },
+      "temple": {
+        "raw_name": "Temple",
+        "normalized_label": "temple",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 8.0,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_12_12_59_Pro.mp4",
+          "WIN_20230831_12_12_59_Pro_left_tilt.mp4",
+          "WIN_20230831_12_12_59_Pro_right_tilt.mp4"
+        ]
+      },
+      "thank_you": {
+        "raw_name": "Thank you",
+        "normalized_label": "thank_you",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 3.77,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_13_12_51_Pro.mp4",
+          "WIN_20231103_13_12_51_Pro_left_tilt.mp4",
+          "WIN_20231103_13_12_51_Pro_right_tilt.mp4"
+        ]
+      },
+      "tiger": {
+        "raw_name": "Tiger",
+        "normalized_label": "tiger",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "880x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.33,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_13_18_43_Pro.mp4",
+          "WIN_20231102_13_18_43_Pro_left_tilt.mp4",
+          "WIN_20231102_13_18_43_Pro_right_tilt.mp4"
+        ]
+      },
+      "turtle": {
+        "raw_name": "Turtle",
+        "normalized_label": "turtle",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.73,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_13_23_44_Pro.mp4",
+          "WIN_20231102_13_23_44_Pro_left_tilt.mp4",
+          "WIN_20231102_13_23_44_Pro_right_tilt.mp4"
+        ]
+      },
+      "umbrella": {
+        "raw_name": "Umbrella",
+        "normalized_label": "umbrella",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.67,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_13_06_19_Pro.mp4",
+          "WIN_20230831_13_06_19_Pro_left_tilt.mp4",
+          "WIN_20230831_13_06_19_Pro_right_tilt.mp4"
+        ]
+      },
+      "uncle": {
+        "raw_name": "Uncle",
+        "normalized_label": "uncle",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.67,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_12_55_07_Pro.mp4",
+          "WIN_20230831_12_55_07_Pro_left_tilt.mp4",
+          "WIN_20230831_12_55_07_Pro_right_tilt.mp4"
+        ]
+      },
+      "vegetables": {
+        "raw_name": "Vegetables",
+        "normalized_label": "vegetables",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.93,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231102_10_40_49_Pro.mp4",
+          "WIN_20231102_10_40_49_Pro_left_tilt.mp4",
+          "WIN_20231102_10_40_49_Pro_right_tilt.mp4"
+        ]
+      },
+      "volcano": {
+        "raw_name": "Volcano",
+        "normalized_label": "volcano",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 4.5,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20231103_11_28_58_Pro.mp4",
+          "WIN_20231103_11_28_58_Pro_left_tilt.mp4",
+          "WIN_20231103_11_28_58_Pro_right_tilt.mp4"
+        ]
+      },
+      "what_is_your_name": {
+        "raw_name": "What is your Name",
+        "normalized_label": "what_is_your_name",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.43,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_59_01_Pro.mp4",
+          "WIN_20230901_09_59_01_Pro_left_tilt.mp4",
+          "WIN_20230901_09_59_01_Pro_right_tilt.mp4"
+        ]
+      },
+      "wife": {
+        "raw_name": "Wife",
+        "normalized_label": "wife",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 6.4,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_08_57_39_Pro.mp4",
+          "WIN_20230901_08_57_39_Pro_left_tilt.mp4",
+          "WIN_20230901_08_57_39_Pro_right_tilt.mp4"
+        ]
+      },
+      "write": {
+        "raw_name": "Writer",
+        "normalized_label": "write",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.2,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230901_09_50_19_Pro.mp4",
+          "WIN_20230901_09_50_19_Pro_left_tilt.mp4",
+          "WIN_20230901_09_50_19_Pro_right_tilt.mp4"
+        ]
+      },
+      "wrong": {
+        "raw_name": "Wrong",
+        "normalized_label": "wrong",
+        "file_count": 60,
+        "session_count": 20,
+        "resolution": "640x720",
+        "fps": 30.0,
+        "avg_duration_sec": 5.6,
+        "temporal_motion_verified": true,
+        "sample_files": [
+          "WIN_20230831_13_16_16_Pro.mp4",
+          "WIN_20230831_13_16_16_Pro_left_tilt.mp4",
+          "WIN_20230831_13_16_16_Pro_right_tilt.mp4"
+        ]
+      }
+    }
+  },
+  "repo_raw_40words": {
+    "dataset_name": "raw_40words_local",
+    "total_classes": 40,
+    "total_videos": 642,
+    "classes": {
+      "brother": {
+        "file_count": 3,
+        "sample_files": [
+          "brother__CISLR__00050__UDcg2skGRXM_1.mp4",
+          "brother__CISLR__00071__pcz5j3TcyEs_1.mp4"
+        ]
+      },
+      "come": {
+        "file_count": 4,
+        "sample_files": [
+          "come__CISLR__00025__HSEV-Y2g3A8.mp4",
+          "come__CISLR__00061__d3i2EjGoA2k_1.mp4"
+        ]
+      },
+      "drink": {
+        "file_count": 16,
+        "sample_files": [
+          "drink__CISLR__00011__6X8mSzwuKWw_1.mp4",
+          "drink__ISL500__00081__Drink__session106__clip016.mp4"
+        ]
+      },
+      "eat": {
+        "file_count": 18,
+        "sample_files": [
+          "eat__CISLR__00016__Cgs1MibMXJ0.mp4",
+          "eat__CISLR__00029__IYf_zhHRbWw_1.mp4"
+        ]
+      },
+      "father": {
+        "file_count": 16,
+        "sample_files": [
+          "father__CISLR__00024__Gm2HCSz7Jqg_1.mp4",
+          "father__ISL500__00083__Father__session123__clip000.mp4"
+        ]
+      },
+      "food": {
+        "file_count": 17,
+        "sample_files": [
+          "food__CISLR__00028__IVY4EYIVHMI.mp4",
+          "food__CISLR__00035__NROeKyImRuI_1.mp4"
+        ]
+      },
+      "friend": {
+        "file_count": 38,
+        "sample_files": [
+          "friend__CISLR__00020__ElXP4DjT3H8_1.mp4",
+          "friend__CISLR__00026__HiKegjOx1kw.mp4"
+        ]
+      },
+      "go": {
+        "file_count": 17,
+        "sample_files": [
+          "go__CISLR__00039__PQoocuBF2f8_1.mp4",
+          "go__CISLR__00046__RqddJENqoOY.mp4"
+        ]
+      },
+      "goodbye": {
+        "file_count": 3,
+        "sample_files": [
+          "goodbye__CISLR__00036__O6YJgD20e2g.mp4",
+          "goodbye__ISLRTC_dictionary__00629__Bye.mp4"
+        ]
+      },
+      "he": {
+        "file_count": 17,
+        "sample_files": [
+          "he__CISLR__00043__Qu5KH6X5dd8_1.mp4",
+          "he__CISLR__00068__lLd__AgPs98.mp4"
+        ]
+      },
+      "hello": {
+        "file_count": 36,
+        "sample_files": [
+          "hello__INCLUDE__00566__MVI_0029.mp4",
+          "hello__INCLUDE__00567__MVI_0030.mp4"
+        ]
+      },
+      "help": {
+        "file_count": 16,
+        "sample_files": [
+          "help__CISLR__00018__E91cfQBn8_4_1.mp4",
+          "help__ISL500__00088__Help__session111__clip022.mp4"
+        ]
+      },
+      "home": {
+        "file_count": 1,
+        "sample_files": [
+          "home__CISLR__00008__3SRihi99gjc_1.mp4"
+        ]
+      },
+      "hospital": {
+        "file_count": 21,
+        "sample_files": [
+          "hospital__CISLR__00057__Za7gQoC8eaA_1.mp4",
+          "hospital__INCLUDE__00506__MVI_3315.mp4"
+        ]
+      },
+      "market": {
+        "file_count": 36,
+        "sample_files": [
+          "market__CISLR__00079__zSXKZb2Frqc_1.mp4",
+          "market__INCLUDE__00526__MVI_3323.mp4"
+        ]
+      },
+      "me": {
+        "file_count": 3,
+        "sample_files": [
+          "me__CISLR__00006__1f6OchgCQrE.mp4",
+          "me__CISLR__00063__f7XWdoOSSNw_1.mp4"
+        ]
+      },
+      "mother": {
+        "file_count": 18,
+        "sample_files": [
+          "mother__CISLR__00003__0t5NaJwemgI_1.mp4",
+          "mother__CISLR__00032__Kxj8mG2kNCc.mp4"
+        ]
+      },
+      "no": {
+        "file_count": 17,
+        "sample_files": [
+          "no__CISLR__00015__CXEDTo1PXCg.mp4",
+          "no__CISLR__00052__VS_ZuiQIJx0.mp4"
+        ]
+      },
+      "okay": {
+        "file_count": 23,
+        "sample_files": [
+          "okay__CISLR__00019__EZpZvb2wicY.mp4",
+          "okay__INCLUDE__00587__MVI_0037.mp4"
+        ]
+      },
+      "please": {
+        "file_count": 18,
+        "sample_files": [
+          "please__CISLR__00065__iGDJKo1-w5k.mp4",
+          "please__CISLR__00073__vAW9QDnXLrE.mp4"
+        ]
+      },
+      "read": {
+        "file_count": 3,
+        "sample_files": [
+          "read__CISLR__00017__Dz2avlvSTYQ_1.mp4",
+          "read__CISLR__00037__OWya5pey33I.mp4"
+        ]
+      },
+      "school": {
+        "file_count": 37,
+        "sample_files": [
+          "school__CISLR__00038__OvDIlDiFmnU.mp4",
+          "school__CISLR__00048__T3DNMjNynU0_1.mp4"
+        ]
+      },
+      "she": {
+        "file_count": 17,
+        "sample_files": [
+          "she__CISLR__00013__BXw0xmFB8pQ_1.mp4",
+          "she__CISLR__00060___rEVVtT1I44.mp4"
+        ]
+      },
+      "sister": {
+        "file_count": 17,
+        "sample_files": [
+          "sister__CISLR__00045__Rj6pX9wzxqA_1.mp4",
+          "sister__CISLR__00066__jWWLAybE8C8_1.mp4"
+        ]
+      },
+      "sit": {
+        "file_count": 19,
+        "sample_files": [
+          "sit__CISLR__00007__2AGfP7x3obk_1.mp4",
+          "sit__CISLR__00014__CEHCaHC8hK0.mp4"
+        ]
+      },
+      "sorry": {
+        "file_count": 6,
+        "sample_files": [
+          "sorry__CISLR__00002__0sE5EMDNsDo.mp4",
+          "sorry__CISLR__00031__KXnSguJGdN8.mp4"
+        ]
+      },
+      "stand": {
+        "file_count": 2,
+        "sample_files": [
+          "stand__CISLR__00004__1GJkBoBf-S0_1.mp4",
+          "stand__ISLRTC_dictionary__00638__Stand.mp4"
+        ]
+      },
+      "stop": {
+        "file_count": 4,
+        "sample_files": [
+          "stop__CISLR__00021__FEi50jcTxxI_1.mp4",
+          "stop__CISLR__00022__FHwjyQeLNuY.mp4"
+        ]
+      },
+      "student": {
+        "file_count": 17,
+        "sample_files": [
+          "student__CISLR__00056__Y66DFt19PyE.mp4",
+          "student__CISLR__00059__ZhZN3BiLEqg_1.mp4"
+        ]
+      },
+      "tea": {
+        "file_count": 17,
+        "sample_files": [
+          "tea__CISLR__00055__XqH46D16YDI_1.mp4",
+          "tea__CISLR__00067__l7GQ-fR-DsA.mp4"
+        ]
+      },
+      "teacher": {
+        "file_count": 17,
+        "sample_files": [
+          "teacher__CISLR__00001__-PGXFLhDfS0_1.mp4",
+          "teacher__CISLR__00044__Qy_q0sAucuw.mp4"
+        ]
+      },
+      "thank_you": {
+        "file_count": 39,
+        "sample_files": [
+          "thank_you__CISLR__00000__-4MbWP5T-cU.mp4",
+          "thank_you__CISLR__00027__IRmlHHtW_Q0_1.mp4"
+        ]
+      },
+      "today": {
+        "file_count": 17,
+        "sample_files": [
+          "today__CISLR__00005__1XLi2MXWjGc_1.mp4",
+          "today__CISLR__00030__Iji2l3tYxHc.mp4"
+        ]
+      },
+      "water": {
+        "file_count": 18,
+        "sample_files": [
+          "water__CISLR__00010__5FSC6Og1RBQ_2.mp4",
+          "water__CISLR__00047__SlORjr0kUM4.mp4"
+        ]
+      },
+      "what": {
+        "file_count": 17,
+        "sample_files": [
+          "what__CISLR__00009__4accXsYqRnA.mp4",
+          "what__CISLR__00076__wEd93OlB_ZI_1.mp4"
+        ]
+      },
+      "when": {
+        "file_count": 2,
+        "sample_files": [
+          "when__CISLR__00069__mPZ37Qlg4B8.mp4",
+          "when__ISLRTC_dictionary__00640__When_(For_Days).mp4"
+        ]
+      },
+      "where": {
+        "file_count": 17,
+        "sample_files": [
+          "where__CISLR__00012__8wgrPnyzpMw.mp4",
+          "where__CISLR__00053__WGwhxNQtfbE_1.mp4"
+        ]
+      },
+      "write": {
+        "file_count": 3,
+        "sample_files": [
+          "write__CISLR__00042__Qt7PxYKRi7c_1.mp4",
+          "write__CISLR__00051__UFePdoNR_KM.mp4"
+        ]
+      },
+      "yes": {
+        "file_count": 17,
+        "sample_files": [
+          "yes__CISLR__00033__LAT-u9Ww5ZU.mp4",
+          "yes__CISLR__00034__MXmTYGHWvvE.mp4"
+        ]
+      },
+      "you": {
+        "file_count": 18,
+        "sample_files": [
+          "you__CISLR__00040__QE4UkDB3MyE.mp4",
+          "you__CISLR__00070__nS1xo_n5_sQ_1.mp4"
+        ]
+      }
+    }
+  },
+  "repo_extracted_landmarks": {
+    "total_classes": 91,
+    "total_npz_files": 4248,
+    "valid_32x133x6_shape": 3643,
+    "classes": {
+      "animal": {
+        "count": 19
+      },
+      "bad": {
+        "count": 24
+      },
+      "bear": {
+        "count": 60
+      },
+      "big": {
+        "count": 32
+      },
+      "bird": {
+        "count": 22
+      },
+      "break": {
+        "count": 60
+      },
+      "brinjal": {
+        "count": 60
+      },
+      "brother": {
+        "count": 3
+      },
+      "budget": {
+        "count": 60
+      },
+      "busy": {
+        "count": 60
+      },
+      "cabbage": {
+        "count": 60
+      },
+      "carrot": {
+        "count": 60
+      },
+      "cat": {
+        "count": 23
+      },
+      "cauliflower": {
+        "count": 60
+      },
+      "chilli": {
+        "count": 60
+      },
+      "clean": {
+        "count": 60
+      },
+      "close": {
+        "count": 60
+      },
+      "cold": {
+        "count": 23
+      },
+      "come": {
+        "count": 120
+      },
+      "cook": {
+        "count": 60
+      },
+      "cow": {
+        "count": 27
+      },
+      "crocodile": {
+        "count": 60
+      },
+      "cry": {
+        "count": 60
+      },
+      "cucumber": {
+        "count": 60
+      },
+      "deer": {
+        "count": 60
+      },
+      "dog": {
+        "count": 21
+      },
+      "drink": {
+        "count": 120
+      },
+      "elephant": {
+        "count": 60
+      },
+      "exam": {
+        "count": 60
+      },
+      "fast": {
+        "count": 21
+      },
+      "fedup": {
+        "count": 60
+      },
+      "fever": {
+        "count": 60
+      },
+      "fish": {
+        "count": 19
+      },
+      "giraffe": {
+        "count": 60
+      },
+      "give": {
+        "count": 60
+      },
+      "good": {
+        "count": 33
+      },
+      "good_afternoon": {
+        "count": 60
+      },
+      "good_morning": {
+        "count": 60
+      },
+      "goodbye": {
+        "count": 3
+      },
+      "happy": {
+        "count": 24
+      },
+      "hat": {
+        "count": 21
+      },
+      "healthy": {
+        "count": 33
+      },
+      "hello": {
+        "count": 120
+      },
+      "horse": {
+        "count": 18
+      },
+      "hospital": {
+        "count": 21
+      },
+      "hot": {
+        "count": 21
+      },
+      "hug": {
+        "count": 60
+      },
+      "injury": {
+        "count": 60
+      },
+      "interview": {
+        "count": 60
+      },
+      "jump": {
+        "count": 60
+      },
+      "karnataka": {
+        "count": 60
+      },
+      "key": {
+        "count": 60
+      },
+      "knife": {
+        "count": 60
+      },
+      "lemon": {
+        "count": 60
+      },
+      "lion": {
+        "count": 60
+      },
+      "loud": {
+        "count": 17
+      },
+      "man": {
+        "count": 60
+      },
+      "maths": {
+        "count": 60
+      },
+      "maybe": {
+        "count": 60
+      },
+      "monkey": {
+        "count": 60
+      },
+      "narrow": {
+        "count": 3
+      },
+      "old": {
+        "count": 10
+      },
+      "onion": {
+        "count": 60
+      },
+      "pant": {
+        "count": 1
+      },
+      "peacock": {
+        "count": 60
+      },
+      "pigeon": {
+        "count": 60
+      },
+      "pour": {
+        "count": 60
+      },
+      "quiet": {
+        "count": 1
+      },
+      "radish": {
+        "count": 60
+      },
+      "read": {
+        "count": 3
+      },
+      "shoes": {
+        "count": 1
+      },
+      "sick": {
+        "count": 5
+      },
+      "sorry": {
+        "count": 6
+      },
+      "sparrow": {
+        "count": 60
+      },
+      "stand": {
+        "count": 2
+      },
+      "stop": {
+        "count": 4
+      },
+      "switch": {
+        "count": 60
+      },
+      "tea": {
+        "count": 60
+      },
+      "temple": {
+        "count": 60
+      },
+      "thank_you": {
+        "count": 60
+      },
+      "tiger": {
+        "count": 60
+      },
+      "today": {
+        "count": 5
+      },
+      "turtle": {
+        "count": 60
+      },
+      "umbrella": {
+        "count": 60
+      },
+      "uncle": {
+        "count": 60
+      },
+      "vegetables": {
+        "count": 60
+      },
+      "volcano": {
+        "count": 60
+      },
+      "when": {
+        "count": 2
+      },
+      "wife": {
+        "count": 60
+      },
+      "write": {
+        "count": 120
+      },
+      "wrong": {
+        "count": 60
+      }
+    }
+  },
+  "vocabulary_analysis": {
+    "total_raw_classes_combined": 137,
+    "total_eligible_classes": 136,
+    "total_excluded_classes": 1,
+    "eligible_classes": [
+      {
+        "class_name": "afternoon",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "animal",
+        "total_samples": 18,
+        "session_count": 4,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "bad",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "bear",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "beautiful",
+        "total_samples": 9,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "big",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "bird",
+        "total_samples": 18,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "blind",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "break",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "brinjal",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "budget",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "busy",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "cabbage",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "carrot",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "cat",
+        "total_samples": 18,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "cauliflower",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "cheap",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "chilli",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "clean",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "close",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "clothing",
+        "total_samples": 19,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "cold",
+        "total_samples": 20,
+        "session_count": 6,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "come",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "cook",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "cow",
+        "total_samples": 19,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "crocodile",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "cry",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "cucumber",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "curved",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "deaf",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "deer",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "dog",
+        "total_samples": 18,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "dress",
+        "total_samples": 19,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "drink",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "dry",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "elephant",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "evening",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "exam",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "expensive",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "famous",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "fast",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "fedup",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "female",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "fever",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "fish",
+        "total_samples": 18,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "flat",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "friday",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "giraffe",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "give",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "good",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "good_afternoon",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "good_morning",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "happy",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "hat",
+        "total_samples": 19,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "healthy",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "hello",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "horse",
+        "total_samples": 18,
+        "session_count": 4,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "hot",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "hour",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "hug",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "injury",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "interview",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "jump",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "karnataka",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "key",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "knife",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "lemon",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "light",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "lion",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "long",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "loose",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "loud",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "man",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "maths",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "maybe",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "minute",
+        "total_samples": 11,
+        "session_count": 4,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "monday",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "monkey",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "month",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "morning",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "mouse",
+        "total_samples": 18,
+        "session_count": 4,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "narrow",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "new",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "night",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "old",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "onion",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "pant",
+        "total_samples": 19,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "peacock",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "pigeon",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "pocket",
+        "total_samples": 19,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "pour",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "quiet",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "radish",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "sad",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "saturday",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "shirt",
+        "total_samples": 19,
+        "session_count": 8,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "shoes",
+        "total_samples": 19,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "short",
+        "total_samples": 22,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "sick",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "skirt",
+        "total_samples": 18,
+        "session_count": 8,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "slow",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "small",
+        "total_samples": 22,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "sparrow",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "still",
+        "total_samples": 30,
+        "session_count": 10,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "suit",
+        "total_samples": 18,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "sunday",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "switch",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "t_shirt",
+        "total_samples": 19,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "tall",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "tea",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "temple",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "thank_you",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "thursday",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "tiger",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "time",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "today",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "tomorrow",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "tuesday",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "turtle",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "ugly",
+        "total_samples": 8,
+        "session_count": 2,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "umbrella",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "uncle",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "vegetables",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "volcano",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "warm",
+        "total_samples": 21,
+        "session_count": 6,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "wednesday",
+        "total_samples": 11,
+        "session_count": 4,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "week",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "wet",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "what_is_your_name",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "wide",
+        "total_samples": 21,
+        "session_count": 5,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "wife",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "write",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "wrong",
+        "total_samples": 60,
+        "session_count": 20,
+        "sources": [
+          "Video_Dataset"
+        ]
+      },
+      {
+        "class_name": "year",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "yesterday",
+        "total_samples": 11,
+        "session_count": 3,
+        "sources": [
+          "Vivit"
+        ]
+      },
+      {
+        "class_name": "young",
+        "total_samples": 21,
+        "session_count": 7,
+        "sources": [
+          "Vivit"
+        ]
+      }
+    ],
+    "excluded_classes": {
+      "second": {
+        "total_samples": 3,
+        "session_count": 1,
+        "sources": [
+          "Vivit"
+        ],
+        "reason": "Insufficient independent samples for disjoint train/val/test splits (samples=3, sessions=1 < 2 required)"
+      }
+    }
+  }
+}

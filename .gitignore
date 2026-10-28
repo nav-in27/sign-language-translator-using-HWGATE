@@ -58,3 +58,10 @@ training/isl500_meta/
 *.swo
 .DS_Store
 Thumbs.db
+
+# Scratchpad
+scratch/
+
+# Large raw benchmark traces (>100MB)
+reports/*_baseline_results.json
+reports/achwgate_136class_baseline_results.json

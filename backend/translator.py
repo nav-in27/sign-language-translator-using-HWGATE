@@ -102,11 +102,20 @@ class SemanticISLTranslator:
             "onion": "Onion",
             "radish": "Radish",
 
-            # Everyday Objects
+            # Everyday Objects & Accessories
             "key": "Key",
             "knife": "Knife",
             "umbrella": "Umbrella",
             "hat": "Hat",
+            "clothing": "Clothing",
+            "dress": "Dress",
+            "pant": "Pants",
+            "pocket": "Pocket",
+            "shirt": "Shirt",
+            "shoes": "Shoes",
+            "skirt": "Skirt",
+            "suit": "Suit",
+            "t_shirt": "T-Shirt",
 
             # Animals & Nature
             "animal": "Animal",
@@ -123,6 +132,7 @@ class SemanticISLTranslator:
             "horse": "Horse",
             "lion": "Lion",
             "monkey": "Monkey",
+            "mouse": "Mouse",
             "peacock": "Peacock",
             "pigeon": "Pigeon",
             "sparrow": "Sparrow",
@@ -130,22 +140,77 @@ class SemanticISLTranslator:
             "turtle": "Turtle",
             "volcano": "Volcano",
 
-            # Adjectives & Physical Attributes
+            # Time, Days & Calendar
+            "time": "Time",
+            "minute": "Minute",
+            "hour": "Hour",
+            "morning": "Morning",
+            "afternoon": "Afternoon",
+            "evening": "Evening",
+            "night": "Night",
+            "today": "Today",
+            "yesterday": "Yesterday",
+            "tomorrow": "Tomorrow",
+            "week": "Week",
+            "month": "Month",
+            "year": "Year",
+            "monday": "Monday",
+            "tuesday": "Tuesday",
+            "wednesday": "Wednesday",
+            "thursday": "Thursday",
+            "friday": "Friday",
+            "saturday": "Saturday",
+            "sunday": "Sunday",
+
+            # People, Attributes & Identity
+            "female": "Female",
+            "young": "Young",
+            "old": "Old",
+            "blind": "Blind",
+            "deaf": "Deaf",
+            "what_is_your_name": "What is your name?",
+
+            # Adjectives, Properties & Physical Attributes
             "bad": "Bad",
+            "beautiful": "Beautiful",
             "big": "Big",
+            "cheap": "Cheap",
             "cold": "Cold",
+            "curved": "Curved",
+            "dry": "Dry",
+            "expensive": "Expensive",
+            "famous": "Famous",
             "fast": "Fast",
+            "flat": "Flat",
             "good": "Good",
             "happy": "Happy",
             "healthy": "Healthy",
             "hot": "Hot",
+            "light": "Light",
+            "long": "Long",
+            "loose": "Loose",
             "loud": "Loud",
+            "narrow": "Narrow",
+            "new": "New",
+            "quiet": "Quiet",
+            "sad": "Sad",
+            "short": "Short",
+            "sick": "Sick",
+            "slow": "Slow",
+            "small": "Small",
+            "still": "Still",
+            "tall": "Tall",
+            "ugly": "Ugly",
+            "warm": "Warm",
+            "wet": "Wet",
+            "wide": "Wide",
             "cry": "Cry"
         }
 
         # Multi-sign sequential combinations (Subject-Object-Verb and natural ISL to English)
         self.PHRASE_PATTERNS = {
             ("hello", "how_are_you"): "Hello, how are you?",
+            ("what_is_your_name",): "What is your name?",
             ("thank_you", "very_much"): "Thank you very much.",
             ("me", "student"): "I am a student.",
             ("me", "teacher"): "I am a teacher.",
@@ -162,6 +227,12 @@ class SemanticISLTranslator:
             ("go", "hospital"): "Go to the hospital.",
             ("clean", "home"): "Clean the home.",
             ("close", "door"): "Close the door.",
+            ("today", "friday"): "Today is Friday.",
+            ("today", "sunday"): "Today is Sunday.",
+            ("tomorrow", "exam"): "Tomorrow is the exam.",
+            ("yesterday", "interview"): "The interview was yesterday.",
+            ("good_morning", "teacher"): "Good morning, teacher.",
+            ("good_afternoon", "teacher"): "Good afternoon, teacher.",
         }
 
     def translate_gloss_to_english(self, text: str) -> str:
@@ -172,30 +243,43 @@ class SemanticISLTranslator:
             return ""
         
         raw = text.strip().lower()
-        if raw in ["waiting for sign", "detecting...", "unknown_sign", "no sign detected", "buffering..."]:
+        if raw in ["waiting for sign", "detecting...", "unknown_sign", "no sign detected", "buffering...", "idle"]:
             return ""
+        if raw in ["uncertain", "uncertain...", "uncertain sign"]:
+            return "Uncertain — please repeat"
 
         words = raw.split()
         if len(words) == 1:
             w = words[0].replace("-", "_")
             if w in self.CANONICAL_MEANING:
                 return self.CANONICAL_MEANING[w]
-            # Default fallback: title case
             return w.replace("_", " ").title()
 
-        # Multi-sign sequence
+        # Multi-sign sequence: ONLY return a combined sentence if it exists in verified PHRASE_PATTERNS
         tuple_words = tuple(w.replace("-", "_") for w in words)
         if tuple_words in self.PHRASE_PATTERNS:
             return self.PHRASE_PATTERNS[tuple_words]
 
-        # Sequence fallback: combine individual gloss translations
-        translated_tokens = [
-            self.CANONICAL_MEANING.get(w.replace("-", "_"), w.replace("_", " ").title())
-            for w in words
-        ]
-        return " ".join(translated_tokens)
+        # Strict rule: Do not concatenate arbitrary signs into invented sentences like 'Good Morning Today'
+        # Return the verified translation of the active confirmed sign
+        last_word = words[-1].replace("-", "_")
+        if last_word in self.CANONICAL_MEANING:
+            return self.CANONICAL_MEANING[last_word]
+        return last_word.replace("_", " ").title()
+
+    def translate_sign(self, sign: str) -> str:
+        """Translates an isolated confirmed sign directly to its canonical English meaning."""
+        if not sign:
+            return ""
+        clean = sign.strip().lower().replace("-", "_")
+        if clean in ["waiting for sign", "detecting...", "unknown_sign", "no sign detected", "buffering...", "idle"]:
+            return ""
+        if clean in ["uncertain", "uncertain...", "uncertain sign"]:
+            return "Uncertain — please repeat"
+        return self.CANONICAL_MEANING.get(clean, clean.replace("_", " ").title())
 
 
 # Authoritative singleton engine instance
 nmt_engine = SemanticISLTranslator()
 InstantISLTranslator = SemanticISLTranslator
+ISLTranslator = SemanticISLTranslator

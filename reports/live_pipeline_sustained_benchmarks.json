@@ -1,0 +1,12 @@
+{
+  "stage_latencies_ms": {
+    "keypoint_ingestion": 0.0025050004478543997,
+    "feature_extraction": 2.032797000138089,
+    "onnx_inference": 1.904491992900148,
+    "gating_and_prototypes": 0.0870269990991801,
+    "semantic_translation": 0.0066510040778666735,
+    "total_end_to_end": 4.036222000140697,
+    "p95_end_to_end": 5.002444999990985
+  },
+  "sustained_throughput_fps": 247.7564415349655
+}

@@ -1,0 +1,1118 @@
+{
+  "checkpoint": "checkpoints/achwgate_136class_production_best.pth",
+  "split": "data/unified_136class/test_split.npz",
+  "sample_count": 722,
+  "top1_accuracy": 0.9196675900277008,
+  "top5_accuracy": 0.981994459833795,
+  "macro_f1": 0.8090281662200484,
+  "weighted_f1": 0.9168486996781509,
+  "macro_recall": 0.8186274509803921,
+  "zero_f1_count": 10,
+  "perfect_f1_count": 82,
+  "per_class": [
+    {
+      "class": "afternoon",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "animal",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1": 0.8
+    },
+    {
+      "class": "bad",
+      "count": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "bear",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "beautiful",
+      "count": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "big",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "bird",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "blind",
+      "count": 1,
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "f1": 0.5
+    },
+    {
+      "class": "break",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "brinjal",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "budget",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "busy",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "cabbage",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "carrot",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "cat",
+      "count": 3,
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571428571428571
+    },
+    {
+      "class": "cauliflower",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "cheap",
+      "count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "chilli",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "clean",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "close",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "clothing",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "f1": 0.5714285714285714
+    },
+    {
+      "class": "cold",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1": 0.8
+    },
+    {
+      "class": "come",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "cook",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "cow",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "crocodile",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "cry",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "cucumber",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "curved",
+      "count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "deaf",
+      "count": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "deer",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "dog",
+      "count": 3,
+      "precision": 0.4,
+      "recall": 0.6666666666666666,
+      "f1": 0.5
+    },
+    {
+      "class": "dress",
+      "count": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "drink",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "dry",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "elephant",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "evening",
+      "count": 2,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5
+    },
+    {
+      "class": "exam",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "expensive",
+      "count": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "famous",
+      "count": 1,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "fast",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.3333333333333333,
+      "f1": 0.4
+    },
+    {
+      "class": "fedup",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "female",
+      "count": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "fever",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "fish",
+      "count": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "flat",
+      "count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "friday",
+      "count": 2,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5
+    },
+    {
+      "class": "giraffe",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "give",
+      "count": 9,
+      "precision": 0.8181818181818182,
+      "recall": 1.0,
+      "f1": 0.9
+    },
+    {
+      "class": "good",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "good_afternoon",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "good_morning",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "happy",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "f1": 0.5714285714285714
+    },
+    {
+      "class": "hat",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "healthy",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "f1": 0.5714285714285714
+    },
+    {
+      "class": "hello",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "horse",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "hot",
+      "count": 3,
+      "precision": 0.6,
+      "recall": 1.0,
+      "f1": 0.75
+    },
+    {
+      "class": "hour",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "hug",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "injury",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "interview",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "jump",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "karnataka",
+      "count": 9,
+      "precision": 0.9,
+      "recall": 1.0,
+      "f1": 0.9473684210526315
+    },
+    {
+      "class": "key",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 0.7777777777777778,
+      "f1": 0.875
+    },
+    {
+      "class": "knife",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "lemon",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "light",
+      "count": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "lion",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "long",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "loose",
+      "count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "loud",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "man",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "maths",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "maybe",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "minute",
+      "count": 2,
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "f1": 0.4
+    },
+    {
+      "class": "monday",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "monkey",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "month",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "morning",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "mouse",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "narrow",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.3333333333333333,
+      "f1": 0.4
+    },
+    {
+      "class": "new",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "night",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "old",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "onion",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "pant",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "peacock",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "pigeon",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "pocket",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "pour",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "quiet",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1": 0.8
+    },
+    {
+      "class": "radish",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "sad",
+      "count": 1,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "saturday",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "shirt",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "f1": 0.5714285714285714
+    },
+    {
+      "class": "shoes",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "short",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.6666666666666666,
+      "f1": 0.5714285714285714
+    },
+    {
+      "class": "sick",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "skirt",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "slow",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "small",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.3333333333333333,
+      "f1": 0.4
+    },
+    {
+      "class": "sparrow",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "still",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "suit",
+      "count": 3,
+      "precision": 0.6666666666666666,
+      "recall": 0.6666666666666666,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "sunday",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "switch",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "t_shirt",
+      "count": 3,
+      "precision": 0.5,
+      "recall": 0.3333333333333333,
+      "f1": 0.4
+    },
+    {
+      "class": "tall",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "tea",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "temple",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "thank_you",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "thursday",
+      "count": 2,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "tiger",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "time",
+      "count": 2,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "today",
+      "count": 2,
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5
+    },
+    {
+      "class": "tomorrow",
+      "count": 2,
+      "precision": 0.3333333333333333,
+      "recall": 0.5,
+      "f1": 0.4
+    },
+    {
+      "class": "tuesday",
+      "count": 2,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "turtle",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "ugly",
+      "count": 1,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    {
+      "class": "umbrella",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "uncle",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "vegetables",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "volcano",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "warm",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "wednesday",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "week",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666
+    },
+    {
+      "class": "wet",
+      "count": 3,
+      "precision": 0.3333333333333333,
+      "recall": 0.3333333333333333,
+      "f1": 0.3333333333333333
+    },
+    {
+      "class": "what_is_your_name",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "wide",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 0.6666666666666666,
+      "f1": 0.8
+    },
+    {
+      "class": "wife",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "write",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "wrong",
+      "count": 9,
+      "precision": 1.0,
+      "recall": 0.8888888888888888,
+      "f1": 0.9411764705882353
+    },
+    {
+      "class": "year",
+      "count": 2,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    {
+      "class": "yesterday",
+      "count": 2,
+      "precision": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 0.8
+    },
+    {
+      "class": "young",
+      "count": 3,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    }
+  ],
+  "top_confusion_pairs": [
+    {
+      "true_class": "dress",
+      "predicted_class": "clothing",
+      "count": 2
+    },
+    {
+      "true_class": "key",
+      "predicted_class": "give",
+      "count": 2
+    },
+    {
+      "true_class": "animal",
+      "predicted_class": "big",
+      "count": 1
+    },
+    {
+      "true_class": "bad",
+      "predicted_class": "fast",
+      "count": 1
+    },
+    {
+      "true_class": "bad",
+      "predicted_class": "good",
+      "count": 1
+    },
+    {
+      "true_class": "bad",
+      "predicted_class": "today",
+      "count": 1
+    },
+    {
+      "true_class": "beautiful",
+      "predicted_class": "ugly",
+      "count": 1
+    },
+    {
+      "true_class": "big",
+      "predicted_class": "short",
+      "count": 1
+    },
+    {
+      "true_class": "bird",
+      "predicted_class": "small",
+      "count": 1
+    },
+    {
+      "true_class": "clothing",
+      "predicted_class": "dress",
+      "count": 1
+    },
+    {
+      "true_class": "cold",
+      "predicted_class": "hot",
+      "count": 1
+    },
+    {
+      "true_class": "deaf",
+      "predicted_class": "blind",
+      "count": 1
+    },
+    {
+      "true_class": "dog",
+      "predicted_class": "wet",
+      "count": 1
+    },
+    {
+      "true_class": "dress",
+      "predicted_class": "happy",
+      "count": 1
+    },
+    {
+      "true_class": "evening",
+      "predicted_class": "tomorrow",
+      "count": 1
+    },
+    {
+      "true_class": "expensive",
+      "predicted_class": "tomorrow",
+      "count": 1
+    },
+    {
+      "true_class": "fast",
+      "predicted_class": "evening",
+      "count": 1
+    },
+    {
+      "true_class": "fast",
+      "predicted_class": "hot",
+      "count": 1
+    },
+    {
+      "true_class": "female",
+      "predicted_class": "ugly",
+      "count": 1
+    },
+    {
+      "true_class": "fish",
+      "predicted_class": "dog",
+      "count": 1
+    },
+    {
+      "true_class": "fish",
+      "predicted_class": "horse",
+      "count": 1
+    },
+    {
+      "true_class": "fish",
+      "predicted_class": "time",
+      "count": 1
+    },
+    {
+      "true_class": "friday",
+      "predicted_class": "thursday",
+      "count": 1
+    },
+    {
+      "true_class": "good",
+      "predicted_class": "bad",
+      "count": 1
+    },
+    {
+      "true_class": "happy",
+      "predicted_class": "healthy",
+      "count": 1
+    },
+    {
+      "true_class": "healthy",
+      "predicted_class": "cat",
+      "count": 1
+    },
+    {
+      "true_class": "horse",
+      "predicted_class": "fish",
+      "count": 1
+    },
+    {
+      "true_class": "light",
+      "predicted_class": "healthy",
+      "count": 1
+    },
+    {
+      "true_class": "long",
+      "predicted_class": "shirt",
+      "count": 1
+    },
+    {
+      "true_class": "minute",
+      "predicted_class": "thursday",
+      "count": 1
+    }
+  ]
+}
