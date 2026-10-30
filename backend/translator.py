@@ -233,11 +233,27 @@ class SemanticISLTranslator:
             ("yesterday", "interview"): "The interview was yesterday.",
             ("good_morning", "teacher"): "Good morning, teacher.",
             ("good_afternoon", "teacher"): "Good afternoon, teacher.",
+            ("hello", "thank_you"): "Hello, thank you.",
+            ("thank_you", "good"): "Thank you, good.",
+            ("today", "beautiful"): "Today is beautiful.",
+            ("you", "beautiful"): "You are beautiful.",
+            ("you", "good"): "You are good.",
+            ("me", "good"): "I am good.",
+            ("me", "happy"): "I am happy.",
+            ("today", "good"): "Today is good.",
+            ("give", "me"): "Please give me.",
+            ("give", "water"): "Please give water.",
+            ("give", "food"): "Please give food.",
+            ("me", "give", "you"): "I will give to you.",
+            ("good", "morning"): "Good morning.",
+            ("good", "afternoon"): "Good afternoon.",
+            ("good", "night"): "Good night.",
         }
 
     def translate_gloss_to_english(self, text: str) -> str:
         """
         Translates single sign or sequence of signs to semantically faithful English.
+        Stage C: Converts confirmed sign sequence into understandable English preserving sign order.
         """
         if not text:
             return ""
@@ -246,7 +262,7 @@ class SemanticISLTranslator:
         if raw in ["waiting for sign", "detecting...", "unknown_sign", "no sign detected", "buffering...", "idle"]:
             return ""
         if raw in ["uncertain", "uncertain...", "uncertain sign"]:
-            return "Uncertain — please repeat"
+            return "Sign not recognized. Please try again."
 
         words = raw.split()
         if len(words) == 1:
@@ -255,17 +271,28 @@ class SemanticISLTranslator:
                 return self.CANONICAL_MEANING[w]
             return w.replace("_", " ").title()
 
-        # Multi-sign sequence: ONLY return a combined sentence if it exists in verified PHRASE_PATTERNS
+        # Multi-sign sequence: check verified idiomatic PHRASE_PATTERNS
         tuple_words = tuple(w.replace("-", "_") for w in words)
         if tuple_words in self.PHRASE_PATTERNS:
             return self.PHRASE_PATTERNS[tuple_words]
 
-        # Strict rule: Do not concatenate arbitrary signs into invented sentences like 'Good Morning Today'
-        # Return the verified translation of the active confirmed sign
-        last_word = words[-1].replace("-", "_")
-        if last_word in self.CANONICAL_MEANING:
-            return self.CANONICAL_MEANING[last_word]
-        return last_word.replace("_", " ").title()
+        # Stage C fallback: Construct understandable English preserving full sign sequence order
+        translated_parts = []
+        for w in tuple_words:
+            part = self.CANONICAL_MEANING.get(w, w.replace("_", " ").title())
+            if not translated_parts or translated_parts[-1] != part:  # de-duplicate adjacent identical tokens
+                translated_parts.append(part)
+
+        if not translated_parts:
+            return ""
+        elif len(translated_parts) == 1:
+            return translated_parts[0]
+        else:
+            # Form clean sentence preserving sign order
+            sentence = ", ".join(translated_parts)
+            if not sentence.endswith((".", "!", "?")):
+                sentence += "."
+            return sentence
 
     def translate_sign(self, sign: str) -> str:
         """Translates an isolated confirmed sign directly to its canonical English meaning."""
@@ -275,7 +302,7 @@ class SemanticISLTranslator:
         if clean in ["waiting for sign", "detecting...", "unknown_sign", "no sign detected", "buffering...", "idle"]:
             return ""
         if clean in ["uncertain", "uncertain...", "uncertain sign"]:
-            return "Uncertain — please repeat"
+            return "Sign not recognized. Please try again."
         return self.CANONICAL_MEANING.get(clean, clean.replace("_", " ").title())
 
 

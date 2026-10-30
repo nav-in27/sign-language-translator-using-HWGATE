@@ -97,23 +97,35 @@ async def websocket_predict(websocket: WebSocket):
             if result.state == "CONFIRMED" and result.confirmed_sign:
                 if result.event_id and result.event_id != session_state.get("last_event_id"):
                     session_state["last_event_id"] = result.event_id
-                    session_state["gloss_buffer"].append(result.confirmed_sign)
+                    # Stage B: Preserve sign order and prevent duplicate consecutive tokens
+                    if not session_state["gloss_buffer"] or session_state["gloss_buffer"][-1] != result.confirmed_sign:
+                        session_state["gloss_buffer"].append(result.confirmed_sign)
                     if len(session_state["gloss_buffer"]) > 6:
                         session_state["gloss_buffer"].pop(0)
                     session_state["last_gloss"] = result.confirmed_sign
                     session_state["last_sign_time"] = current_time
-                    session_state["last_translated"] = result.translation
+                    # Stage C: Translate full multi-sign sequence
+                    full_sentence = nmt_engine.translate_gloss_to_english(" ".join(session_state["gloss_buffer"]))
+                    session_state["last_translated"] = full_sentence
 
-            if current_time - session_state["last_sign_time"] > 3.5 and len(session_state["gloss_buffer"]) > 0:
+            # Clear buffer and stale sentence when user pauses signing for > 3.0s
+            if current_time - session_state["last_sign_time"] > 3.0 and len(session_state["gloss_buffer"]) > 0:
                 session_state["gloss_buffer"] = []
                 session_state["last_gloss"] = ""
                 session_state["last_event_id"] = None
+                session_state["last_translated"] = ""
 
             payload = enrich_live_payload(result.to_dict(), trace_id)
             payload["raw_glosses"] = " ".join(session_state["gloss_buffer"])
+            if session_state.get("last_translated") and len(session_state["gloss_buffer"]) > 0:
+                payload["sentence_translation"] = session_state["last_translated"]
+                if len(session_state["gloss_buffer"]) > 1:
+                    payload["translation"] = session_state["last_translated"]
+            else:
+                payload["sentence_translation"] = ""
 
             if result.state == "CONFIRMED":
-                print(f"[WS CONFIRMED] seq_id={seq_id} sign={result.confirmed_sign} transl='{result.translation}' evt={result.event_id} speech={result.speech_action}", flush=True)
+                print(f"[WS CONFIRMED] seq_id={seq_id} sign={result.confirmed_sign} transl='{payload.get('translation', result.translation)}' evt={result.event_id} speech={result.speech_action}", flush=True)
             elif result.state in ("RECOGNIZING", "UNCERTAIN") and result.confidence > 0.1:
                 print(f"[WS {result.state}] seq_id={seq_id} prov={result.provisional_sign} conf={result.confidence:.3f} rej={result.rejection_reason}", flush=True)
 
@@ -148,21 +160,30 @@ async def predict_gesture(data: KeypointData):
         if result.state == "CONFIRMED" and result.confirmed_sign:
             if result.event_id and result.event_id != session_state.get("last_event_id"):
                 session_state["last_event_id"] = result.event_id
-                session_state["gloss_buffer"].append(result.confirmed_sign)
+                if not session_state["gloss_buffer"] or session_state["gloss_buffer"][-1] != result.confirmed_sign:
+                    session_state["gloss_buffer"].append(result.confirmed_sign)
                 if len(session_state["gloss_buffer"]) > 6:
                     session_state["gloss_buffer"].pop(0)
                 session_state["last_gloss"] = result.confirmed_sign
                 session_state["last_sign_time"] = current_time
-                session_state["last_translated"] = result.translation
+                full_sentence = nmt_engine.translate_gloss_to_english(" ".join(session_state["gloss_buffer"]))
+                session_state["last_translated"] = full_sentence
                 
-        # Clear buffer if user stops signing for 3.5 seconds
-        if current_time - session_state["last_sign_time"] > 3.5 and len(session_state["gloss_buffer"]) > 0:
+        # Clear buffer and stale sentence when user pauses signing for > 3.0s
+        if current_time - session_state["last_sign_time"] > 3.0 and len(session_state["gloss_buffer"]) > 0:
             session_state["gloss_buffer"] = []
             session_state["last_gloss"] = ""
             session_state["last_event_id"] = None
+            session_state["last_translated"] = ""
         
         payload = enrich_live_payload(result.to_dict(), trace_id)
         payload["raw_glosses"] = " ".join(session_state["gloss_buffer"])
+        if session_state.get("last_translated") and len(session_state["gloss_buffer"]) > 0:
+            payload["sentence_translation"] = session_state["last_translated"]
+            if len(session_state["gloss_buffer"]) > 1:
+                payload["translation"] = session_state["last_translated"]
+        else:
+            payload["sentence_translation"] = ""
         return payload
     except Exception as e:
         return {"error": str(e)}

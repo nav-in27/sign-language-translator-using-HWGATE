@@ -1,0 +1,302 @@
+{
+  "bear": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "break": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "clean": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "close": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "come": {
+    "precision": 1.0,
+    "recall": 0.8571,
+    "f1": 0.9231,
+    "support": 7
+  },
+  "cook": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "cry": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "drink": {
+    "precision": 0.9333,
+    "recall": 0.5283,
+    "f1": 0.6747,
+    "support": 53
+  },
+  "eat": {
+    "precision": 0.4,
+    "recall": 0.1739,
+    "f1": 0.2424,
+    "support": 46
+  },
+  "elephant": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "father": {
+    "precision": 0.7,
+    "recall": 0.5385,
+    "f1": 0.6087,
+    "support": 13
+  },
+  "food": {
+    "precision": 0.12,
+    "recall": 0.2308,
+    "f1": 0.1579,
+    "support": 13
+  },
+  "friend": {
+    "precision": 0.8824,
+    "recall": 0.8333,
+    "f1": 0.8571,
+    "support": 18
+  },
+  "give": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "go": {
+    "precision": 0.9167,
+    "recall": 0.9167,
+    "f1": 0.9167,
+    "support": 12
+  },
+  "he": {
+    "precision": 1.0,
+    "recall": 0.8571,
+    "f1": 0.9231,
+    "support": 14
+  },
+  "hello": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 20
+  },
+  "help": {
+    "precision": 0.4615,
+    "recall": 1.0,
+    "f1": 0.6316,
+    "support": 12
+  },
+  "home": {
+    "precision": 0.25,
+    "recall": 0.7778,
+    "f1": 0.3784,
+    "support": 9
+  },
+  "jump": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "key": {
+    "precision": 1.0,
+    "recall": 0.6667,
+    "f1": 0.8,
+    "support": 3
+  },
+  "knife": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "lion": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "market": {
+    "precision": 0.8571,
+    "recall": 0.8571,
+    "f1": 0.8571,
+    "support": 14
+  },
+  "me": {
+    "precision": 0.85,
+    "recall": 0.8947,
+    "f1": 0.8718,
+    "support": 19
+  },
+  "monkey": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "mother": {
+    "precision": 0.9333,
+    "recall": 0.9333,
+    "f1": 0.9333,
+    "support": 15
+  },
+  "no": {
+    "precision": 1.0,
+    "recall": 0.9286,
+    "f1": 0.963,
+    "support": 14
+  },
+  "please": {
+    "precision": 0.6667,
+    "recall": 0.7143,
+    "f1": 0.6897,
+    "support": 14
+  },
+  "school": {
+    "precision": 0.9412,
+    "recall": 0.8889,
+    "f1": 0.9143,
+    "support": 18
+  },
+  "she": {
+    "precision": 0.8235,
+    "recall": 0.875,
+    "f1": 0.8485,
+    "support": 16
+  },
+  "sister": {
+    "precision": 0.9333,
+    "recall": 0.9333,
+    "f1": 0.9333,
+    "support": 15
+  },
+  "sit": {
+    "precision": 0.9375,
+    "recall": 1.0,
+    "f1": 0.9677,
+    "support": 15
+  },
+  "student": {
+    "precision": 1.0,
+    "recall": 0.9375,
+    "f1": 0.9677,
+    "support": 16
+  },
+  "tea": {
+    "precision": 0.9048,
+    "recall": 0.95,
+    "f1": 0.9268,
+    "support": 20
+  },
+  "teacher": {
+    "precision": 0.7857,
+    "recall": 0.7857,
+    "f1": 0.7857,
+    "support": 14
+  },
+  "temple": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "thank_you": {
+    "precision": 0.9091,
+    "recall": 0.9091,
+    "f1": 0.9091,
+    "support": 22
+  },
+  "tiger": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "today": {
+    "precision": 0.9,
+    "recall": 0.9474,
+    "f1": 0.9231,
+    "support": 19
+  },
+  "umbrella": {
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.8571,
+    "support": 3
+  },
+  "uncle": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "water": {
+    "precision": 0.4815,
+    "recall": 0.8667,
+    "f1": 0.619,
+    "support": 15
+  },
+  "what": {
+    "precision": 0.9375,
+    "recall": 0.8824,
+    "f1": 0.9091,
+    "support": 17
+  },
+  "where": {
+    "precision": 0.75,
+    "recall": 0.8,
+    "f1": 0.7742,
+    "support": 15
+  },
+  "wife": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "write": {
+    "precision": 1.0,
+    "recall": 0.9,
+    "f1": 0.9474,
+    "support": 10
+  },
+  "wrong": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3
+  },
+  "yes": {
+    "precision": 0.5789,
+    "recall": 0.7857,
+    "f1": 0.6667,
+    "support": 14
+  },
+  "you": {
+    "precision": 0.8,
+    "recall": 0.4444,
+    "f1": 0.5714,
+    "support": 18
+  }
+}

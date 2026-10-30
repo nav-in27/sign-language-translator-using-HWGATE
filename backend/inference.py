@@ -204,20 +204,18 @@ class ISLInferenceEngine:
         self.hand_missing_counter = 0
         self.uncertain_eval_counter = 0
         self.stationary_eval_counter = 0
-        self.cooldown_frames = 4         # Responsive cooldown (~133ms) to prevent duplicate confirmation without stalling next sign
+        self.cooldown_frames = 10        # Responsive cooldown (~333ms) to prevent duplicate confirmation without stalling next sign
         self.cooldown_counter = 0
         self.missing_frames_counter = 0
-        self.max_tracking_loss_frames = 15  # 15 frames (~500ms at 30fps) before resting hand reset
+        self.max_tracking_loss_frames = 12  # 12 frames (~400ms at 30fps) before resting hand reset
         self.max_frame_age_sec = 1.0       # >1.0s gap between frames is treated as stream interruption
 
-        # Calibrated thresholds for 136 classes (uniform random = 0.00735 / ~0.73%)
+        # Calibrated thresholds (50-class production: random baseline = 0.02)
         self.temperature_cal = 1.0
-        # Existing validation calibration showed 0.35 improves accepted-sign
-        # coverage over 0.38 without changing the model or label mapping.
-        self.min_confidence = 0.35
-        self.min_margin = 0.04           # Minimum difference between top-1 and top-2 candidates
-        self.max_entropy = 4.50          # Maximum Shannon entropy (log(136) ~ 4.91)
-        self.min_prototype_sim = 0.45    # Prototype cosine similarity threshold
+        self.min_confidence = 0.42       # Calibrated threshold rejecting transient arm motion noise
+        self.min_margin = 0.06           # Minimum difference between top-1 and top-2 candidates
+        self.max_entropy = 4.20          # Maximum Shannon entropy gate
+        self.min_prototype_sim = 0.35    # Calibrated prototype cosine similarity threshold
 
         # Hand quality and active signing space thresholds
         self.min_hand_points = 3         # At least 3 hand joints detected
@@ -225,7 +223,7 @@ class ISLInferenceEngine:
         self.min_motion_energy = 0.0065  # Calibrated to reject resting sensor noise (~0.001-0.003) while admitting signs (>0.012)
 
         # Stability tracking & post-confirmation cooldown
-        self.min_consecutive_frames = 2  # Require 2 consecutive matching evaluations for responsiveness (~133ms)
+        self.min_consecutive_frames = 3  # Require 3 consecutive matching evaluations (~200ms) for rock-solid stability
 
         self.raw_frame_buffer = deque(maxlen=self.window_size)
         self.candidate_history = deque(maxlen=8)
@@ -251,8 +249,12 @@ class ISLInferenceEngine:
         self.loaded_artifact_sha256: Optional[str] = None
         self.loaded_at_utc: Optional[str] = None
         self.load_error: Optional[str] = None
-        self.production_checkpoint_path = os.path.join(ROOT_DIR, "checkpoints", "achwgate_136class_production_best.pth")
-        self.manifest_path = os.path.join(ROOT_DIR, "configs", "authoritative_136_classes_manifest.json")
+        if os.path.exists(os.path.join(ROOT_DIR, "checkpoints", "achwgate_50class_production_best.pth")):
+            self.production_checkpoint_path = os.path.join(ROOT_DIR, "checkpoints", "achwgate_50class_production_best.pth")
+            self.manifest_path = os.path.join(ROOT_DIR, "configs", "selected_50_classes_manifest.json")
+        else:
+            self.production_checkpoint_path = os.path.join(ROOT_DIR, "checkpoints", "achwgate_136class_production_best.pth")
+            self.manifest_path = os.path.join(ROOT_DIR, "configs", "authoritative_136_classes_manifest.json")
 
         try:
             from translator import nmt_engine
@@ -276,10 +278,12 @@ class ISLInferenceEngine:
 
     def _load_label_map(self) -> Dict[str, int]:
         paths = [
+            os.path.join(BASE_DIR, "models", "label_map.json"),
+            os.path.join(ROOT_DIR, "configs", "selected_50_classes_manifest.json"),
             os.path.join(ROOT_DIR, "configs", "authoritative_136_classes_manifest.json"),
+            os.path.join(ROOT_DIR, "data", "unified_50class", "label_map.json"),
             os.path.join(ROOT_DIR, "data", "unified_136class", "label_map.json"),
             os.path.join(ROOT_DIR, "models", "label_map.json"),
-            os.path.join(BASE_DIR, "models", "label_map.json"),
         ]
         for p in paths:
             if os.path.exists(p):
@@ -399,7 +403,7 @@ class ISLInferenceEngine:
                 for chunk in iter(lambda: handle.read(1024 * 1024), b""):
                     digest.update(chunk)
             checkpoint_hash = digest.hexdigest()
-        manifest_compatible = self.num_classes == 136 and len(self.reverse_map) == 136
+        manifest_compatible = self.num_classes in [50, 136] and len(self.reverse_map) == self.num_classes
         return {
             "ready": bool(self.loaded_artifact_path and self.load_error is None and manifest_compatible),
             "engine": self.engine_type,
@@ -419,9 +423,10 @@ class ISLInferenceEngine:
 
     def _load_pytorch_model(self):
         weights_paths = [
+            os.path.join(ROOT_DIR, "checkpoints", "achwgate_50class_production_best.pth"),
+            os.path.join(BASE_DIR, "models", "achwgate_best.pth"),
             os.path.join(ROOT_DIR, "checkpoints", "achwgate_136class_production_best.pth"),
             os.path.join(ROOT_DIR, "checkpoints", "achwgate_best.pth"),
-            os.path.join(BASE_DIR, "models", "achwgate_best.pth"),
             os.path.join(ROOT_DIR, "checkpoints", "achwgate_104class_best.pth"),
         ]
         for wpath in weights_paths:
@@ -739,6 +744,8 @@ class ISLInferenceEngine:
         # Step 4: Handle hand absence or hands resting outside signing zone
         if not has_hands or not hands_in_zone:
             self.missing_frames_counter += 1
+            if self.missing_frames_counter >= 5:
+                self.bout_confirmed_sign = None
             self.hand_present_counter = 0
             self.uncertain_eval_counter = 0
 
@@ -747,7 +754,7 @@ class ISLInferenceEngine:
                 self.provisional_sign and
                 self.provisional_sign not in [
                     "UNKNOWN_SIGN", "UNCERTAIN", "DETECTING...", "WAITING FOR SIGN",
-                    "STILL", "GIVE", "IDLE"
+                    "IDLE"
                 ]
             )
             candidate_support = sum(1 for c in self.candidate_history if c == self.provisional_sign)
@@ -1010,6 +1017,7 @@ class ISLInferenceEngine:
                 self.raw_frame_buffer.clear()
                 self.hand_present_counter = 0
                 self.provisional_sign = None
+                self.bout_confirmed_sign = None
                 reset_msg = "stationary_hands_idle"
                 res = PredictionResult(
                     "UNKNOWN_SIGN", 0.0, True,
@@ -1187,6 +1195,10 @@ class ISLInferenceEngine:
 
             self.state = RecognitionState.RECOGNIZING
             self.last_status = RecognitionState.RECOGNIZING
+            # Maintain stable provisional sign if recent history has consistent agreement, preventing 66ms flicker
+            prov_to_report = None
+            if len(self.candidate_history) >= 2 and self.candidate_history[-1] == self.candidate_history[-2]:
+                prov_to_report = self.candidate_history[-1]
             res = PredictionResult(
                 "DETECTING...", top1_prob, True,
                 state=RecognitionState.RECOGNIZING,
@@ -1197,7 +1209,7 @@ class ISLInferenceEngine:
                 buffer_length_before=buf_len_before,
                 buffer_length_after=buf_len_after,
                 frame_age=frame_age,
-                provisional_sign=None,
+                provisional_sign=prov_to_report,
                 top_predictions=top_k_preds,
                 previous_confirmed_sign=self.last_confirmed_sign,
                 previous_translation=self.last_confirmed_translation,
@@ -1237,20 +1249,28 @@ class ISLInferenceEngine:
         if (
             len(recent_candidates) >= self.min_consecutive_frames and
             len(set(recent_candidates[-self.min_consecutive_frames:])) == 1 and
-            recent_candidates[-1] not in ["UNKNOWN_SIGN", "IDLE", "UNCERTAIN", "DETECTING...", "WAITING FOR SIGN", "STILL", "GIVE"]
+            recent_candidates[-1] not in ["UNKNOWN_SIGN", "IDLE", "UNCERTAIN", "DETECTING...", "WAITING FOR SIGN"]
         ):
             stable_class = recent_candidates[-1]
-            is_same_held = (stable_class == self.current_held_sign)
-            if not is_same_held:
-                self.event_counter += 1
-                new_event_id = f"evt_{self.event_counter}_{int(time.time() * 1000)}"
-                self.current_held_sign = stable_class
-                self.last_confirmed_sign = stable_class
-                self.last_confirmed_event_id = new_event_id
-                speech_act = "speak"
-            else:
+            if self.bout_confirmed_sign is not None:
+                # Active bout already confirmed a gesture: hold the confirmed sign and prevent rapid duplicate events or flickering
+                stable_class = self.bout_confirmed_sign
+                is_same_held = True
                 new_event_id = self.last_confirmed_event_id
                 speech_act = "none"
+            else:
+                self.bout_confirmed_sign = stable_class
+                is_same_held = (stable_class == self.current_held_sign)
+                if not is_same_held:
+                    self.event_counter += 1
+                    new_event_id = f"evt_{self.event_counter}_{int(time.time() * 1000)}"
+                    self.current_held_sign = stable_class
+                    self.last_confirmed_sign = stable_class
+                    self.last_confirmed_event_id = new_event_id
+                    speech_act = "speak"
+                else:
+                    new_event_id = self.last_confirmed_event_id
+                    speech_act = "none"
 
             try:
                 from translator import nmt_engine

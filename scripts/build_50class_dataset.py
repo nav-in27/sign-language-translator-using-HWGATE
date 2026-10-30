@@ -154,6 +154,8 @@ def build_50class_splits():
     # Ingest 3: Additional Local Video Landmarks (data/additional_landmarks)
     # -------------------------------------------------------------
     add_files = sorted(glob.glob(str(ADDITIONAL_DIR / "*" / "*.npz")))
+    # Exclude 45-degree camera tilts (_left_tilt / _right_tilt) to prevent pose poisoning
+    add_files = [f for f in add_files if not ('_left_tilt' in f or '_right_tilt' in f)]
     print(f"[*] Ingesting Additional Landmarks (Archive-2): {len(add_files)} candidate files...")
     for fpath in add_files:
         try:
