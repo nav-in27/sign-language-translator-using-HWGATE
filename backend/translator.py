@@ -212,8 +212,19 @@ class SemanticISLTranslator:
             ("hello", "how_are_you"): "Hello, how are you?",
             ("what_is_your_name",): "What is your name?",
             ("thank_you", "very_much"): "Thank you very much.",
+            ("hello", "sister"): "Hello, sister.",
+            ("hello", "friend"): "Hello, my friend.",
+            ("hello", "teacher"): "Hello, teacher.",
+            ("thank_you", "teacher"): "Thank you, teacher.",
+            ("thank_you", "friend"): "Thank you, my friend.",
+            ("yes", "thank_you"): "Yes, thank you.",
+            ("no", "thank_you"): "No, thank you.",
             ("me", "student"): "I am a student.",
             ("me", "teacher"): "I am a teacher.",
+            ("student", "sit"): "The student is sitting down.",
+            ("student", "write"): "The student is writing.",
+            ("teacher", "come"): "The teacher is coming.",
+            ("teacher", "go"): "The teacher is going.",
             ("you", "go", "school"): "You are going to school.",
             ("father", "come", "home"): "Father is coming home.",
             ("mother", "cook", "food"): "Mother is cooking food.",
@@ -224,9 +235,27 @@ class SemanticISLTranslator:
             ("me", "food", "eat"): "I want to eat food.",
             ("me", "eat", "food"): "I want to eat food.",
             ("please", "help", "me"): "Please help me.",
+            ("please", "help"): "Please help me.",
+            ("please", "sit"): "Please sit down.",
+            ("please", "come"): "Please come in.",
+            ("please", "give"): "Please give this.",
+            ("please", "give", "water"): "Please give me water.",
+            ("please", "give", "tea"): "Please give me tea.",
             ("go", "hospital"): "Go to the hospital.",
+            ("go", "school"): "Go to school.",
+            ("go", "temple"): "Go to the temple.",
             ("clean", "home"): "Clean the home.",
             ("close", "door"): "Close the door.",
+            ("close", "school"): "Close the school.",
+            ("today", "school", "close"): "Today school is closed.",
+            ("today", "temple", "go"): "Today we go to the temple.",
+            ("uncle", "come", "home"): "Uncle is coming home.",
+            ("wife", "cook", "food"): "Wife is cooking food.",
+            ("where", "home"): "Where is your home?",
+            ("where", "school"): "Where is the school?",
+            ("where", "temple"): "Where is the temple?",
+            ("what", "wrong"): "What is wrong?",
+            ("no", "wrong"): "No, that is not wrong.",
             ("today", "friday"): "Today is Friday.",
             ("today", "sunday"): "Today is Sunday.",
             ("tomorrow", "exam"): "Tomorrow is the exam.",
@@ -253,7 +282,7 @@ class SemanticISLTranslator:
     def translate_gloss_to_english(self, text: str) -> str:
         """
         Translates single sign or sequence of signs to semantically faithful English.
-        Stage C: Converts confirmed sign sequence into understandable English preserving sign order.
+        Applies Greedy Longest-Match Subphrase Segmentation with SOV-to-SVO grammar rules.
         """
         if not text:
             return ""
@@ -264,35 +293,65 @@ class SemanticISLTranslator:
         if raw in ["uncertain", "uncertain...", "uncertain sign"]:
             return "Sign not recognized. Please try again."
 
-        words = raw.split()
+        words = [w.replace("-", "_") for w in raw.split()]
+        if not words:
+            return ""
+
         if len(words) == 1:
-            w = words[0].replace("-", "_")
+            w = words[0]
             if w in self.CANONICAL_MEANING:
                 return self.CANONICAL_MEANING[w]
             return w.replace("_", " ").title()
 
-        # Multi-sign sequence: check verified idiomatic PHRASE_PATTERNS
-        tuple_words = tuple(w.replace("-", "_") for w in words)
+        # Check exact full sequence match first
+        tuple_words = tuple(words)
         if tuple_words in self.PHRASE_PATTERNS:
             return self.PHRASE_PATTERNS[tuple_words]
 
-        # Stage C fallback: Construct understandable English preserving full sign sequence order
-        translated_parts = []
-        for w in tuple_words:
-            part = self.CANONICAL_MEANING.get(w, w.replace("_", " ").title())
-            if not translated_parts or translated_parts[-1] != part:  # de-duplicate adjacent identical tokens
-                translated_parts.append(part)
+        # Greedy Longest-Match Subphrase Segmentation
+        i = 0
+        N = len(words)
+        phrases = []
+        while i < N:
+            matched = False
+            # Check windows of size 4 down to 2
+            for l in range(min(4, N - i), 1, -1):
+                sub = tuple(words[i:i + l])
+                if sub in self.PHRASE_PATTERNS:
+                    phrases.append(self.PHRASE_PATTERNS[sub].rstrip("."))
+                    i += l
+                    matched = True
+                    break
+            if not matched:
+                w = words[i]
+                part = self.CANONICAL_MEANING.get(w, w.replace("_", " ").title())
+                # Deduplicate adjacent duplicate single tokens
+                if not phrases or phrases[-1].lower() != part.lower():
+                    phrases.append(part)
+                i += 1
 
-        if not translated_parts:
+        if not phrases:
             return ""
-        elif len(translated_parts) == 1:
-            return translated_parts[0]
-        else:
-            # Form clean sentence preserving sign order
-            sentence = ", ".join(translated_parts)
-            if not sentence.endswith((".", "!", "?")):
-                sentence += "."
-            return sentence
+        if len(phrases) == 1:
+            res = phrases[0]
+            return res if res.endswith((".", "!", "?")) else res + "."
+
+        # Form coherent English sentence
+        # Join clauses cleanly with commas / periods
+        result_parts = []
+        for p in phrases:
+            clean_p = p.strip()
+            if clean_p.endswith((".", "!", "?")):
+                result_parts.append(clean_p)
+            else:
+                result_parts.append(clean_p)
+
+        sentence = ", ".join(result_parts)
+        if not sentence.endswith((".", "!", "?")):
+            sentence += "."
+        # Format sentence capitalization
+        sentence = sentence[0].upper() + sentence[1:]
+        return sentence
 
     def translate_sign(self, sign: str) -> str:
         """Translates an isolated confirmed sign directly to its canonical English meaning."""

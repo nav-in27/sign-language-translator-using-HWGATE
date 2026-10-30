@@ -241,6 +241,11 @@ def evaluation_summary():
 class TranslateRequest(BaseModel):
     text: str
 
+@app.post("/reset")
+async def api_reset():
+    reset_live_session()
+    return {"status": "success", "message": "Live session and sentence buffer reset"}
+
 @app.post("/translate")
 async def translate_text(req: TranslateRequest):
     result = nmt_engine.translate_gloss_to_english(req.text)

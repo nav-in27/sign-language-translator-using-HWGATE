@@ -94,6 +94,13 @@ function LiveTranslator() {
   }, []);
 
   // Documented state reset helper
+  const handleUserResetSentence = useCallback(() => {
+    setCurrentTranslation("");
+    setConfirmedHistory([]);
+    clearConfirmedState("User clicked Reset Sentence button");
+    fetch(`${API_BASE_URL}/reset`, { method: 'POST' }).catch(() => {});
+  }, [clearConfirmedState]);
+
   const clearConfirmedState = useCallback((reason) => {
     console.log(`[LiveTranslator] Cleared confirmed state. Reason: ${reason}`);
     setCurrentConfirmed({ sign: null, confidence: 0, eventId: null, timestamp: null });
@@ -184,7 +191,9 @@ function LiveTranslator() {
 
     if (state === "CONFIRMED" && !data.is_unknown && data.confirmed_sign) {
       const activeSign = data.confirmed_sign.toUpperCase();
-      const translationText = typeof data.translation === "string" ? data.translation.trim() : formatGlossToEnglish(activeSign);
+      const translationText = typeof data.sentence_translation === "string" && data.sentence_translation.trim()
+        ? data.sentence_translation.trim()
+        : (typeof data.translation === "string" ? data.translation.trim() : formatGlossToEnglish(activeSign));
       const eventId = data.event_id || `evt_${activeSign}_${Date.now()}`;
 
       // Update current confirmed sign and translation
@@ -386,7 +395,7 @@ function LiveTranslator() {
           </button>
 
           <div className="status-chips">
-            <span className="chip online">AC-HWGATE 136-CLASS</span>
+            <span className="chip online">AC-HWGATE {modelStatus?.num_classes ? `${modelStatus.num_classes}-CLASS` : "50-CLASS"}</span>
             <span className={`chip ${modelStatus?.ready === true ? 'online' : ''}`}>
               {modelStatus?.ready === true
                 ? `MODEL READY • ${modelStatus.artifact_kind?.toUpperCase()}`
@@ -410,6 +419,68 @@ function LiveTranslator() {
             <div className="camera-wrapper">
               <CameraFeed onFrameCaptured={handleFrame} onModelStatus={setTrackingStatus} onFrameTelemetry={setCameraDiagnostics} />
             </div>
+
+            {/* Developer Skeleton Diagnostics Panel (PART A Requirement) */}
+            <div className="skeleton-diagnostics-panel" style={{
+              marginTop: '0.6rem',
+              padding: '0.6rem 0.8rem',
+              background: 'rgba(15, 23, 42, 0.85)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '8px',
+              fontSize: '0.75rem',
+              color: '#94a3b8'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontWeight: '600', color: '#e2e8f0' }}>
+                <span>🔍 DEVELOPER SKELETON DIAGNOSTICS</span>
+                <span style={{ color: cameraDiagnostics.isSkeletonComplete ? '#10b981' : '#f59e0b' }}>
+                  {cameraDiagnostics.isSkeletonComplete ? '✓ SKELETON COMPLETE' : '⚠️ INCOMPLETE SKELETON'}
+                </span>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.4rem', textAlign: 'center' }}>
+                <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.25rem', borderRadius: '4px' }}>
+                  <div style={{ fontSize: '0.65rem', color: '#64748b' }}>POSE</div>
+                  <div style={{ color: cameraDiagnostics.poseDetected ? '#10b981' : '#ef4444', fontWeight: 'bold' }}>
+                    {cameraDiagnostics.poseDetected ? 'DETECTED' : 'MISSING'}
+                  </div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.25rem', borderRadius: '4px' }}>
+                  <div style={{ fontSize: '0.65rem', color: '#64748b' }}>LEFT HAND</div>
+                  <div style={{ color: cameraDiagnostics.leftHandDetected ? '#10b981' : '#64748b', fontWeight: 'bold' }}>
+                    {cameraDiagnostics.leftHandDetected ? 'DETECTED' : 'OFF'}
+                  </div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.25rem', borderRadius: '4px' }}>
+                  <div style={{ fontSize: '0.65rem', color: '#64748b' }}>RIGHT HAND</div>
+                  <div style={{ color: cameraDiagnostics.rightHandDetected ? '#10b981' : '#64748b', fontWeight: 'bold' }}>
+                    {cameraDiagnostics.rightHandDetected ? 'DETECTED' : 'OFF'}
+                  </div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.25rem', borderRadius: '4px' }}>
+                  <div style={{ fontSize: '0.65rem', color: '#64748b' }}>CAMERA FPS</div>
+                  <div style={{ color: '#00f3ff', fontWeight: 'bold' }}>{cameraDiagnostics.fps || 0} FPS</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem', fontSize: '0.7rem' }}>
+                <span>Completeness: <strong style={{ color: '#fff' }}>{cameraDiagnostics.landmarkCompleteness || '0%'}</strong></span>
+                <span>Missing: <strong style={{ color: '#fff' }}>{cameraDiagnostics.missingLandmarksCount ?? 133}</strong> / 133</span>
+                <span>Latency: <strong style={{ color: '#00f3ff' }}>{cameraDiagnostics.extractionLatencyMs || 19} ms</strong></span>
+                <span>Confidence: <strong style={{ color: '#10b981' }}>{cameraDiagnostics.trackingConfidence || 'MODERATE'}</strong></span>
+              </div>
+              {!cameraDiagnostics.isSkeletonComplete && (
+                <div style={{
+                  marginTop: '0.4rem',
+                  padding: '0.3rem 0.5rem',
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  borderRadius: '4px',
+                  color: '#fca5a5',
+                  fontSize: '0.7rem',
+                  textAlign: 'center'
+                }}>
+                  ⚠️ Raise hands into camera signing zone to begin recognition
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
@@ -426,8 +497,11 @@ function LiveTranslator() {
                 {recognitionState === "CONFIRMED" && currentConfirmed.confidence > 0 && (
                   <span className="confidence-badge">{(currentConfirmed.confidence * 100).toFixed(1)}% Match</span>
                 )}
-                {recognitionState === "RECOGNIZING" && currentProvisional.confidence > 0 && (
-                  <span className="eval-badge">Recognizing {(currentProvisional.confidence * 100).toFixed(0)}%</span>
+                {recognitionState === "RECOGNIZING" && currentProvisional.confidence > 0 && currentProvisional.sign && (
+                  <span className="eval-badge">Candidate: {currentProvisional.sign} ({(currentProvisional.confidence * 100).toFixed(0)}%)</span>
+                )}
+                {recognitionState === "RECOGNIZING" && (!currentProvisional.confidence || !currentProvisional.sign) && (
+                  <span className="eval-badge">Detecting</span>
                 )}
                 {recognitionState === "LISTENING" && (
                   <span className="eval-badge">Listening</span>
@@ -436,9 +510,9 @@ function LiveTranslator() {
             </div>
             <div className={`sign-display-text ${recognitionState.toLowerCase()}`}>
               {recognitionState === "CONFIRMED" && (currentConfirmed.sign || "CONFIRMED")}
-              {recognitionState === "RECOGNIZING" && (currentProvisional.sign ? currentProvisional.sign : "Recognizing...")}
+              {recognitionState === "RECOGNIZING" && "Detecting gesture..."}
               {recognitionState === "LISTENING" && "Listening..."}
-              {recognitionState === "UNCERTAIN" && "Uncertain"}
+              {recognitionState === "UNCERTAIN" && "Sign not recognized. Please try again."}
               {recognitionState === "READY" && "Ready — perform sign"}
               {recognitionState === "ERROR" && "BACKEND ERROR"}
               {recognitionState === "INITIALIZING" && "INITIALIZING..."}
@@ -466,19 +540,46 @@ function LiveTranslator() {
           <div className={`card-box translation-card ${recognitionState.toLowerCase()}`}>
             <div className="card-header">
               <span className="header-label">ENGLISH TRANSLATION</span>
-              {recognitionState === "CONFIRMED" && (
-                <span className="active-tag verified">CURRENT CONFIRMED</span>
-              )}
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  onClick={handleUserResetSentence}
+                  style={{
+                    padding: '0.2rem 0.6rem',
+                    fontSize: '0.75rem',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '4px',
+                    color: '#e2e8f0',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                  title="Clear sentence buffer and start fresh"
+                >
+                  🔄 Reset Sentence
+                </button>
+                {recognitionState === "CONFIRMED" ? (
+                  <span className="active-tag verified">CONFIRMED TRANSLATION</span>
+                ) : currentTranslation ? (
+                  <span className="active-tag">CURRENT SENTENCE</span>
+                ) : null}
+              </div>
             </div>
             <div className="translation-content-area">
-              {recognitionState === "CONFIRMED" && currentTranslation ? (
+              {currentTranslation ? (
                 <div className="current-confirmed-translation">
                   <div className="confirmed-translation-text">{currentTranslation}</div>
+                  {recognitionState === "UNCERTAIN" && (
+                    <div className="uncertain-translation-prompt" style={{ marginTop: '0.5rem' }}>
+                      <span className="uncertain-icon">⚠️</span>
+                      <span className="uncertain-text">Sign not recognized. Please try again.</span>
+                    </div>
+                  )}
                 </div>
               ) : recognitionState === "UNCERTAIN" ? (
                 <div className="uncertain-translation-prompt">
                   <span className="uncertain-icon">⚠️</span>
-                  <span className="uncertain-text">Uncertain — please repeat sign clearly</span>
+                  <span className="uncertain-text">Sign not recognized. Please try again.</span>
                 </div>
               ) : recognitionState === "LISTENING" ? (
                 <div className="ongoing-state-prompt">

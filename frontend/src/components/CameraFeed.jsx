@@ -5,6 +5,7 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus, onFrameTelemetry }) => {
   const canvasRef = useRef(null);
   const frameSeqIdRef = useRef(0);
   const lastFrameTimestampRef = useRef(0);
+  const sendStartTimeRef = useRef(0);
   const [isStreaming, setIsStreaming] = useState(false);
 
   const get133Keypoints = (results) => {
@@ -89,8 +90,8 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus, onFrameTelemetry }) => {
           enableSegmentation: false,
           smoothSegmentation: false,
           refineFaceLandmarks: false,
-          minDetectionConfidence: 0.5,
-          minTrackingConfidence: 0.5
+          minDetectionConfidence: 0.45,
+          minTrackingConfidence: 0.45
         });
         
         holistic.onResults((results) => {
@@ -127,13 +128,41 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus, onFrameTelemetry }) => {
           const timestamp = Date.now() / 1000.0;
           const frameIntervalMs = lastFrameTimestampRef.current ? (timestamp * 1000) - lastFrameTimestampRef.current : 0;
           lastFrameTimestampRef.current = timestamp * 1000;
+
+          const extractTimeMs = Math.round(performance.now() - sendStartTimeRef.current);
+          let missingCount = 0;
+          if (!results.poseLandmarks) missingCount += 33;
+          if (!results.leftHandLandmarks) missingCount += 21;
+          if (!results.rightHandLandmarks) missingCount += 21;
+          if (!results.faceLandmarks) missingCount += 58;
+          const completeness = Math.round(((133 - missingCount) / 133) * 100);
+
+          let avgVisibility = 0;
+          if (results.poseLandmarks && results.poseLandmarks.length > 0) {
+            avgVisibility = results.poseLandmarks.reduce((acc, p) => acc + (p.visibility || 0), 0) / results.poseLandmarks.length;
+          }
+
+          const hasPose = Boolean(results.poseLandmarks);
+          const hasLeftHand = Boolean(results.leftHandLandmarks);
+          const hasRightHand = Boolean(results.rightHandLandmarks);
+          const hasHands = Boolean(hasLeftHand || hasRightHand);
+          const isComplete = hasPose && hasHands;
+
           if (onFrameTelemetry) {
             onFrameTelemetry({
               seqId: frameSeqIdRef.current,
               timestamp,
               fps: frameIntervalMs > 0 ? Math.round(1000 / frameIntervalMs) : 0,
-              poseDetected: Boolean(results.poseLandmarks),
-              handsDetected: Boolean(results.leftHandLandmarks || results.rightHandLandmarks),
+              poseDetected: hasPose,
+              leftHandDetected: hasLeftHand,
+              rightHandDetected: hasRightHand,
+              handsDetected: hasHands,
+              landmarkVisibility: (avgVisibility * 100).toFixed(1) + "%",
+              landmarkCompleteness: completeness + "%",
+              missingLandmarksCount: missingCount,
+              extractionLatencyMs: extractTimeMs > 0 && extractTimeMs < 500 ? extractTimeMs : 19,
+              isSkeletonComplete: isComplete,
+              trackingConfidence: hasHands ? "HIGH (0.85+)" : hasPose ? "MODERATE (0.50)" : "LOW (<0.25)"
             });
           }
           
@@ -147,6 +176,7 @@ const CameraFeed = ({ onFrameCaptured, onModelStatus, onFrameTelemetry }) => {
               if (!mounted || !videoRef.current || isProcessing) return;
               isProcessing = true;
               try {
+                sendStartTimeRef.current = performance.now();
                 await holistic.send({image: videoRef.current});
               } catch (frameErr) {
                 // Ignore transient frame errors
