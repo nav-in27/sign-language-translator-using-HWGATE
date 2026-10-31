@@ -93,6 +93,12 @@ function LiveTranslator() {
       });
   }, []);
 
+  const clearConfirmedState = useCallback((reason) => {
+    console.log(`[LiveTranslator] Cleared confirmed state. Reason: ${reason}`);
+    setCurrentConfirmed({ sign: null, confidence: 0, eventId: null, timestamp: null });
+    setCurrentTranslation("");
+  }, []);
+
   // Documented state reset helper
   const handleUserResetSentence = useCallback(() => {
     setCurrentTranslation("");
@@ -100,12 +106,6 @@ function LiveTranslator() {
     clearConfirmedState("User clicked Reset Sentence button");
     fetch(`${API_BASE_URL}/reset`, { method: 'POST' }).catch(() => {});
   }, [clearConfirmedState]);
-
-  const clearConfirmedState = useCallback((reason) => {
-    console.log(`[LiveTranslator] Cleared confirmed state. Reason: ${reason}`);
-    setCurrentConfirmed({ sign: null, confidence: 0, eventId: null, timestamp: null });
-    setCurrentTranslation("");
-  }, []);
 
   // Robust Non-blocking Speech Synthesis (strictly tied to unique event_id)
   const speakText = useCallback((text, eventId) => {
