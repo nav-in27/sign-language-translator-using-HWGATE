@@ -100,7 +100,7 @@ class PredictionResult(tuple):
         buffer_length_before: int = 0,
         buffer_length_after: int = 0,
         frame_age: float = 0.0,
-        model_version: str = "AC-HWGATE-v2-136class-ONNX",
+        model_version: str = "AC-HWGATE-v2-50class-ONNX",
         engine: str = "AC-HWGATE",
         latency_ms: Optional[Dict[str, float]] = None
     ):
@@ -817,7 +817,7 @@ class ISLInferenceEngine:
                     speech_action=speech_act,
                     top_predictions=self.top_k_predictions,
                     reset_reason="hand_drop_stroke_completion",
-                    model_version="AC-HWGATE-v2-136class-ONNX",
+                    model_version=f"AC-HWGATE-v2-{self.num_classes}class-ONNX",
                     engine=self.engine_type
                 )
                 self.last_stable_result = res
@@ -1308,7 +1308,7 @@ class ISLInferenceEngine:
                 speech_action=speech_act,
                 top_predictions=top_k_preds,
                 reset_reason="sign_confirmed_cooldown",
-                model_version="AC-HWGATE-v2-136class-ONNX",
+                model_version=f"AC-HWGATE-v2-{self.num_classes}class-ONNX",
                 engine=self.engine_type,
                 latency_ms={"model_inference_ms": round(infer_latency_ms, 2)}
             )
@@ -1464,7 +1464,7 @@ class ISLInferenceEngine:
             confirmed_sign=clean_class,
             translation=confirmed_translation,
             top_predictions=top_k_preds,
-            model_version="AC-HWGATE-v2-136class-ONNX",
+            model_version=f"AC-HWGATE-v2-{self.num_classes}class-ONNX",
             engine=self.engine_type
         )
 
